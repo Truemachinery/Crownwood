@@ -20,6 +20,8 @@ const config: Config = {
         drama: ["var(--font-dm-serif)", "serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],
         sans: ["var(--font-space-grotesk)", "sans-serif"],
+        bebas: ["var(--font-bebas-neue)", "sans-serif"],
+        barlow: ["var(--font-barlow-condensed)", "sans-serif"],
       },
     },
   },

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, DM_Serif_Display, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, DM_Serif_Display, JetBrains_Mono, Bebas_Neue, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -15,6 +15,18 @@ const dmSerif = DM_Serif_Display({
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+});
+
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas-neue",
+  weight: "400",
+  subsets: ["latin"],
+});
+
+const barlowCondensed = Barlow_Condensed({
+  variable: "--font-barlow-condensed",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -47,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${dmSerif.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${dmSerif.variable} ${jetbrainsMono.variable} ${bebasNeue.variable} ${barlowCondensed.variable}`}>
       <body className="antialiased selection:bg-safety-amber selection:text-asphalt">
         <script
           type="application/ld+json"

@@ -33,22 +33,22 @@ export function Hero() {
     return (
         <section
             ref={containerRef}
-            className="relative h-[100dvh] w-full flex flex-col justify-end pb-24 px-6 md:px-12 lg:px-24 overflow-hidden"
+            className="relative w-full flex flex-col justify-end pb-16 pt-28 px-6 md:px-12 lg:px-24 bg-asphalt"
         >
-            {/* Background Image Container */}
+            {/* Background — full-width image with dark overlay */}
             <div className="absolute inset-0 z-0 hero-bg">
-                <div className="absolute inset-0 bg-asphalt/70 z-10" /> {/* Dark overlay */}
+                <div className="absolute inset-0 bg-black/60 z-10" />
                 <img
-                    src="https://images.unsplash.com/photo-1541888081696-2814bfbda1b1?q=80&w=2670&auto=format&fit=crop"
-                    alt="Heavy machinery construction site at dusk"
+                    src="/Generated Image March 04, 2026 - 10_40PM.png"
+                    alt="Crownwood Chemicals construction site"
                     className="w-full h-full object-cover"
                 />
-                {/* Gradient fade to match background at bottom */}
-                <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-concrete to-transparent z-10" />
+                {/* Gradient fade to match page background at bottom */}
+                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-concrete to-transparent z-10" />
             </div>
 
             {/* Content */}
-            <div className="relative z-20 max-w-5xl">
+            <div className="relative z-20 max-w-5xl mt-[30vw] md:mt-[18vw] lg:mt-[14vw]">
                 <h1 className="flex flex-col gap-2">
                     <span className="hero-text font-heading font-bold text-4xl md:text-6xl text-concrete uppercase tracking-tight">
                         Chemical Infrastructure Engineered For

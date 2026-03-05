@@ -29,6 +29,7 @@ export function Footer() {
                         <ul className="space-y-4 font-sans text-concrete/70 text-sm">
                             <li><Link href="/chemicals/permabase" className="hover:text-high-vis-yellow transition-colors">Permabase Stabilizer</Link></li>
                             <li><Link href="/chemicals/permabase-black" className="hover:text-high-vis-yellow transition-colors">Permabase Black Sealer</Link></li>
+                            <li><Link href="/chemicals/meltdown" className="hover:text-high-vis-yellow transition-colors">MeltDown MR-1 Remover</Link></li>
                             <li><Link href="/chemicals/phpm-50" className="hover:text-high-vis-yellow transition-colors">PHPM-50 Tack Modifier</Link></li>
                             {/*<li><a href="#" className="hover:text-high-vis-yellow transition-colors">Haul Road Dust Control</a></li>*/}
                             {/*<li><a href="#" className="hover:text-high-vis-yellow transition-colors">Base Failures Prevention</a></li>*/}

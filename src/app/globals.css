@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-concrete text-industrial relative min-h-screen overflow-x-hidden pt-24;
+    @apply bg-concrete text-industrial relative min-h-screen overflow-x-hidden;
   }
 }
 

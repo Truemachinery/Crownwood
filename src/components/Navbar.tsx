@@ -17,6 +17,7 @@ const LINKS: NavItem[] = [
         dropdown: [
             { name: "Permabase", href: "/chemicals/permabase" },
             { name: "Permabase Black", href: "/chemicals/permabase-black" },
+            { name: "MeltDown MR-1", href: "/chemicals/meltdown" },
             { name: "PHPM-50", href: "/chemicals/phpm-50" },
         ],
     },
