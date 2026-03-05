@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { ContactForm } from "@/components/ContactForm";
 import { Footer } from "@/components/Footer";
-import { PermabaseHero } from "@/components/PermabaseHero";
+import { Hero } from "@/components/Hero";
 import { PermabaseFeatures } from "@/components/PermabaseFeatures";
 import { PermabaseProcess } from "@/components/PermabaseProcess";
 import { PermabaseFAQ } from "@/components/PermabaseFAQ";
@@ -54,7 +54,7 @@ export default function PermabasePage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
             />
             <Navbar />
-            <PermabaseHero />
+            <Hero />
             <PermabaseFeatures />
             <PermabaseProcess />
             <PermabaseGallery />
