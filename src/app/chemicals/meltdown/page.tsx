@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { MeltdownNav } from "@/components/meltdown/MeltdownNav";
+import { Navbar } from "@/components/Navbar";
 import { MeltdownHero } from "@/components/meltdown/MeltdownHero";
 import { MeltdownTrustBar } from "@/components/meltdown/MeltdownTrustBar";
 import { MeltdownComparison } from "@/components/meltdown/MeltdownComparison";
@@ -23,7 +23,7 @@ export default function MeltdownPage() {
     // The design prompt asks for a custom STICKY NAVIGATION just for this page, so we use MeltdownNav.
     return (
         <main className="min-h-screen bg-[#111111] text-[#F5F3EE] flex flex-col font-sans overflow-x-hidden">
-            <MeltdownNav />
+            <Navbar />
             <MeltdownHero />
             <MeltdownTrustBar />
             <MeltdownComparison />
