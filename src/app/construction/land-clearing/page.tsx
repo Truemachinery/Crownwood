@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { ContactForm } from "@/components/ContactForm";
 import { Footer } from "@/components/Footer";
 import { LandClearingHero } from "@/components/LandClearingHero";
 import { LandClearingCapabilities } from "@/components/LandClearingCapabilities";
@@ -32,19 +33,21 @@ export default function LandClearingPage() {
             <LandClearingFAQ />
             <LandClearingServiceArea />
 
-            <section className="py-24 px-6 md:px-12 lg:px-24 bg-asphalt relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #111111 25%, transparent 25%, transparent 75%, #111111 75%, #111111), repeating-linear-gradient(45deg, #FF9500 25%, transparent 25%, transparent 75%, #FF9500 75%, #FF9500)', backgroundPosition: '0 0, 20px 20px', backgroundSize: '40px 40px' }} />
-
-                <div className="max-w-5xl mx-auto relative z-10 text-center">
-                    <h2 className="font-heading font-bold text-4xl md:text-6xl text-concrete uppercase tracking-tight mb-8">
-                        Deploy Heavy <span className="text-safety-amber">Iron.</span>
-                    </h2>
-                    <p className="font-mono text-concrete/80 text-lg uppercase tracking-widest mb-10 max-w-2xl mx-auto">
-                        Schedule a San Antonio site assessment. Turn raw acreage into a perfectly graded, stabilized commercial asset.
-                    </p>
-                    <button className="bg-safety-amber text-asphalt px-12 py-5 rounded-full font-heading font-bold text-xl uppercase tracking-widest hover:bg-concrete hover:text-asphalt transition-colors shadow-2xl hover:scale-105 transform duration-300">
-                        Request Clearing Quote
-                    </button>
+            {/* Contact Form */}
+            <section className="py-24 px-6 md:px-12 lg:px-24 bg-concrete relative">
+                <div className="max-w-3xl mx-auto">
+                    <div className="text-center mb-12">
+                        <h2 className="font-heading font-bold text-4xl md:text-5xl text-industrial uppercase tracking-tight mb-4">
+                            Request A <span className="text-safety-amber">Clearing Quote</span>
+                        </h2>
+                        <p className="font-mono text-industrial/50 text-sm uppercase tracking-widest">
+                            Schedule a San Antonio site assessment
+                        </p>
+                    </div>
+                    <ContactForm
+                        service="Land Clearing & Site Prep"
+                        servicePath="/construction/land-clearing"
+                    />
                 </div>
             </section>
 

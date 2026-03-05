@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { ContactForm } from "@/components/ContactForm";
 import { Footer } from "@/components/Footer";
 import { PhpmHero } from "@/components/PhpmHero";
 import { PhpmFeatures } from "@/components/PhpmFeatures";
@@ -55,19 +56,23 @@ export default function PhpmPage() {
             <PhpmProcess />
             <PhpmFAQ />
 
+            {/* Contact Form */}
             <section className="py-24 px-6 md:px-12 lg:px-24 bg-asphalt relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #000000 25%, transparent 25%, transparent 75%, #000000 75%, #000000), repeating-linear-gradient(45deg, #1A1A1A 25%, transparent 25%, transparent 75%, #1A1A1A 75%, #1A1A1A)', backgroundPosition: '0 0, 20px 20px', backgroundSize: '40px 40px' }} />
-
-                <div className="max-w-5xl mx-auto relative z-10 text-center">
-                    <h2 className="font-heading font-bold text-4xl md:text-6xl text-concrete uppercase tracking-tight mb-8">
-                        Stop Patching <span className="text-high-vis-yellow">Twice.</span>
-                    </h2>
-                    <p className="font-mono text-concrete/80 text-lg uppercase tracking-widest mb-10 max-w-2xl mx-auto">
-                        Equip your maintenance crews with the only pothole patch engineered for extreme Texas conditions.
-                    </p>
-                    <button className="bg-high-vis-yellow text-asphalt px-12 py-5 rounded-full font-heading font-bold text-xl uppercase tracking-widest hover:bg-concrete transition-colors shadow-2xl hover:scale-105 transform duration-300">
-                        Order Pallet Delivery
-                    </button>
+                <div className="max-w-3xl mx-auto relative z-10">
+                    <div className="text-center mb-12">
+                        <h2 className="font-heading font-bold text-4xl md:text-5xl text-concrete uppercase tracking-tight mb-4">
+                            Order <span className="text-high-vis-yellow">PHPM-50™</span>
+                        </h2>
+                        <p className="font-mono text-concrete/60 text-sm uppercase tracking-widest">
+                            Request pallet pricing or ask a technical question
+                        </p>
+                    </div>
+                    <ContactForm
+                        service="PHPM-50™ Pothole Patch"
+                        servicePath="/chemicals/phpm-50"
+                        darkMode={true}
+                    />
                 </div>
             </section>
 

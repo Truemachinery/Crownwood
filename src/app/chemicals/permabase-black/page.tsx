@@ -7,6 +7,7 @@ import { PermabaseBlackPricing } from "@/components/PermabaseBlackPricing";
 import { PermabaseBlackFAQ } from "@/components/PermabaseBlackFAQ";
 import { PermabaseBlackComparison } from "@/components/PermabaseBlackComparison";
 import { PermabaseBlackApplications } from "@/components/PermabaseBlackApplications";
+import { ContactForm } from "@/components/ContactForm";
 import { Metadata } from "next";
 
 export const dynamic = 'force-static';
@@ -271,19 +272,23 @@ export default function PermabaseBlackPage() {
             <PermabaseBlackPricing />
             <PermabaseBlackFAQ faqs={FAQS} />
 
+            {/* Contact Form */}
             <section className="py-24 px-6 md:px-12 lg:px-24 bg-asphalt relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #000000 25%, transparent 25%, transparent 75%, #000000 75%, #000000), repeating-linear-gradient(45deg, #1A1A1A 25%, transparent 25%, transparent 75%, #1A1A1A 75%, #1A1A1A)', backgroundPosition: '0 0, 20px 20px', backgroundSize: '40px 40px' }} />
-
-                <div className="max-w-5xl mx-auto relative z-10 text-center">
-                    <h2 className="font-heading font-bold text-4xl md:text-6xl text-concrete uppercase tracking-tight mb-8">
-                        Pave <span className="text-[#666666]">Differently.</span>
-                    </h2>
-                    <p className="font-mono text-concrete/80 text-lg uppercase tracking-widest mb-10 max-w-2xl mx-auto">
-                        Achieve polymer soil stabilization and an asphalt finish in a single application.
-                    </p>
-                    <button className="bg-concrete text-asphalt px-12 py-5 rounded-full font-heading font-bold text-xl uppercase tracking-widest hover:bg-white hover:text-black transition-colors shadow-2xl hover:scale-105 transform duration-300">
-                        Request Permabase Black Specs
-                    </button>
+                <div className="max-w-3xl mx-auto relative z-10">
+                    <div className="text-center mb-12">
+                        <h2 className="font-heading font-bold text-4xl md:text-5xl text-concrete uppercase tracking-tight mb-4">
+                            Get A <span className="text-safety-amber">Quote</span>
+                        </h2>
+                        <p className="font-mono text-concrete/60 text-sm uppercase tracking-widest">
+                            Tell us about your project and we'll get back within 24 hours
+                        </p>
+                    </div>
+                    <ContactForm
+                        service="Permabase Black™"
+                        servicePath="/chemicals/permabase-black"
+                        darkMode={true}
+                    />
                 </div>
             </section>
 

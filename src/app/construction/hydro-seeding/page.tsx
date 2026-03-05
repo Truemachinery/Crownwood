@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { ContactForm } from "@/components/ContactForm";
 import { Footer } from "@/components/Footer";
 import { HydroSeedingHero } from "@/components/HydroSeedingHero";
 import { HydroSeedingCapabilities } from "@/components/HydroSeedingCapabilities";
@@ -59,19 +60,21 @@ export default function HydroSeedingPage() {
             <HydroSeedingServicesList />
             <HydroSeedingFAQ />
 
-            <section className="py-24 px-6 md:px-12 lg:px-24 bg-[#4CAF50] relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #000000 25%, transparent 25%, transparent 75%, #000000 75%, #000000), repeating-linear-gradient(45deg, #1A1A1A 25%, transparent 25%, transparent 75%, #1A1A1A 75%, #1A1A1A)', backgroundPosition: '0 0, 20px 20px', backgroundSize: '40px 40px' }} />
-
-                <div className="max-w-5xl mx-auto relative z-10 text-center">
-                    <h2 className="font-heading font-bold text-4xl md:text-6xl text-concrete uppercase tracking-tight mb-8">
-                        Stop Using <span className="text-asphalt">Sod.</span>
-                    </h2>
-                    <p className="font-mono text-concrete/90 text-lg uppercase tracking-widest mb-10 max-w-2xl mx-auto">
-                        Achieve SWPPP compliance and permanent erosion lock at a fraction of the cost.
-                    </p>
-                    <button className="bg-asphalt text-concrete px-12 py-5 rounded-full font-heading font-bold text-xl uppercase tracking-widest hover:bg-concrete hover:text-asphalt transition-colors shadow-2xl hover:scale-105 transform duration-300">
-                        Schedule an Acreage Estimate
-                    </button>
+            {/* Contact Form */}
+            <section className="py-24 px-6 md:px-12 lg:px-24 bg-concrete relative">
+                <div className="max-w-3xl mx-auto">
+                    <div className="text-center mb-12">
+                        <h2 className="font-heading font-bold text-4xl md:text-5xl text-industrial uppercase tracking-tight mb-4">
+                            Request A <span className="text-safety-amber">Seeding Estimate</span>
+                        </h2>
+                        <p className="font-mono text-industrial/50 text-sm uppercase tracking-widest">
+                            Achieve SWPPP compliance at a fraction of sod costs
+                        </p>
+                    </div>
+                    <ContactForm
+                        service="Hydro Seeding & Erosion Control"
+                        servicePath="/construction/hydro-seeding"
+                    />
                 </div>
             </section>
 
