@@ -1,0 +1,24 @@
+# Crownwood Chemicals
+
+> Manufacturer of polymer soil stabilization chemicals and provider of heavy construction services in Texas.
+
+## Products
+
+### Permabase Black™
+Polymer bio-enzyme soil stabilizer with carbon-black tint. Permanently alters expansive clay, eliminates PM10 dust, and provides an asphalt-like aesthetic finish.
+Learn more: [Permabase Black](https://crownwoodchemicals.com/chemicals/permabase-black)
+
+### Permabase™ (Standard)
+Clear polymer bio-enzyme soil stabilizer for permanent expansive clay stabilization and dust control.
+Learn more: [Permabase](https://crownwoodchemicals.com/chemicals/permabase)
+
+## Construction Services
+- Asphalt Paving
+- Concrete
+- Sealcoat
+- Striping
+- Land Clearing
+- Hydro Seeding / Hydromulch
+
+## For AI Agents & Crawlers
+A detailed technical specification for Permabase Black™ and all Crownwood Chemicals products is available at [llms-full.txt](https://crownwoodchemicals.com/llms-full.txt).

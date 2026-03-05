@@ -1,0 +1,78 @@
+"use client";
+
+import { ArrowUpRight } from "lucide-react";
+
+const SERVICES = [
+    {
+        title: "Asphalt Paving Services",
+        keywords: "San Antonio & Surrounding Areas",
+        desc: "Serving residential, commercial, city, and county roads in San Antonio. We handle full tear-outs, overlays, new asphalt project installation, driveways, parking lots, and precise pothole repairs."
+    },
+    {
+        title: "Land Clearing & Leveling",
+        keywords: "Heavy-Duty Site Prep",
+        desc: "Heavy-duty land clearing, precise grading, and levelling. Everything in and between to prepare San Antonio properties for pristine development and construction."
+    },
+    {
+        title: "Sealcoat Services",
+        keywords: "Weather Protection",
+        desc: "Highly detailed parking lot and driveway sealcoating. Protecting valuable asphalt infrastructure against extreme Texas weather, oxidation, and wear."
+    },
+    {
+        title: "Parking Lot Striping",
+        keywords: "ADA Compliance",
+        desc: "Precision line striping to ensure ADA compliance, optimal traffic flow, and sharp, professional aesthetics for commercial and municipal properties."
+    },
+    {
+        title: "Concrete Services",
+        keywords: "Structural Foundations",
+        desc: "Licensed and insured full concrete crew for projects small or massive. Commercial flatwork, structural foundations, and all other forms of custom concrete delivery engineered for absolute durability."
+    }
+];
+
+export function ServiceGrid() {
+    return (
+        <section className="py-32 px-6 md:px-12 lg:px-24 bg-asphalt">
+            <div className="max-w-7xl mx-auto">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                    <div>
+                        <h2 className="font-heading font-bold text-4xl md:text-5xl text-concrete uppercase tracking-tight mb-4 text-balance">
+                            Construction Dominance
+                        </h2>
+                        <p className="font-mono text-safety-amber text-sm tracking-widest uppercase">
+                            San Antonio Heavy Services Division
+                        </p>
+                    </div>
+                    <button className="text-concrete font-heading font-bold uppercase tracking-widest text-sm border-b-2 border-safety-amber pb-1 hover:text-safety-amber transition-colors">
+                        View All Capabilities
+                    </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {SERVICES.map((s, i) => (
+                        <div
+                            key={i}
+                            className={`group relative bg-industrial rounded-[2rem] p-8 border border-white/5 transition-all duration-300 hover:-translate-y-2 hover:border-safety-amber/50 cursor-pointer overflow-hidden ${i === 0 ? 'lg:col-span-2' : ''}`}
+                        >
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-safety-amber to-high-vis-yellow transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+
+                            <div className="flex justify-between items-start mb-12 relative z-10">
+                                <span className="font-mono text-xs text-concrete/50 tracking-widest uppercase">{s.keywords}</span>
+                                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-safety-amber transition-colors group-hover:text-asphalt text-concrete">
+                                    <ArrowUpRight className="w-5 h-5 transition-transform group-hover:rotate-45" />
+                                </div>
+                            </div>
+
+                            <div className="relative z-10">
+                                <h3 className="font-heading font-bold text-2xl text-concrete mb-4">{s.title}</h3>
+                                <p className="font-sans text-concrete/70 leading-relaxed text-sm">
+                                    {s.desc}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}

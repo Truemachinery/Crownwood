@@ -1,65 +1,70 @@
-import Image from "next/image";
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { Features } from "@/components/Features";
+import { Philosophy } from "@/components/Philosophy";
+import { Protocol } from "@/components/Protocol";
+import { ServiceGrid } from "@/components/ServiceGrid";
+import { Footer } from "@/components/Footer";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="relative flex min-h-screen flex-col bg-concrete overflow-hidden">
+      <Navbar />
+      <Hero />
+      <div id="chemicals" className="scroll-mt-24">
+        <Features />
+      </div>
+
+      {/* Permabase Black Video Showcase */}
+      <section className="py-20 px-6 md:px-12 lg:px-24 bg-[#111111] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40 pointer-events-none" />
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Text Side */}
+            <div>
+              <p className="font-mono text-safety-amber text-xs uppercase tracking-[0.3em] mb-4">
+                Featured Product
+              </p>
+              <h2 className="font-heading font-bold text-4xl md:text-5xl text-concrete uppercase tracking-tight mb-6">
+                Permabase <span className="text-[#E6FF00]">Black™</span>
+              </h2>
+              <p className="font-mono text-concrete/70 text-sm leading-relaxed mb-8">
+                Watch our crew apply Permabase Black™ — the polymer-based wearing surface that delivers an asphalt-grade finish at a fraction of the cost. Permanent soil stabilization meets premium aesthetics.
+              </p>
+              <Link
+                href="/chemicals/permabase-black"
+                className="inline-block bg-[#E6FF00] text-[#111111] px-8 py-3 rounded-full font-heading font-bold text-sm uppercase tracking-widest hover:scale-105 transition-transform shadow-lg"
+              >
+                View Full Specs →
+              </Link>
+            </div>
+
+            {/* Video Side */}
+            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl max-h-[500px]">
+              <video
+                className="w-full h-full max-h-[500px] object-cover"
+                controls
+                playsInline
+                preload="metadata"
+              >
+                <source src="/Videos/IMG_0705.MOV" type="video/quicktime" />
+                <source src="/Videos/IMG_0705.MOV" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      <Philosophy />
+      <div id="protocol">
+        <Protocol />
+      </div>
+      <div id="construction" className="scroll-mt-24">
+        <ServiceGrid />
+      </div>
+      <Footer />
+    </main>
   );
 }

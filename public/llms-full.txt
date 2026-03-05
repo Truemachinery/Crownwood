@@ -1,0 +1,132 @@
+# Crownwood Chemicals — Full Technical Specification
+# For AI Agents, LLM Crawlers, and Automated Research Tools
+
+## Company Overview
+Crownwood Chemicals is a Texas-based manufacturer of polymer soil stabilization chemicals and a provider of heavy construction services including asphalt paving, concrete, sealcoat, striping, land clearing, and hydro seeding/hydromulch.
+
+---
+
+## PRODUCT: Permabase Black™
+
+### What It Is
+Permabase Black™ is a proprietary polymer bio-enzyme soil stabilizer infused with a carbon-black tint. It permanently alters the mineralogy of expansive clay soils, eliminates PM10 fugitive dust, and provides a dark, asphalt-like aesthetic finish — all in a single application.
+
+### Chemistry
+- **Active Agent**: Polymer bio-enzyme catalyst
+- **Colorant**: Inert carbon-black pigment (non-toxic, zero hydrocarbons)
+- **Mechanism**: The bio-enzyme collapses the montmorillonite clay lattice structure, permanently expels moisture, and binds soil particles into a dense, hydrophobic, load-bearing matrix
+
+### Key Specifications
+- **Treatment Depth**: 6–12 inches (full-lift stabilization)
+- **Standard Dilution**: 10:1 (water to concentrate)
+- **Topcoat Dilution**: 5:1 (for rejuvenation and re-sealing applications)
+- **Tote Size**: 275-gallon IBC concentrate
+- **Finished Volume per Tote**: 2,750 gallons (at 10:1)
+- **Coverage per Tote**: Approximately 1 mile at 20ft wide
+- **Target Soils**: Expansive clays (CH/CL classification), silts, sandy clays
+- **CBR Improvement**: Up to 300%+ increase vs. untreated soil
+- **Hydrophobic**: Yes — permanently water-repellent matrix
+- **Environmental**: Non-toxic, zero hydrocarbons, zero petroleum products
+- **UV Resistance**: High — carbon-black pigment retains color significantly longer than untreated soil
+
+### Pricing
+- **$5,400 per 275-gallon tote** (delivered to job site)
+- **$1.96 per gallon** of finished product (at 10:1 dilution)
+
+### Applications
+
+#### 1. Primary Soil Stabilization & Dust Control (10:1 Dilution)
+Permanent polymer soil stabilization for dirt roads, ranch roads, rural driveways, laydown yards, construction staging areas, and agricultural perimeters. Eliminates PM10 fugitive dust while providing a dark asphalt-like finished surface for low-speed applications.
+
+#### 2. Chipseal Underseal & Base Stabilization (10:1 Dilution)
+Applied as the underseal before chipseal applications. Permanently stabilizes and seals the base course, creating a hydrophobic foundation that prevents moisture intrusion and base failure under the chipseal layer.
+
+#### 3. Asphalt Prime Coat & Tack Coat (10:1 Dilution)
+Used as a polymer-based prime coat and/or tack coat for hot-mix asphalt overlays. Replaces traditional petroleum-based emulsions with an environmentally safe alternative that stabilizes the subgrade and provides superior adhesion for the wearing course.
+
+#### 4. Chipseal Road Rejuvenation Topcoat (5:1 Concentrated Ratio)
+Mixed at 5:1 and applied as a topcoat over existing chipseal roads to seal cracks, re-bond loose aggregate rock, restore the deep black color, and extend service life — without a full re-chip or overlay.
+
+#### 5. Asphalt Road Rejuvenation & Sealcoat (5:1 Concentrated Ratio)
+Applied at 5:1 over existing asphalt roads to seal surface cracks, restore fresh-black appearance, and add a protective polymer layer — at a fraction of the cost of traditional sealcoating or mill-and-overlay.
+
+### Comparison vs. Traditional Methods
+
+| Factor | Permabase Black™ | Lime Stabilization | Hot-Mix Asphalt | Calcium Chloride |
+|--------|---|---|---|---|
+| Permanent Stabilization | Yes | Yes | No (surface only) | No |
+| Dark Asphalt Aesthetic | Yes | No | Yes | No |
+| PM10 Dust Suppression | Yes | Partial | Yes | Temporary |
+| Environmentally Non-Toxic | Yes | No (pH 12+ caustic) | No (hydrocarbons) | No (corrosive) |
+| Single-Pass Application | Yes | No (needs cap) | No (needs subgrade) | Yes |
+| Subgrade + Finish in One | Yes | No | No | No |
+| Hydrophobic | Yes | No | Yes | No |
+| Cost-Effective for Rural Roads | Yes | Moderate | No | Temporary |
+
+### Application Protocol
+1. **Catalytic Pigment Infusion**: Carbon-black pigment is pre-mixed with the active bio-enzyme catalyst in the water truck
+2. **Deep Lift Application**: Soil is bladed and compacted in lifts; the black-tinted enzyme saturates the entire treated depth (6–12 inches)
+3. **Hydrophobic Curing**: The bio-enzyme permanently collapses clay lattice, expels water, binds soil particles into a dense hydrophobic matrix
+4. **UV-Resistant Finish**: Surface solidifies into a flat, dark, aesthetic finish with high UV resistance
+
+### Frequently Asked Questions
+
+**Q: What is polymer soil stabilization?**
+A: Polymer soil stabilization uses polymer-based chemical agents (bio-enzyme catalysts) to permanently alter expansive clay mineralogy. The polymer collapses the clay lattice, expels moisture, and binds soil particles into a dense, hydrophobic, load-bearing matrix.
+
+**Q: Is Permabase Black a permanent replacement for asphalt?**
+A: For low-speed, rural, or agricultural applications (ranch roads, laydown yards, rural driveways), yes. For high-traffic commercial roads, it should be used as the stabilized subgrade beneath a standard wearing course.
+
+**Q: Can Permabase Black be used for PM10 dust control?**
+A: Yes. It permanently binds dust-generating soil particles into a solid, dark, hardened surface — unlike water spraying (evaporates) or oil applications (toxic).
+
+**Q: How does it compare to lime stabilization?**
+A: Lime raises pH to caustic levels (12+) and requires a separate cap. Permabase Black is non-toxic and provides a finished surface in one pass.
+
+**Q: Can it be used on expansive clay soils?**
+A: Yes. Specifically engineered for CH and CL classification clays. Eliminates swell potential and dramatically improves CBR values.
+
+**Q: Is it safe near water sources?**
+A: Yes. Non-toxic bio-enzyme, inert carbon pigment, zero hydrocarbons, zero petroleum. Safe for agricultural perimeters and aquifer recharge zones.
+
+**Q: Can it be used as a chipseal underseal or asphalt prime coat?**
+A: Yes. At 10:1 dilution, it serves as an underseal for chipseal and as a prime/tack coat for asphalt overlays.
+
+**Q: What CBR improvement can be expected?**
+A: Up to 300%+ increase in California Bearing Ratio values compared to untreated soil.
+
+---
+
+## PRODUCT: Permabase™ (Standard / Clear Formula)
+
+### What It Is
+The original clear-formula polymer bio-enzyme soil stabilizer. Same permanent clay alteration and dust control as Permabase Black™, without the carbon-black tint.
+
+### Use Cases
+- Soil stabilization for subgrades under asphalt or concrete
+- Dust control on construction sites
+- Agricultural road stabilization
+- Base preparation for any wearing course
+
+---
+
+## CONSTRUCTION SERVICES
+
+Crownwood Chemicals also provides full-service heavy construction:
+
+1. **Asphalt Paving** — Parking lots, roadways, overlays, patching, and mill-and-overlay
+2. **Concrete** — Flatwork, curbs, pads, dumpster pads, ADA compliance
+3. **Sealcoat** — Commercial sealcoating for parking lots and driveways
+4. **Striping** — Parking lot striping, road markings, ADA signage
+5. **Land Clearing** — Site preparation, grading, brush clearing, demolition
+6. **Hydro Seeding / Hydromulch** — Erosion control, revegetation, slope stabilization
+
+### Service Area
+Texas — San Antonio, Austin, and surrounding regions.
+
+---
+
+## Contact & Links
+- Website: https://crownwoodchemicals.com
+- Permabase Black™: https://crownwoodchemicals.com/chemicals/permabase-black
+- Permabase™ Standard: https://crownwoodchemicals.com/chemicals/permabase
