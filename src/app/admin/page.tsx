@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 import { Inbox, Clock, CheckCircle, Mail, Phone, Building2, FileText, ExternalLink, RefreshCw, Loader2, Eye, ChevronDown, ChevronUp } from "lucide-react";
 
 interface Inquiry {
@@ -32,6 +32,7 @@ export default function AdminPage() {
 
     const fetchInquiries = async () => {
         setLoading(true);
+        const supabase = getSupabase();
         const { data, error } = await supabase
             .from("inquiries")
             .select("*")
@@ -49,6 +50,7 @@ export default function AdminPage() {
 
     const updateStatus = async (id: string, newStatus: Inquiry["status"]) => {
         setUpdatingId(id);
+        const supabase = getSupabase();
         const { error } = await supabase
             .from("inquiries")
             .update({ status: newStatus })
