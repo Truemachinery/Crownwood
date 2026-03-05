@@ -4,6 +4,7 @@ import { Features } from "@/components/Features";
 import { Philosophy } from "@/components/Philosophy";
 import { Protocol } from "@/components/Protocol";
 import { ServiceGrid } from "@/components/ServiceGrid";
+import { ProductCatalog } from "@/components/ProductCatalog";
 import { Footer } from "@/components/Footer";
 import Link from "next/link";
 
@@ -15,6 +16,7 @@ export default function Home() {
       <div id="chemicals" className="scroll-mt-24">
         <Features />
       </div>
+      <ProductCatalog />
 
       {/* Permabase Black Video Showcase */}
       <section className="py-20 px-6 md:px-12 lg:px-24 bg-[#111111] relative overflow-hidden">
