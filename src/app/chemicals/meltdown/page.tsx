@@ -10,6 +10,7 @@ import { MeltdownPricing } from "@/components/meltdown/MeltdownPricing";
 import { MeltdownReviews } from "@/components/meltdown/MeltdownReviews";
 import { MeltdownFAQ } from "@/components/meltdown/MeltdownFAQ";
 import { MeltdownCTA } from "@/components/meltdown/MeltdownCTA";
+import { ContactForm } from "@/components/ContactForm";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default function MeltdownPage() {
             <MeltdownReviews />
             <MeltdownFAQ />
             <MeltdownCTA />
+            <ContactForm service="MeltDown MR-1" servicePath="/chemicals/meltdown" darkMode />
             <Footer />
         </main>
     );
