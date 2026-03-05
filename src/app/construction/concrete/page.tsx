@@ -17,15 +17,33 @@ export const metadata: Metadata = {
     openGraph: {
         title: "San Antonio Commercial Concrete Services | Crownwood Chemicals",
         description: "Heavy industrial commercial concrete flatwork, ADA ramps, and structural repair in San Antonio.",
-        images: [{ url: "https://new.tmlabz.com/images/concrete-hero.png", width: 1200, height: 630 }],
+        images: [{ url: "https://crownwoodchemicals.com/images/concrete-hero.png", width: 1200, height: 630 }],
     }
 };
 
 export const dynamic = 'force-static';
 
 export default function ConcretePage() {
+    const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Commercial Concrete & Flatwork",
+        "name": "San Antonio Commercial Concrete Services",
+        "description": "Heavy industrial commercial concrete flatwork, ADA access ramps, warehouse loading docks, dumpster pads, and structural demolition in San Antonio, TX.",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "Crownwood Chemicals",
+            "address": { "@type": "PostalAddress", "addressLocality": "San Antonio", "addressRegion": "TX" }
+        },
+        "areaServed": { "@type": "City", "name": "San Antonio" }
+    };
+
     return (
         <main className="relative flex min-h-screen flex-col bg-concrete overflow-hidden">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+            />
             <Navbar />
             <ConcreteHero />
             <ConcreteCapabilities />

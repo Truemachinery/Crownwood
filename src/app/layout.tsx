@@ -42,15 +42,31 @@ const organizationSchema = {
   "name": "Crownwood Chemicals",
   "url": "https://crownwoodchemicals.com",
   "description": "Manufacturer of polymer soil stabilization chemicals and provider of heavy construction services in Texas.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "San Antonio",
+    "addressRegion": "TX",
+    "addressCountry": "US"
+  },
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "sales",
+    "email": "nate@crownwoodchemicals.com",
     "availableLanguage": "English"
   },
   "areaServed": {
     "@type": "State",
     "name": "Texas"
-  }
+  },
+  "knowsAbout": [
+    "Polymer Soil Stabilization",
+    "Bio-Enzyme Soil Stabilizers",
+    "Asphalt Paving",
+    "Commercial Sealcoating",
+    "Soy-Based Asphalt Removers",
+    "PM10 Dust Control",
+    "Expansive Clay Treatment"
+  ]
 };
 
 export default function RootLayout({

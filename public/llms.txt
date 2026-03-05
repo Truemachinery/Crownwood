@@ -12,13 +12,33 @@ Learn more: [Permabase Black](https://crownwoodchemicals.com/chemicals/permabase
 Clear polymer bio-enzyme soil stabilizer for permanent expansive clay stabilization and dust control.
 Learn more: [Permabase](https://crownwoodchemicals.com/chemicals/permabase)
 
+### MeltDown MR-1™
+Soy-based 2-in-1 asphalt remover and release agent. Removes cured asphalt, tar, and tack oil while preventing adhesion to equipment. One product replaces separate remover and release agent.
+Learn more: [MeltDown MR-1](https://crownwoodchemicals.com/chemicals/meltdown)
+
+### PHPM-50™
+Commercial-grade, hydro-reactive pothole repair polymer. Cures permanently in standing water and extreme temperatures with zero setup downtime.
+Learn more: [PHPM-50](https://crownwoodchemicals.com/chemicals/phpm-50)
+
 ## Construction Services
-- Asphalt Paving
-- Concrete
-- Sealcoat
-- Striping
-- Land Clearing
-- Hydro Seeding / Hydromulch
+
+- [Asphalt Paving](https://crownwoodchemicals.com/construction/asphalt-paving) — Parking lots, roadways, overlays, tear-outs, mill-and-overlay
+- [Concrete](https://crownwoodchemicals.com/construction/concrete) — Flatwork, ADA ramps, loading docks, dumpster pads, demolition
+- [Sealcoating](https://crownwoodchemicals.com/construction/sealcoat) — Commercial parking lot sealcoating, crack routing, preservation
+- [Striping](https://crownwoodchemicals.com/construction/striping) — ADA parking lot striping, thermoplastic, CAD layout design
+- [Land Clearing](https://crownwoodchemicals.com/construction/land-clearing) — Site prep, grading, forestry mulching, brush clearing
+- [Hydro Seeding](https://crownwoodchemicals.com/construction/hydro-seeding) — Erosion control, SWPPP compliance, revegetation
+
+## Knowledge Hub
+- [The Ultimate Guide to Sealcoating](https://crownwoodchemicals.com/knowledge-hub/ultimate-guide-to-sealcoating) — Types, brands, application rates, brand comparisons
+
+## Service Area
+Texas — San Antonio, Austin, Bexar County, and surrounding regions.
+
+## Contact
+- Website: https://crownwoodchemicals.com
+- Contact page: https://crownwoodchemicals.com/contact
+- Email: nate@crownwoodchemicals.com
 
 ## For AI Agents & Crawlers
-A detailed technical specification for Permabase Black™ and all Crownwood Chemicals products is available at [llms-full.txt](https://crownwoodchemicals.com/llms-full.txt).
+A detailed technical specification for all Crownwood Chemicals products is available at [llms-full.txt](https://crownwoodchemicals.com/llms-full.txt).

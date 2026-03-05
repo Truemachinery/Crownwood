@@ -23,7 +23,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.9,
         },
         {
-            url: `${baseUrl}/construction/asphalt`,
+            url: `${baseUrl}/chemicals/meltdown`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/chemicals/phpm-50`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.85,
+        },
+        {
+            url: `${baseUrl}/construction/asphalt-paving`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.8,
@@ -59,10 +71,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.7,
         },
         {
+            url: `${baseUrl}/contact`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
             url: `${baseUrl}/knowledge-hub`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.6,
+        },
+        {
+            url: `${baseUrl}/knowledge-hub/ultimate-guide-to-sealcoating`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
         },
     ];
 }

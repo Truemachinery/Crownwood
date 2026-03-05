@@ -17,15 +17,33 @@ export const metadata: Metadata = {
     openGraph: {
         title: "San Antonio Commercial Sealcoating | Crownwood Chemicals",
         description: "Industrial-grade commercial parking lot sealcoating, asphalt preservation, and ADA striping in San Antonio, TX.",
-        images: [{ url: "https://new.tmlabz.com/images/sealcoat-hero.png", width: 1200, height: 630 }],
+        images: [{ url: "https://crownwoodchemicals.com/images/sealcoat-hero.png", width: 1200, height: 630 }],
     }
 };
 
 export const dynamic = 'force-static';
 
 export default function SealcoatPage() {
+    const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Commercial Sealcoating",
+        "name": "San Antonio Sealcoating & Asphalt Preservation",
+        "description": "Industrial-grade commercial parking lot sealcoating, crack routing, and asphalt preservation in San Antonio, TX. Polymer-modified emulsions with aggregate reinforcement.",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "Crownwood Chemicals",
+            "address": { "@type": "PostalAddress", "addressLocality": "San Antonio", "addressRegion": "TX" }
+        },
+        "areaServed": { "@type": "City", "name": "San Antonio" }
+    };
+
     return (
         <main className="relative flex min-h-screen flex-col bg-concrete overflow-hidden">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+            />
             <Navbar />
             <SealcoatHero />
             <SealcoatCapabilities />

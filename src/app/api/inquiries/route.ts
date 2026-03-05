@@ -44,8 +44,8 @@ export async function POST(req: NextRequest) {
         // Send email notification via Resend
         try {
             await resend.emails.send({
-                from: "Crownwood Chemicals <onboarding@resend.dev>",
-                to: ["admin@crownwoodchemicals.com"],
+                from: "Crownwood Chemicals <notifications@sales.crownwoodchemicals.com>",
+                to: ["nate@crownwoodchemicals.com"],
                 subject: `New Inquiry: ${service} — ${name}`,
                 html: `
                     <div style="font-family: Arial, sans-serif; max-width: 600px;">

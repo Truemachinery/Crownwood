@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "PHPM-50™ | High Performance Hydro-Reactive Pothole Patch",
         description: "Commercial-grade pothole patch that cures permanently in standing water.",
-        images: [{ url: "https://new.tmlabz.com/images/phpm-hero.png", width: 1200, height: 630 }],
+        images: [{ url: "https://crownwoodchemicals.com/images/phpm-hero.png", width: 1200, height: 630 }],
     }
 };
 
@@ -25,7 +25,7 @@ export default function PhpmPage() {
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": "PHPM-50™ High Performance Pothole Patch",
-        "image": "https://new.tmlabz.com/images/phpm-hero.png",
+        "image": "https://crownwoodchemicals.com/images/phpm-hero.png",
         "description": "Commercial-grade, hydro-reactive pothole repair polymer that cures permanently in standing water and extreme temperatures. Zero setup downtime.",
         "brand": {
             "@type": "Brand",
@@ -34,7 +34,7 @@ export default function PhpmPage() {
         "category": "Construction Chemicals",
         "offers": {
             "@type": "Offer",
-            "url": "https://new.tmlabz.com/chemicals/phpm-50",
+            "url": "https://crownwoodchemicals.com/chemicals/phpm-50",
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
             "seller": {

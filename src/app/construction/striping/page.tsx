@@ -17,15 +17,33 @@ export const metadata: Metadata = {
     openGraph: {
         title: "San Antonio ADA Parking Lot Striping | Crownwood Chemicals",
         description: "Precision parking lot striping, CAD layout design, thermoplastic demarcation, and strict ADA compliance auditing serving San Antonio.",
-        images: [{ url: "https://new.tmlabz.com/images/striping-hero.png", width: 1200, height: 630 }],
+        images: [{ url: "https://crownwoodchemicals.com/images/striping-hero.png", width: 1200, height: 630 }],
     }
 };
 
 export const dynamic = 'force-static';
 
 export default function StripingPage() {
+    const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "ADA Parking Lot Striping & Traffic Marking",
+        "name": "San Antonio ADA Parking Lot Striping",
+        "description": "Precision parking lot striping, CAD layout design, thermoplastic demarcation, and strict ADA compliance auditing serving San Antonio, TX.",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "Crownwood Chemicals",
+            "address": { "@type": "PostalAddress", "addressLocality": "San Antonio", "addressRegion": "TX" }
+        },
+        "areaServed": { "@type": "City", "name": "San Antonio" }
+    };
+
     return (
         <main className="relative flex min-h-screen flex-col bg-concrete overflow-hidden">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+            />
             <Navbar />
             <StripingHero />
             <StripingCapabilities />

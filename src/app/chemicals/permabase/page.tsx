@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Permabase™ | Permanent Expansive Clay Soil Stabilizer",
         description: "Bio-enzyme soil stabilizer that permanently alters expansive clay, eliminating undercut-and-haul costs.",
-        images: [{ url: "https://new.tmlabz.com/images/permabase-hero.png", width: 1200, height: 630 }],
+        images: [{ url: "https://crownwoodchemicals.com/images/permabase-hero.png", width: 1200, height: 630 }],
     }
 };
 
@@ -28,7 +28,7 @@ export default function PermabasePage() {
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": "Permabase™ Soil Stabilizer",
-        "image": "https://new.tmlabz.com/images/permabase-hero.png",
+        "image": "https://crownwoodchemicals.com/images/permabase-hero.png",
         "description": "Proprietary bio-enzyme soil stabilizer and catalyst that permanently alters the molecular structure of expansive clay, rendering it highly compactible and permanently hydrophobic.",
         "brand": {
             "@type": "Brand",
@@ -37,7 +37,7 @@ export default function PermabasePage() {
         "category": "Construction Chemicals",
         "offers": {
             "@type": "Offer",
-            "url": "https://new.tmlabz.com/chemicals/permabase",
+            "url": "https://crownwoodchemicals.com/chemicals/permabase",
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
             "seller": {

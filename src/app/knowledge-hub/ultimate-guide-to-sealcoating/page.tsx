@@ -5,12 +5,54 @@ export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
     title: "The Ultimate Guide to Sealcoating | Crownwood Chemicals",
-    description: "Types, Brands, and Everything You Need to Know. A deep dive into chemistry, application mechanics, and real-world performance.",
+    description: "Types, Brands, and Everything You Need to Know. A deep dive into chemistry, application mechanics, and real-world performance of commercial sealcoats.",
+    keywords: ["Sealcoating Guide", "Types of Sealcoat", "Coal Tar vs Asphalt Emulsion", "Sealcoating Comparison", "Best Sealcoat Brand", "Polymer Modified Sealcoat", "Commercial Parking Lot Sealcoating", "Sealcoat Application Rates"],
+    openGraph: {
+        title: "The Ultimate Guide to Sealcoating: Types, Brands & Performance",
+        description: "A deep dive into sealcoat chemistry, application mechanics, and brand-by-brand comparison.",
+        type: "article",
+    }
+};
+
+const articleSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Article",
+            "headline": "The Ultimate Guide to Sealcoating: Types, Brands, and Everything You Need to Know",
+            "description": "A comprehensive technical guide covering coal tar, asphalt emulsion, acrylic, and polymer-modified sealcoats. Includes brand-by-brand reviews, application rates, climate considerations, and product selection guidance.",
+            "author": {
+                "@type": "Organization",
+                "name": "Crownwood Chemicals",
+                "url": "https://crownwoodchemicals.com"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Crownwood Chemicals",
+                "url": "https://crownwoodchemicals.com"
+            },
+            "mainEntityOfPage": "https://crownwoodchemicals.com/knowledge-hub/ultimate-guide-to-sealcoating",
+            "articleSection": "Maintenance Guide",
+            "wordCount": 4500
+        },
+        {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://crownwoodchemicals.com" },
+                { "@type": "ListItem", "position": 2, "name": "Knowledge Hub", "item": "https://crownwoodchemicals.com/knowledge-hub" },
+                { "@type": "ListItem", "position": 3, "name": "Ultimate Guide to Sealcoating" }
+            ]
+        }
+    ]
 };
 
 export default function SealcoatingGuidePage() {
     return (
         <main className="min-h-screen bg-asphalt text-concrete pt-32 pb-24 font-sans selection:bg-safety-amber selection:text-asphalt">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+            />
             <article className="max-w-4xl mx-auto px-6 md:px-12 relative pb-20">
 
                 {/* Header Section */}

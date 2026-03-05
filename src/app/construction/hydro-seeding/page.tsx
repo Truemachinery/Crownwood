@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Commercial Hydro Seeding & Erosion Control",
         description: "High-pressure slurry applications for massive commercial footprints. Cheaper than sod, better root establishment.",
-        images: [{ url: "https://new.tmlabz.com/images/hydro-seeding-hero.png", width: 1200, height: 630 }],
+        images: [{ url: "https://crownwoodchemicals.com/images/hydro-seeding-hero.png", width: 1200, height: 630 }],
     }
 };
 
@@ -40,7 +40,7 @@ export default function HydroSeedingPage() {
         "description": "Large-scale commercial hydro-seeding application involving custom slurries, Bonded Fiber Matrix (BFM), and native seed blends for SWPPP compliance and rapid erosion control.",
         "offers": {
             "@type": "Offer",
-            "url": "https://new.tmlabz.com/construction/hydro-seeding",
+            "url": "https://crownwoodchemicals.com/construction/hydro-seeding",
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock"
         }

@@ -35,7 +35,7 @@ const LINKS: NavItem[] = [
     },
     { name: "Municipal Bids", href: "/#bids" },
     { name: "Knowledge Hub", href: "/knowledge-hub" },
-    { name: "Contact", href: "/#contact" },
+    { name: "Contact", href: "/contact" },
 ];
 
 function NavDropdown({ item }: { item: NavItem }) {
@@ -148,9 +148,9 @@ export function Navbar() {
                     ))}
                 </div>
 
-                <button className="hidden md:block bg-safety-amber text-asphalt font-heading font-bold px-5 py-2 rounded-full uppercase tracking-wider text-sm hover:scale-105 transition-transform">
+                <Link href="/contact" className="hidden md:block bg-safety-amber text-asphalt font-heading font-bold px-5 py-2 rounded-full uppercase tracking-wider text-sm hover:scale-105 transition-transform">
                     Get Quote
-                </button>
+                </Link>
 
                 {/* Mobile menu toggle */}
                 <button className="md:hidden text-concrete">

@@ -16,15 +16,33 @@ export const metadata: Metadata = {
     openGraph: {
         title: "San Antonio Asphalt Paving Services | Crownwood Chemicals",
         description: "Elite commercial asphalt paving, tear-outs, overlays, and structural repair in San Antonio, TX.",
-        images: [{ url: "https://new.tmlabz.com/images/asphalt-hero.png", width: 1200, height: 630 }],
+        images: [{ url: "https://crownwoodchemicals.com/images/asphalt-hero.png", width: 1200, height: 630 }],
     }
 };
 
 export const dynamic = 'force-static';
 
 export default function AsphaltPavingPage() {
+    const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Commercial Asphalt Paving",
+        "name": "San Antonio Asphalt Paving Services",
+        "description": "Elite commercial asphalt paving, parking lot tear-outs, overlays, milling, and structural repair in San Antonio, TX. Engineering-first approach with Permabase subgrade stabilization.",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "Crownwood Chemicals",
+            "address": { "@type": "PostalAddress", "addressLocality": "San Antonio", "addressRegion": "TX" }
+        },
+        "areaServed": { "@type": "City", "name": "San Antonio" }
+    };
+
     return (
         <main className="relative flex min-h-screen flex-col bg-concrete overflow-hidden">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+            />
             <Navbar />
             <AsphaltHero />
             <AsphaltCapabilities />

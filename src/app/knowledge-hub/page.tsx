@@ -5,6 +5,12 @@ export const dynamic = 'force-static';
 export const metadata = {
     title: "Knowledge Hub | Crownwood Chemicals",
     description: "Technical insights, application protocols, and industry guides for chemical infrastructure and heavy construction precision.",
+    keywords: ["Sealcoating Guide", "Asphalt Maintenance", "Soil Stabilization Guide", "Construction Chemicals Technical Papers", "Crownwood Chemicals Knowledge Base"],
+    openGraph: {
+        title: "Knowledge Hub | Crownwood Chemicals",
+        description: "Technical insights, application protocols, and industry guides for chemical infrastructure and heavy construction.",
+        type: "website",
+    }
 };
 
 export default function KnowledgeHubPage() {

@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { getSupabase } from "@/lib/supabase";
-import { Inbox, Clock, CheckCircle, Mail, Phone, Building2, FileText, ExternalLink, RefreshCw, Loader2, Eye, ChevronDown, ChevronUp } from "lucide-react";
+import { Inbox, Clock, CheckCircle, Mail, Phone, Building2, FileText, ExternalLink, RefreshCw, Loader2, Eye, ChevronDown, ChevronUp, LogOut } from "lucide-react";
 
 interface Inquiry {
     id: string;
@@ -29,6 +30,12 @@ export default function AdminPage() {
     const [expandedId, setExpandedId] = useState<string | null>(null);
     const [filter, setFilter] = useState<"all" | "new" | "contacted" | "closed">("all");
     const [updatingId, setUpdatingId] = useState<string | null>(null);
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        await fetch("/api/admin-auth", { method: "DELETE" });
+        router.push("/admin/login");
+    };
 
     const fetchInquiries = async () => {
         setLoading(true);
@@ -99,14 +106,22 @@ export default function AdminPage() {
                                 Crownwood Chemicals — Lead Management
                             </p>
                         </div>
-                        <button
-                            onClick={fetchInquiries}
-                            disabled={loading}
-                            className="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-3 rounded-xl font-heading font-bold text-sm uppercase tracking-wider hover:bg-white/10 transition-colors disabled:opacity-50"
-                        >
-                            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-                            Refresh
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={fetchInquiries}
+                                disabled={loading}
+                                className="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-3 rounded-xl font-heading font-bold text-sm uppercase tracking-wider hover:bg-white/10 transition-colors disabled:opacity-50"
+                            >
+                                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                                Refresh
+                            </button>
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-2 bg-red-500/5 border border-red-500/20 px-4 py-3 rounded-xl font-heading font-bold text-sm uppercase tracking-wider text-red-400 hover:bg-red-500/10 transition-colors"
+                            >
+                                <LogOut className="w-4 h-4" />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

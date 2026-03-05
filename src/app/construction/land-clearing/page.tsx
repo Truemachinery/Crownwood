@@ -16,15 +16,33 @@ export const metadata: Metadata = {
     openGraph: {
         title: "San Antonio Land Clearing Services | Crownwood Chemicals",
         description: "Heavy-duty land clearing, precision site grading, and commercial pad site preparation serving San Antonio, TX.",
-        images: [{ url: "https://new.tmlabz.com/images/land-clearing-hero.png", width: 1200, height: 630 }],
+        images: [{ url: "https://crownwoodchemicals.com/images/land-clearing-hero.png", width: 1200, height: 630 }],
     }
 };
 
 export const dynamic = 'force-static';
 
 export default function LandClearingPage() {
+    const serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Land Clearing & Site Preparation",
+        "name": "San Antonio Land Clearing & Site Prep",
+        "description": "Heavy-duty land clearing, precision site grading, forestry mulching, and commercial pad site preparation serving San Antonio, TX.",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "Crownwood Chemicals",
+            "address": { "@type": "PostalAddress", "addressLocality": "San Antonio", "addressRegion": "TX" }
+        },
+        "areaServed": { "@type": "City", "name": "San Antonio" }
+    };
+
     return (
         <main className="relative flex min-h-screen flex-col bg-concrete overflow-hidden">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+            />
             <Navbar />
             <LandClearingHero />
             <LandClearingCapabilities />
