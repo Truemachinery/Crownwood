@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabase } from "@/lib/supabase";
-import { Inbox, Clock, CheckCircle, Mail, Phone, Building2, FileText, ExternalLink, RefreshCw, Loader2, Eye, ChevronDown, ChevronUp, LogOut } from "lucide-react";
+import { Inbox, Clock, CheckCircle, Mail, Phone, Building2, FileText, ExternalLink, RefreshCw, Loader2, Eye, ChevronDown, ChevronUp, LogOut, Database } from "lucide-react";
 
 interface Inquiry {
     id: string;
@@ -114,6 +114,13 @@ export default function AdminPage() {
                             >
                                 <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
                                 Refresh
+                            </button>
+                            <button
+                                onClick={() => router.push("/admin/contacts")}
+                                className="flex items-center gap-2 bg-safety-amber/10 border border-safety-amber/20 px-5 py-3 rounded-xl font-heading font-bold text-sm uppercase tracking-wider text-safety-amber hover:bg-safety-amber/20 transition-colors"
+                            >
+                                <Database className="w-4 h-4" />
+                                Municipal Contacts
                             </button>
                             <button
                                 onClick={handleLogout}

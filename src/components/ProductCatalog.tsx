@@ -1,5 +1,13 @@
+"use client";
+
+import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Beaker, Droplets, Flame, Construction } from "lucide-react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const products = [
     {
@@ -45,8 +53,30 @@ const products = [
 ];
 
 export function ProductCatalog() {
+    const containerRef = useRef<HTMLElement>(null);
+
+    useGSAP(() => {
+        const cards = gsap.utils.toArray('.product-card');
+
+        gsap.fromTo(cards,
+            { y: 40, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top 75%",
+                    toggleActions: "play none none reverse",
+                },
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power3.out"
+            }
+        );
+    }, { scope: containerRef });
+
     return (
-        <section className="py-24 px-6 md:px-12 lg:px-24 bg-asphalt relative overflow-hidden border-t border-white/5">
+        <section ref={containerRef} className="py-24 px-6 md:px-12 lg:px-24 bg-asphalt relative overflow-hidden border-t border-white/5">
             {/* Subtle background texture */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,149,0,0.03)_0%,transparent_60%)] pointer-events-none" />
 
@@ -72,7 +102,7 @@ export function ProductCatalog() {
                             <Link
                                 key={product.name}
                                 href={product.href}
-                                className={`group relative bg-industrial/80 border border-white/5 rounded-2xl p-8 flex flex-col transition-all duration-300 hover:bg-industrial hover:shadow-2xl hover:-translate-y-1 ${product.border}`}
+                                className={`product-card group relative bg-industrial/80 border border-white/5 rounded-2xl p-8 flex flex-col transition-all duration-300 hover:bg-industrial hover:shadow-2xl hover:-translate-y-1 ${product.border}`}
                             >
                                 {/* Background gradient */}
                                 <div className={`absolute inset-0 bg-gradient-to-br ${product.color} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none`} />

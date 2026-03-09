@@ -1,6 +1,12 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SERVICES = [
     {
@@ -31,8 +37,30 @@ const SERVICES = [
 ];
 
 export function ServiceGrid() {
+    const containerRef = useRef<HTMLElement>(null);
+
+    useGSAP(() => {
+        const cards = gsap.utils.toArray('.service-card');
+
+        gsap.fromTo(cards,
+            { y: 50, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse",
+                },
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power3.out"
+            }
+        );
+    }, { scope: containerRef });
+
     return (
-        <section className="py-32 px-6 md:px-12 lg:px-24 bg-asphalt">
+        <section ref={containerRef} className="py-32 px-6 md:px-12 lg:px-24 bg-asphalt">
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                     <div>
@@ -52,9 +80,9 @@ export function ServiceGrid() {
                     {SERVICES.map((s, i) => (
                         <div
                             key={i}
-                            className={`group relative bg-industrial rounded-[2rem] p-8 border border-white/5 transition-all duration-300 hover:-translate-y-2 hover:border-safety-amber/50 cursor-pointer overflow-hidden ${i === 0 ? 'lg:col-span-2' : ''}`}
+                            className={`service-card group relative bg-industrial rounded-[2rem] p-8 border border-white/5 transition-all duration-300 hover:-translate-y-2 hover:border-safety-amber/50 cursor-pointer overflow-hidden shadow-xl ${i === 0 ? 'lg:col-span-2' : ''}`}
                         >
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-safety-amber to-high-vis-yellow transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-safety-amber to-high-vis-yellow transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
 
                             <div className="flex justify-between items-start mb-12 relative z-10">
                                 <span className="font-mono text-xs text-concrete/50 tracking-widest uppercase">{s.keywords}</span>

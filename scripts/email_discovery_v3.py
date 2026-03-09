@@ -134,19 +134,19 @@ JUNK_PREFIXES = {
     "postmaster", "mailer-daemon", "root", "abuse",
 }
 
-# Department relevance scoring for our products
+# Department relevance scoring for our products - STRICT FOCUS ON COMMISSIONERS & PUBLIC WORKS
 DEPT_RELEVANCE = {
-    # High relevance (10) — primary targets for Permabase, MeltDown, PHPM-50
+    # High relevance (10) — primary targets requested by user
     "public works": 10, "road and bridge": 10, "road & bridge": 10,
-    "road bridge": 10, "streets": 10, "transportation": 9,
-    "engineering": 9, "county engineer": 10, "city engineer": 10,
-    "infrastructure": 9, "highway": 9, "maintenance": 8,
-    # Medium relevance (7) — procurement decision makers
-    "purchasing": 8, "procurement": 8, "fleet": 7,
-    "utilities": 6, "parks": 6, "facilities": 6,
-    # Lower relevance (4) — general contacts worth having
-    "administration": 4, "county judge": 5, "city manager": 5,
-    "commissioner": 4, "general": 3,
+    "road bridge": 10, "streets": 10, "commissioner": 10,
+    "county commissioner": 10, "city commissioner": 10,
+    "precinct": 10, "pct": 10, "engineering": 9, "county engineer": 10, "city engineer": 10,
+    # Medium relevance (5) — falling outside the strict focus but still related to infrastructure
+    "transportation": 5, "infrastructure": 5, "highway": 5, "maintenance": 5,
+    "fleet": 3, "utilities": 3, "parks": 3, "facilities": 3,
+    # Excluded / Penalized relevance (0) — general admin is no longer wanted
+    "purchasing": 0, "procurement": 0, "administration": 0, "county judge": 0, 
+    "city manager": 0, "general": 0, "mayor": 0, "clerk": 0, "auditor": 0,
 }
 
 # Words that can never be part of a person name

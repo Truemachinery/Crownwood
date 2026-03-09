@@ -9,9 +9,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const PRODUCTS = [
-    { name: "Permabase", desc: "Clear Soil Stabilizer & Dust Control", color: "bg-[#F5F3EE] text-[#1C1C1E] border border-gray-200" },
-    { name: "Permabase Black", desc: "Polymer-Based Wearing Surface", color: "bg-[#111111] text-[#E6FF00] border border-white/10" },
-    { name: "PHPM-50", desc: "Advanced Cold-Applied Tack", color: "bg-[#FF9500] text-[#111111] border border-black/10" }
+    { name: "Permabase", desc: "Clear Soil Stabilizer & Dust Control", color: "bg-concrete text-industrial border border-gray-200" },
+    { name: "Permabase Black", desc: "Polymer-Based Wearing Surface", color: "bg-asphalt text-high-vis-yellow border border-white/10" },
+    { name: "PHPM-50", desc: "Advanced Cold-Applied Tack", color: "bg-safety-amber text-asphalt border border-black/10" }
 ];
 
 export function Features() {

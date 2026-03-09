@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 export function Hero() {
@@ -38,10 +39,13 @@ export function Hero() {
             {/* Background — full-width image with dark overlay */}
             <div className="absolute inset-0 z-0 hero-bg">
                 <div className="absolute inset-0 bg-black/60 z-10" />
-                <img
+                <Image
                     src="/Generated Image March 04, 2026 - 10_40PM.png"
                     alt="Crownwood Chemicals construction site"
-                    className="w-full h-full object-cover"
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="object-cover"
                 />
                 {/* Gradient fade to match page background at bottom */}
                 <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-concrete to-transparent z-10" />
@@ -59,9 +63,9 @@ export function Hero() {
                 </h1>
 
                 <div className="hero-cta mt-12 flex items-center gap-6">
-                    <button className="group flex items-center gap-3 bg-safety-amber text-asphalt px-8 py-4 rounded-full font-heading font-bold text-lg uppercase tracking-wider hover:bg-high-vis-yellow transition-colors">
+                    <button className="group flex items-center gap-3 bg-safety-amber text-asphalt px-8 py-4 rounded-full font-heading font-bold text-lg uppercase tracking-wider hover:bg-high-vis-yellow transition-all duration-300 hover:shadow-[0_8px_30px_rgba(255,149,0,0.4)]">
                         Request a Quote
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-2" />
                     </button>
 
                     <div className="hidden md:flex flex-col pointer-events-none">

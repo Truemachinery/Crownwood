@@ -53,6 +53,7 @@ export function Footer() {
                         <ul className="space-y-4 font-sans text-concrete/70 text-sm">
                             <li><Link href="/knowledge-hub" className="hover:text-high-vis-yellow transition-colors">Knowledge Hub</Link></li>
                             <li><Link href="/knowledge-hub/ultimate-guide-to-sealcoating" className="hover:text-high-vis-yellow transition-colors">Sealcoating Guide</Link></li>
+                            <li className="pt-4"><Link href="/timeclock" className="hover:text-high-vis-yellow transition-colors text-concrete/40 flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-safety-amber/50" /> Employee Portal</Link></li>
                         </ul>
                     </div>
 
