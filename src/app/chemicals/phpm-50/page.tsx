@@ -10,12 +10,12 @@ import { Metadata } from "next";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-    title: "PHPM-50™ High Performance Pothole Patch | Crownwood Chemicals",
-    description: "Commercial-grade, hydro-reactive pothole repair polymer that cures permanently in standing water and extreme Texas temperatures. Zero setup downtime.",
-    keywords: ["PHPM-50 Pothole Patch", "Commercial Pothole Repair", "Hydro-Reactive Asphalt Patch", "Cold Patch Alternative", "Permanent Pothole Fix", "San Antonio Asphalt Repair", "Municipal Pothole Mitigation"],
+    title: "PHPM-50™ (PHPM50) Heatless Tack Oil & Pothole Patch | Crownwood Chemicals",
+    description: "PHPM-50 (PHPM50) is a commercial-grade heatless tack oil and hydro-reactive pothole repair polymer. This heatless tac oil cures permanently in standing water. Available in 275-gallon totes.",
+    keywords: ["PHPM-50 Pothole Patch", "PHPM50", "Heatless Tack Oil", "Heatless Tac Oil", "Commercial Pothole Repair", "Hydro-Reactive Asphalt Patch", "Cold Patch Alternative", "Permanent Pothole Fix", "San Antonio Asphalt Repair", "Municipal Pothole Mitigation", "275 Gallon Tote"],
     openGraph: {
-        title: "PHPM-50™ | High Performance Hydro-Reactive Pothole Patch",
-        description: "Commercial-grade pothole patch that cures permanently in standing water.",
+        title: "PHPM-50™ (PHPM50) | Heatless Tack Oil & Hydro-Reactive Pothole Patch",
+        description: "PHPM50 heatless tack oil and pothole patch — cures permanently in standing water. Available in 275-gallon totes.",
         images: [{ url: "https://crownwoodchemicals.com/images/phpm-hero.png", width: 1200, height: 630 }],
     }
 };
@@ -24,9 +24,9 @@ export default function PhpmPage() {
     const productSchema = {
         "@context": "https://schema.org/",
         "@type": "Product",
-        "name": "PHPM-50™ High Performance Pothole Patch",
+        "name": "PHPM-50™ (PHPM50) Heatless Tack Oil & Pothole Patch",
         "image": "https://crownwoodchemicals.com/images/phpm-hero.png",
-        "description": "Commercial-grade, hydro-reactive pothole repair polymer that cures permanently in standing water and extreme temperatures. Zero setup downtime.",
+        "description": "PHPM-50 (PHPM50) is a commercial-grade heatless tack oil and hydro-reactive pothole repair polymer. Available in 275-gallon totes. Cures permanently in standing water and extreme temperatures.",
         "brand": {
             "@type": "Brand",
             "name": "Crownwood Chemicals"
@@ -65,7 +65,7 @@ export default function PhpmPage() {
                             Order <span className="text-high-vis-yellow">PHPM-50™</span>
                         </h2>
                         <p className="font-mono text-concrete/60 text-sm uppercase tracking-widest">
-                            Request pallet pricing or ask a technical question
+                            Request 275-gallon tote pricing or ask a technical question
                         </p>
                     </div>
                     <ContactForm

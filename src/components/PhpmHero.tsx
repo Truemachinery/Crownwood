@@ -48,7 +48,7 @@ export function PhpmHero() {
                 <div className="absolute inset-0 bg-asphalt/85 z-10" />
                 <img
                     src="/images/phpm-hero.png"
-                    alt="PHPM-50 High Performance Pothole Patch applied in standing water"
+                    alt="PHPM50 heatless tack oil and pothole patch applied in standing water"
                     className="w-full h-full object-cover mix-blend-luminosity opacity-40"
                     onError={(e) => {
                         e.currentTarget.src = "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?q=80&w=2670&auto=format&fit=crop";
@@ -74,12 +74,12 @@ export function PhpmHero() {
                 </h1>
 
                 <p className="product-desc font-sans text-concrete/80 text-lg md:text-xl max-w-3xl leading-relaxed mb-12">
-                    Stop throwing away bags of cheap cold patch. PHPM-50™ is a commercial-grade, hydro-reactive pothole repair polymer that cures permanently, even when poured directly into standing water. Engineered for extreme Texas temperature swings, it expands and contracts without fracturing.
+                    Stop wasting money on inferior cold patch. PHPM-50™ (PHPM50) is a commercial-grade heatless tack oil and hydro-reactive pothole repair polymer that cures permanently, even when poured directly into standing water. This heatless tac oil is engineered for extreme Texas temperature swings — it expands and contracts without fracturing. Available in 275-gallon totes.
                 </p>
 
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
                     <button className="product-stats group flex items-center gap-3 bg-high-vis-yellow text-asphalt px-8 py-4 rounded-full font-heading font-bold text-lg uppercase tracking-wider hover:bg-safety-amber transition-colors shadow-[0_0_30px_rgba(204,255,0,0.2)] hover:shadow-[0_0_50px_rgba(204,255,0,0.4)]">
-                        Order By The Pallet
+                        Order 275-Gallon Totes
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </button>
 

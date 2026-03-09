@@ -13,13 +13,13 @@ const MECHANISMS = [
         num: "01",
         title: "Debris Removal",
         icon: Shovel,
-        desc: "Sweep out large, loose chunks of asphalt or debris from the pothole. Unlike hot-mix repairs, you do not need to meticulously dry the hole, route the edges, or apply a tack-coat primer."
+        desc: "Sweep out large, loose chunks of asphalt or debris from the pothole. Unlike hot-mix repairs, you do not need to meticulously dry the hole, route the edges, or apply a separate tack-coat primer — PHPM50 acts as its own heatless tack oil that won't clog your lines and requires no suckback."
     },
     {
         num: "02",
         title: "Direct Application",
         icon: Waves,
-        desc: "Pour PHPM-50 directly from the bag into the void. If the hole is full of standing water, pour the polymer directly into the water. The heavier-than-water hydro-reactive formula will instantly displace the moisture and sink to the base."
+        desc: "Dispense PHPM-50 directly from the 275-gallon tote into the void. If the hole is full of standing water, pour the polymer directly into the water. The heavier-than-water hydro-reactive formula will instantly displace the moisture and sink to the base."
     },
     {
         num: "03",
@@ -78,7 +78,7 @@ export function PhpmProcess() {
                         <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-high-vis-yellow"></div>
                     </h2>
                     <p className="font-sans text-xl text-concrete/70 max-w-3xl mx-auto mt-8 leading-relaxed">
-                        PHPM-50 is designed for high-velocity maintenance crews. No saws, no tack coats, no heating kettles. Just peel and pour.
+                        PHPM50 is a heatless tack oil designed for high-velocity maintenance crews. No heat required, no clogged lines, no suckback. Just dispense from the 275-gallon tote and go.
                     </p>
                 </div>
 
