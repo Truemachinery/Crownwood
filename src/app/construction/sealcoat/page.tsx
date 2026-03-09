@@ -18,7 +18,10 @@ export const metadata: Metadata = {
         title: "San Antonio Commercial Sealcoating | Crownwood Chemicals",
         description: "Industrial-grade commercial parking lot sealcoating, asphalt preservation, and ADA striping in San Antonio, TX.",
         images: [{ url: "https://crownwoodchemicals.com/images/sealcoat-hero.png", width: 1200, height: 630 }],
-    }
+    },
+    alternates: {
+        canonical: "/construction/sealcoat",
+    },
 };
 
 export const dynamic = 'force-static';

@@ -17,7 +17,10 @@ export const metadata: Metadata = {
         title: "San Antonio Asphalt Paving Services | Crownwood Chemicals",
         description: "Elite commercial asphalt paving, tear-outs, overlays, and structural repair in San Antonio, TX.",
         images: [{ url: "https://crownwoodchemicals.com/images/asphalt-hero.png", width: 1200, height: 630 }],
-    }
+    },
+    alternates: {
+        canonical: "/construction/asphalt-paving",
+    },
 };
 
 export const dynamic = 'force-static';

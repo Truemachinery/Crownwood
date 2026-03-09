@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
@@ -7,6 +8,12 @@ import { ServiceGrid } from "@/components/ServiceGrid";
 import { ProductCatalog } from "@/components/ProductCatalog";
 import { Footer } from "@/components/Footer";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
   return (

@@ -24,7 +24,10 @@ export const metadata: Metadata = {
         description: "The only 2-in-1 soy-based asphalt remover and release agent. Removes cured asphalt, tar, and tack oil while preventing adhesion.",
         images: [{ url: "https://crownwoodchemicals.com/Meltdown.png", width: 1200, height: 630 }],
         type: "website",
-    }
+    },
+    alternates: {
+        canonical: "/chemicals/meltdown",
+    },
 };
 
 const productSchema = {
@@ -42,12 +45,11 @@ const productSchema = {
             "category": "Asphalt Removal & Release Agents",
             "material": "Soy-based solvent blend",
             "offers": {
-                "@type": "AggregateOffer",
+                "@type": "Offer",
                 "url": "https://crownwoodchemicals.com/chemicals/meltdown",
                 "priceCurrency": "USD",
+                "price": "20.00",
                 "availability": "https://schema.org/InStock",
-                "offerCount": "4",
-                "lowPrice": "0",
                 "seller": {
                     "@type": "Organization",
                     "name": "Crownwood Chemicals"

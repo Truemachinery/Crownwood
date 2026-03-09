@@ -18,7 +18,10 @@ export const metadata: Metadata = {
         title: "San Antonio ADA Parking Lot Striping | Crownwood Chemicals",
         description: "Precision parking lot striping, CAD layout design, thermoplastic demarcation, and strict ADA compliance auditing serving San Antonio.",
         images: [{ url: "https://crownwoodchemicals.com/images/striping-hero.png", width: 1200, height: 630 }],
-    }
+    },
+    alternates: {
+        canonical: "/construction/striping",
+    },
 };
 
 export const dynamic = 'force-static';

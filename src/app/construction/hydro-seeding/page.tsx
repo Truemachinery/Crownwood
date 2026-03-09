@@ -19,7 +19,10 @@ export const metadata: Metadata = {
         title: "Commercial Hydro Seeding & Erosion Control",
         description: "High-pressure slurry applications for massive commercial footprints. Cheaper than sod, better root establishment.",
         images: [{ url: "https://crownwoodchemicals.com/images/hydro-seeding-hero.png", width: 1200, height: 630 }],
-    }
+    },
+    alternates: {
+        canonical: "/construction/hydro-seeding",
+    },
 };
 
 export default function HydroSeedingPage() {

@@ -47,7 +47,10 @@ export const metadata: Metadata = {
         description: "Polymer bio-enzyme soil stabilizer that permanently alters expansive clay, eliminates dust, and provides an asphalt-like aesthetic. Also used as chipseal underseal, prime coat, and road rejuvenation topcoat.",
         images: [{ url: "/images/permabase-black-hero.png", width: 1200, height: 630 }],
         type: "website",
-    }
+    },
+    alternates: {
+        canonical: "/chemicals/permabase-black",
+    },
 };
 
 /* ── FAQ Data (shared between component and schema) ── */

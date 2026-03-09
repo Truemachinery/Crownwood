@@ -12,7 +12,10 @@ export const metadata: Metadata = {
         title: "Contact Crownwood Chemicals",
         description: "Request a quote or schedule a site assessment for soil stabilization, asphalt paving, sealcoating, or industrial construction in Texas.",
         type: "website",
-    }
+    },
+    alternates: {
+        canonical: "/contact",
+    },
 };
 
 export default function ContactPage() {

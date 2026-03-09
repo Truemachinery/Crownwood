@@ -17,7 +17,10 @@ export const metadata: Metadata = {
         title: "San Antonio Land Clearing Services | Crownwood Chemicals",
         description: "Heavy-duty land clearing, precision site grading, and commercial pad site preparation serving San Antonio, TX.",
         images: [{ url: "https://crownwoodchemicals.com/images/land-clearing-hero.png", width: 1200, height: 630 }],
-    }
+    },
+    alternates: {
+        canonical: "/construction/land-clearing",
+    },
 };
 
 export const dynamic = 'force-static';

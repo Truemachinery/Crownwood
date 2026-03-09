@@ -37,7 +37,8 @@ import random
 import socket
 import smtplib
 import argparse
-import requests
+# asyncio removed — not needed for ThreadPoolExecutor approach
+import requests   # kept for PDF byte downloads only
 from datetime import datetime, timezone
 from urllib.parse import urljoin, urlparse, unquote
 from collections import Counter
@@ -50,15 +51,26 @@ try:
 except ImportError:
     HAS_DNS = False
 
+# --- Scrapling (only for JS-rendered page fallback) ---
+try:
+    from scrapling.fetchers import Fetcher, StealthyFetcher
+    from scrapling.parser import Adaptor
+    HAS_SCRAPLING = True
+except ImportError:
+    HAS_SCRAPLING = False
+    print("⚠️  Scrapling not installed — falling back to raw requests")
+
+# --- DuckDuckGo Search ---
 try:
     from ddgs import DDGS
-    HAS_DDGS = True
+    HAS_DDG = True
 except ImportError:
     try:
         from duckduckgo_search import DDGS
-        HAS_DDGS = True
+        HAS_DDG = True
     except ImportError:
-        HAS_DDGS = False
+        HAS_DDG = False
+        print("⚠️  ddgs not installed — search disabled (pip3 install ddgs)")
 
 # --- Config ---
 SUPABASE_URL = os.environ.get("NEXT_PUBLIC_SUPABASE_URL") or os.environ.get("SUPABASE_URL")
@@ -74,96 +86,37 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.5",
 }
 
+# Stealth fetch defaults — disable_resources blocks images/fonts/CSS
+# to speed up crawls (v0.2.99 doesn't support domain-level blocking)
+STEALTH_DEFAULTS = {
+    "headless": True,
+    "network_idle": True,
+    "block_images": True,
+    "disable_resources": True,
+}
+
 EMAIL_RE = re.compile(r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}')
 
 MAX_PDF_BYTES = 8 * 1024 * 1024  # 8MB cap for PDF downloads
 
 
-# =====================================================
-# SEARCH ROTATOR — avoids DDG rate limiting
-# =====================================================
+# Global flag — set by --no-search to skip all search phases
+search_disabled = False
 
-class SearchRotator:
-    """Rotates between search backends with CAPTCHA detection and backoff."""
 
-    def __init__(self):
-        self.request_counts = {"ddgs": 0, "ddg_html": 0}
-        self.backoff_until = {"ddgs": 0, "ddg_html": 0}
-        self.backends = ["ddgs", "ddg_html"]
-        self.current = 0
-
-    def _is_blocked(self, response_text):
-        if not response_text:
-            return True
-        low = response_text.lower() if isinstance(response_text, str) else ""
-        return ("captcha" in low or "unusual traffic" in low
-                or "automated queries" in low or len(response_text) < 300)
-
-    def search(self, query, max_results=10):
-        """Returns (status, results). Status: 'ok', 'blocked', 'error'."""
-        now = time.time()
-        for _ in range(len(self.backends)):
-            backend = self.backends[self.current % len(self.backends)]
-            self.current += 1
-            if self.backoff_until[backend] > now:
-                continue
-            try:
-                if backend == "ddgs" and HAS_DDGS:
-                    return self._search_ddgs(query, max_results, backend)
-                else:
-                    return self._search_ddg_html(query, backend)
-            except Exception:
-                continue
+def ddg_search(query, max_results=5):
+    """Search via DuckDuckGo. Lightweight, no browser, handles rate limiting."""
+    if not HAS_DDG or search_disabled:
         return ("blocked", [])
-
-    def _search_ddgs(self, query, max_results, backend):
-        try:
-            with DDGS() as ddg:
-                results = list(ddg.text(query, max_results=max_results))
-                time.sleep(random.uniform(2, 4))
-                self.request_counts[backend] += 1
-                if self.request_counts[backend] % 20 == 0:
-                    time.sleep(random.uniform(5, 10))
-                return ("ok", results)
-        except Exception as e:
-            if "ratelimit" in str(e).lower() or "202" in str(e):
-                self.backoff_until[backend] = time.time() + 300
-                return ("blocked", [])
-            raise
-
-    def _search_ddg_html(self, query, backend):
-        r = requests.post("https://html.duckduckgo.com/html/",
-                          data={"q": query}, headers=HEADERS, timeout=12)
-        self.request_counts[backend] += 1
-        if r.status_code != 200 or self._is_blocked(r.text):
-            self.backoff_until[backend] = time.time() + 300
+    try:
+        with DDGS() as ddg:
+            results = list(ddg.text(query, max_results=max_results))
+            time.sleep(random.uniform(3, 5))
+            return ("ok", [{"title": r.get("title", ""), "href": r.get("href", ""), "body": r.get("body", "")} for r in results])
+    except Exception as e:
+        if "ratelimit" in str(e).lower():
             return ("blocked", [])
-        results = []
-        title_re = re.compile(r'class="result__a"[^>]*>([^<]+)</a>', re.IGNORECASE)
-        url_re_p = re.compile(r'class="result__url"[^>]*>([^<]+)<', re.IGNORECASE)
-        titles = title_re.findall(r.text)
-        urls = url_re_p.findall(r.text)
-        for i, title in enumerate(titles):
-            href = urls[i].strip() if i < len(urls) else ""
-            if not href.startswith("http"):
-                href = "https://" + href
-            results.append({"title": title.strip(), "href": href, "body": ""})
-        time.sleep(random.uniform(2, 4))
-        if self.request_counts[backend] % 20 == 0:
-            time.sleep(random.uniform(5, 10))
-        return ("ok", results)
-
-    def search_raw_html(self, query):
-        """Return raw HTML for URL extraction (website finder)."""
-        r = requests.post("https://html.duckduckgo.com/html/",
-                          data={"q": query}, headers=HEADERS, timeout=12)
-        if r.status_code != 200 or self._is_blocked(r.text):
-            return None
-        time.sleep(random.uniform(2, 4))
-        return r.text
-
-
-search_rotator = SearchRotator()
+        return ("error", [])
 
 JUNK_DOMAINS = {
     "example.com", "test.com", "email.com", "mail.com",
@@ -809,7 +762,7 @@ def google_dork_emails(domain, county_name):
     ]
 
     for query in queries:
-        status, results = search_rotator.search(query, max_results=10)
+        status, results = ddg_search(query, max_results=10)
         if status == "blocked":
             overall_status = "blocked"
             continue
@@ -867,7 +820,36 @@ class LinkExtractor(HTMLParser):
                                 self.links.add(full.split('#')[0].split('?')[0])
 
 
-def fetch(url, timeout=12):
+def fetch(url, timeout=12, stealth=False):
+    """Fetch a URL via Scrapling Fetcher, with StealthyFetcher fallback."""
+    if not HAS_SCRAPLING:
+        return fetch_simple(url, timeout=timeout)
+
+    def _extract(page):
+        """Pull HTML string and final URL from a Scrapling Response."""
+        html_text = str(page)
+        final_url = page.url if hasattr(page, 'url') else url
+        if not html_text or len(html_text) < 100 or '<' not in html_text:
+            return (None, None)
+        return (html_text, final_url)
+
+    try:
+        if stealth:
+            page = StealthyFetcher.fetch(url, **STEALTH_DEFAULTS)
+        else:
+            page = Fetcher.get(url, stealthy_headers=True, timeout=timeout)
+        if page:
+            result = _extract(page)
+            if result[0]:
+                return result
+        return (None, None)
+    except Exception:
+        # Fallback to plain requests on Fetcher failure (not StealthyFetcher)
+        return fetch_simple(url, timeout=timeout)
+
+
+def fetch_simple(url, timeout=12):
+    """Plain requests.get() for same-domain internal pages. Fast, no browser overhead."""
     try:
         r = requests.get(url, headers=HEADERS, timeout=timeout, allow_redirects=True)
         return (r.text, r.url) if r.status_code < 400 else (None, None)
@@ -906,6 +888,8 @@ def deep_crawl(base_url, max_pages=40):
     - visited_urls: set — all URLs visited
     - pages_crawled: int
     """
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     visited = set()
     queue = [base_url]
     mailto_emails = set()
@@ -919,19 +903,16 @@ def deep_crawl(base_url, max_pages=40):
     def priority(url):
         return sum(10 for kw in DIRECTORY_KEYWORDS if kw in url.lower())
 
-    count = 0
-    while queue and count < max_pages:
-        queue.sort(key=priority, reverse=True)
-        url = queue.pop(0).rstrip('/')
-        if url in visited:
-            continue
-        visited.add(url)
-        all_urls.add(url)
+    BATCH_SIZE = 5  # concurrent fetches per batch
 
-        html, final_url = fetch(url)
-        if not html:
-            continue
-        count += 1
+    def _process_page(html, url):
+        """Extract emails, names, and links from a single page HTML."""
+        page_mailto = set()
+        page_body = set()
+        page_cf = set()
+        page_names = []
+        page_links = set()
+        page_pdfs = set()
 
         # Extract mailto: emails (HIGH confidence)
         mx = MailtoExtractor()
@@ -940,7 +921,7 @@ def deep_crawl(base_url, max_pages=40):
             for e in mx.mailto_emails:
                 cleaned = clean_email(e)
                 if cleaned:
-                    mailto_emails.add(cleaned)
+                    page_mailto.add(cleaned)
         except Exception:
             pass
 
@@ -948,34 +929,110 @@ def deep_crawl(base_url, max_pages=40):
         for e in extract_cloudflare_emails(html):
             cleaned = clean_email(e)
             if cleaned:
-                cf_emails.add(cleaned)
+                page_cf.add(cleaned)
 
         # Extract body emails (MEDIUM confidence)
         for e in EMAIL_RE.findall(html):
             cleaned = clean_email(e)
-            if cleaned and cleaned not in mailto_emails and cleaned not in cf_emails:
-                body_emails.add(cleaned)
+            if cleaned and cleaned not in page_mailto and cleaned not in page_cf:
+                page_body.add(cleaned)
 
-        # Extract names PER PAGE (not accumulated) for performance
+        # Extract names
         page_names = extract_all_names(html, [url])
-        for n in page_names:
+
+        # Follow links + collect PDFs
+        try:
+            ext = LinkExtractor(url)
+            ext.feed(html)
+            page_links = ext.links
+            page_pdfs = ext.pdf_links
+        except Exception:
+            pass
+
+        return page_mailto, page_body, page_cf, page_names, page_links, page_pdfs
+
+    count = 0
+
+    # First page: try plain requests first (fastest), fallback to StealthyFetcher
+    # for JS-heavy sites that return thin HTML
+    first_html, first_url = fetch_simple(base_url)
+    if first_html and len(first_html) < 5000:
+        # Thin page — likely JS-rendered, retry with StealthyFetcher
+        stealth_html, stealth_url = fetch(base_url, stealth=True)
+        if stealth_html and len(stealth_html) > len(first_html):
+            first_html, first_url = stealth_html, stealth_url
+    if not first_html:
+        first_html, first_url = fetch(base_url, stealth=True)
+    if first_html:
+        visited.add(base_url.rstrip('/'))
+        if first_url:
+            visited.add(first_url.rstrip('/'))
+        all_urls.add(base_url)
+        count += 1
+        pm, pb, pc, pn, pl, pp = _process_page(first_html, first_url or base_url)
+        mailto_emails.update(pm)
+        body_emails.update(pb)
+        cf_emails.update(pc)
+        pdf_links.update(pp)
+        for n in pn:
             key = (n[0].lower(), n[1].lower())
             if key not in seen_names:
                 seen_names.add(key)
                 all_names.append(n)
+        for link in pl:
+            if link.rstrip('/') not in visited:
+                queue.append(link)
 
-        # Follow links + collect PDFs
-        try:
-            ext = LinkExtractor(final_url or url)
-            ext.feed(html)
-            for link in ext.links:
+    # Remaining pages: batch concurrent fetching
+    while queue and count < max_pages:
+        queue.sort(key=priority, reverse=True)
+
+        # Pick up to BATCH_SIZE unvisited URLs
+        batch = []
+        while queue and len(batch) < BATCH_SIZE:
+            url = queue.pop(0).rstrip('/')
+            if url not in visited:
+                visited.add(url)
+                all_urls.add(url)
+                batch.append(url)
+
+        if not batch:
+            break
+
+        # Fetch batch concurrently using plain requests (fast, no browser)
+        results = {}
+        with ThreadPoolExecutor(max_workers=BATCH_SIZE) as executor:
+            futures = {executor.submit(fetch_simple, url): url for url in batch}
+            for future in as_completed(futures):
+                url = futures[future]
+                try:
+                    html, final_url = future.result()
+                    if html:
+                        results[url] = (html, final_url)
+                except Exception:
+                    pass
+
+        # Process results
+        for url, (html, final_url) in results.items():
+            count += 1
+            if count > max_pages:
+                break
+
+            pm, pb, pc, pn, pl, pp = _process_page(html, final_url or url)
+            mailto_emails.update(pm)
+            body_emails.update(pb)
+            cf_emails.update(pc)
+            pdf_links.update(pp)
+            for n in pn:
+                key = (n[0].lower(), n[1].lower())
+                if key not in seen_names:
+                    seen_names.add(key)
+                    all_names.append(n)
+            for link in pl:
                 if link.rstrip('/') not in visited:
                     queue.append(link)
-            pdf_links.update(ext.pdf_links)
-        except Exception:
-            pass
 
-        time.sleep(0.3)
+        time.sleep(0.2)  # small delay between batches
 
     return list(mailto_emails), list(body_emails), list(cf_emails), all_names, pdf_links, all_urls, count
 
@@ -1019,24 +1076,33 @@ def parse_linkedin_name(title):
     return (first, last, title_part, "linkedin")
 
 
-def linkedin_name_discovery(county_name, max_queries=3):
+def linkedin_name_discovery(county_name, max_queries=3, state_abbr="TX"):
     """
-    Search for LinkedIn profiles of county employees.
-    Uses SearchRotator for rate limit protection.
+    Search for LinkedIn profiles of county/city employees.
     Returns (status, names) — status is 'ok' or 'blocked'.
     """
+    state_names = {
+        'TX': 'Texas', 'OK': 'Oklahoma', 'LA': 'Louisiana', 'NM': 'New Mexico',
+        'AR': 'Arkansas', 'CA': 'California', 'FL': 'Florida', 'OH': 'Ohio',
+        'PA': 'Pennsylvania', 'NY': 'New York', 'IL': 'Illinois', 'GA': 'Georgia',
+        'NC': 'North Carolina', 'VA': 'Virginia', 'CO': 'Colorado', 'AZ': 'Arizona',
+        'MO': 'Missouri', 'AL': 'Alabama', 'MS': 'Mississippi', 'TN': 'Tennessee',
+        'KY': 'Kentucky', 'SC': 'South Carolina', 'IN': 'Indiana', 'WI': 'Wisconsin',
+        'MN': 'Minnesota', 'IA': 'Iowa', 'KS': 'Kansas', 'NE': 'Nebraska',
+    }
+    state_full = state_names.get(state_abbr.upper(), state_abbr)
     names = []
     seen = set()
     overall_status = "ok"
 
     search_queries = [
-        f'site:linkedin.com "{county_name}" Texas "public works" OR "road" OR "bridge" OR "engineer"',
-        f'site:linkedin.com "{county_name}" Texas "purchasing" OR "procurement" OR "maintenance"',
-        f'site:linkedin.com "{county_name}" Texas "commissioner" OR "judge" OR "director" OR "superintendent"',
+        f'site:linkedin.com "{county_name}" {state_full} "public works" OR "road" OR "bridge" OR "engineer"',
+        f'site:linkedin.com "{county_name}" {state_full} "purchasing" OR "procurement" OR "maintenance"',
+        f'site:linkedin.com "{county_name}" {state_full} "commissioner" OR "judge" OR "director" OR "superintendent"',
     ]
 
     for query in search_queries[:max_queries]:
-        status, results = search_rotator.search(query, max_results=10)
+        status, results = ddg_search(query, max_results=10)
         if status == "blocked":
             overall_status = "blocked"
             continue
@@ -1058,49 +1124,126 @@ def linkedin_name_discovery(county_name, max_queries=3):
 # WEBSITE FINDER
 # =====================================================
 
-def search_duckduckgo(query):
-    """Fallback: search for a county website. Uses SearchRotator."""
-    html = search_rotator.search_raw_html(query)
-    if not html:
+SKIP_SEARCH_DOMAINS = {'wikipedia', 'facebook', 'twitter', 'linkedin', 'yelp',
+                       'census.gov', 'sos.state', 'google.com', 'mapquest',
+                       'yellowpages', 'zillow', 'indeed', 'nextdoor',
+                       'propertyrecs', 'whitepages', 'angi.com', 'yelp.com',
+                       'bbb.org', 'tripadvisor', 'glassdoor'}
+
+def search_for_website(query, entity_name="", entity_type="county", state_abbr="TX"):
+    """Search for a government website. Uses ddg_search()."""
+    st = state_abbr.lower()
+    status, results = ddg_search(query, max_results=10)
+    if status == "blocked" or not results:
         return None
-    url_re = re.compile(r'href="(https?://[^"]+)"')
-    for match in url_re.finditer(html):
-        result_url = match.group(1)
-        if 'duckduckgo.com' in result_url:
+
+    # Clean entity name for domain matching
+    clean = entity_name.lower()
+    for suffix in [" county", " city", " cdp", " village", " town", " parish", " borough"]:
+        clean = clean.replace(suffix, "")
+    clean = clean.strip().replace(" ", "")
+
+    for r in results:
+        href = r.get("href", "")
+        if not href:
             continue
-        parsed = urlparse(result_url)
+        parsed = urlparse(href)
         domain = parsed.netloc.lower()
-        if any(domain.endswith(tld) for tld in ['.gov', '.tx.us', '.us', '.org']):
-            if not any(skip in domain for skip in ['wikipedia', 'facebook', 'twitter', 'linkedin', 'yelp', 'census.gov', 'sos.state']):
-                return f"{parsed.scheme}://{parsed.netloc}"
+
+        # Skip known junk domains
+        if any(skip in domain for skip in SKIP_SEARCH_DOMAINS):
+            continue
+
+        # Domain validation: must look like a government/municipal site
+        is_gov = domain.endswith('.gov') or domain.endswith(f'.{st}.us')
+        is_org = domain.endswith('.org')
+        has_entity_name = clean in domain.replace("-", "").replace(".", "")
+        has_gov_keywords = any(kw in domain for kw in ['city', 'ci.', 'town', 'gov', 'municipal'])
+
+        if is_gov or (is_org and (has_entity_name or has_gov_keywords)):
+            return f"{parsed.scheme}://{parsed.netloc}"
+        if has_entity_name and has_gov_keywords:
+            return f"{parsed.scheme}://{parsed.netloc}"
+        # Accept .com only if domain contains the entity name
+        if domain.endswith('.com') and has_entity_name:
+            return f"{parsed.scheme}://{parsed.netloc}"
     return None
 
 
-def find_website(county_name):
-    """Find county website: try URL patterns first, then DuckDuckGo search."""
-    c = county_name.lower().replace(" county", "").strip()
-    ch = c.replace(" ", "-")
-    cn = c.replace(" ", "")
+def find_website(entity_name, entity_type="county", state_abbr="TX"):
+    """Find county/city website: try URL patterns first, then DDG search."""
+    st = state_abbr.lower()
+    ST = state_abbr.upper()
+    # Clean entity name — strip suffixes
+    c = entity_name.lower()
+    for suffix in [" county", " city", " cdp", " village", " town", " parish", " borough"]:
+        c = c.replace(suffix, "")
+    c = c.strip()
+    ch = c.replace(" ", "-")   # hyphenated
+    cn = c.replace(" ", "")    # collapsed
 
-    # Method 1: Brute-force common URL patterns
-    urls = [
-        f"https://www.co.{cn}.tx.us",
-        f"https://co.{cn}.tx.us",
-        f"https://www.{ch}county.org",
-        f"https://www.{cn}county.org",
-        f"https://www.{ch}countytx.gov",
-        f"https://www.{cn}countytx.gov",
-        f"https://www.{ch}county.gov",
-        f"https://www.{cn}county.gov",
-        f"https://{ch}county.org",
-        f"https://{cn}county.org",
-        f"https://{ch}countytx.gov",
-        f"https://{cn}countytx.gov",
-        f"https://www.{ch}.tx.us",
-        f"https://www.{cn}tx.gov",
-        f"https://www.{ch}county.texas.gov",
-        f"https://www.{cn}county.texas.gov",
-    ]
+    # State full names for URL patterns
+    state_names = {
+        'TX': 'texas', 'OK': 'oklahoma', 'LA': 'louisiana', 'NM': 'newmexico',
+        'AR': 'arkansas', 'CA': 'california', 'FL': 'florida', 'OH': 'ohio',
+        'PA': 'pennsylvania', 'NY': 'newyork', 'IL': 'illinois', 'GA': 'georgia',
+        'NC': 'northcarolina', 'VA': 'virginia', 'CO': 'colorado', 'AZ': 'arizona',
+        'MO': 'missouri', 'AL': 'alabama', 'MS': 'mississippi', 'TN': 'tennessee',
+        'KY': 'kentucky', 'SC': 'southcarolina', 'IN': 'indiana', 'WI': 'wisconsin',
+        'MN': 'minnesota', 'IA': 'iowa', 'KS': 'kansas', 'NE': 'nebraska',
+    }
+    sn = state_names.get(ST, st)
+
+    # Method 1: Brute-force common URL patterns (state-aware)
+    if entity_type == "county":
+        urls = [
+            f"https://www.co.{cn}.{st}.us",
+            f"https://co.{cn}.{st}.us",
+            f"https://www.{ch}county.org",
+            f"https://www.{cn}county.org",
+            f"https://www.{ch}county{st}.gov",
+            f"https://www.{cn}county{st}.gov",
+            f"https://www.{ch}county.gov",
+            f"https://www.{cn}county.gov",
+            f"https://{ch}county.org",
+            f"https://{cn}county.org",
+            f"https://{ch}county{st}.gov",
+            f"https://{cn}county{st}.gov",
+            f"https://www.{ch}.{st}.us",
+            f"https://www.{cn}{st}.gov",
+            f"https://www.{ch}county.{sn}.gov",
+            f"https://www.{cn}county.{sn}.gov",
+            f"https://www.{cn}county.us",
+            f"https://www.{ch}county.us",
+            f"https://www.{cn}county.com",
+            f"https://www.{ch}county.com",
+            f"https://www.{ch}county.net",
+        ]
+    else:  # city
+        urls = [
+            f"https://www.{cn}{st}.gov",
+            f"https://www.{cn}{st}.org",
+            f"https://www.{cn}{st}.us",
+            f"https://www.ci.{cn}.{st}.us",
+            f"https://ci.{cn}.{st}.us",
+            f"https://www.cityof{cn}.com",
+            f"https://www.cityof{cn}.org",
+            f"https://www.cityof{cn}.net",
+            f"https://cityof{cn}.com",
+            f"https://cityof{cn}.org",
+            f"https://www.{cn}.org",
+            f"https://www.{cn}.us",
+            f"https://www.{ch}{st}.gov",
+            f"https://www.{ch}{st}.org",
+            f"https://www.city-of-{ch}.com",
+            f"https://www.city-of-{ch}.org",
+            f"https://www.{cn}{sn}.gov",
+            f"https://www.{cn}{sn}.org",
+            f"https://www.townof{cn}.com",
+            f"https://www.townof{cn}.org",
+            f"https://www.villageof{cn}.com",
+        ]
+
     for url in urls:
         try:
             r = requests.head(url, headers=HEADERS, timeout=8, allow_redirects=True)
@@ -1109,11 +1252,15 @@ def find_website(county_name):
         except Exception:
             pass
 
-    # Method 2: DuckDuckGo search fallback (with delay to avoid rate limiting)
-    print(f"      🔎 URL patterns failed, trying DuckDuckGo...")
-    time.sleep(3)  # Longer delay before search to avoid CAPTCHA
-    query = f'"{county_name}" texas official site .gov OR .us OR .org'
-    result = search_duckduckgo(query)
+    # Method 2: DDG search fallback
+    print(f"      🔎 URL patterns failed, trying search...")
+    time.sleep(2)
+    state_full = state_names.get(ST, ST)
+    if entity_type == "county":
+        query = f'"{entity_name}" {state_full} official site .gov OR .us OR .org'
+    else:
+        query = f'"City of {c}" {state_full} city government site .gov OR .org OR .us'
+    result = search_for_website(query, entity_name=entity_name, entity_type=entity_type, state_abbr=state_abbr)
     if result:
         # Verify the result is reachable
         try:
@@ -1159,13 +1306,13 @@ def save_contacts(contacts, state_id):
     return total
 
 
-def mark_county_crawled(county_id, website_url):
-    """Update county with last crawled timestamp and website."""
+def mark_entity_crawled(entity_id, website_url, table="counties"):
+    """Update county/city with last crawled timestamp and website."""
     try:
-        supabase.table("counties").update({
+        supabase.table(table).update({
             "last_crawled_at": datetime.now(timezone.utc).isoformat(),
             "website_url": website_url,
-        }).eq("id", county_id).execute()
+        }).eq("id", entity_id).execute()
     except Exception:
         pass
 
@@ -1174,9 +1321,10 @@ def mark_county_crawled(county_id, website_url):
 # MAIN PROCESSOR
 # =====================================================
 
-def process_county(county, state_id, force=False, deep=False):
+def process_county(county, state_id, force=False, deep=False, entity_type="county", state_abbr="TX"):
     name = county["name"]
     cid = county["id"]
+    table = "counties" if entity_type == "county" else "cities"
 
     # Skip if crawled recently (within 7 days) unless --force
     if not force and county.get("last_crawled_at"):
@@ -1190,7 +1338,7 @@ def process_county(county, state_id, force=False, deep=False):
             pass
 
     print(f"\n   🔍 Finding {name} website...")
-    base_url = county.get("website_url") or find_website(name)
+    base_url = county.get("website_url") or find_website(name, entity_type=entity_type, state_abbr=state_abbr)
     if not base_url:
         print(f"      ❌ No website found")
         return 0
@@ -1213,16 +1361,22 @@ def process_county(county, state_id, force=False, deep=False):
         all_domain = [e for e in body_emails if domain in e]
         print(f"         📧 Body domain emails: {len(all_domain)}")
 
-    # PHASE 1b: LinkedIn Name Discovery
-    print(f"      🔗 Phase 1b: LinkedIn name discovery...")
-    li_status, linkedin_names = linkedin_name_discovery(name)
-    existing_name_keys = {(n[0].lower(), n[1].lower()) for n in names}
-    new_linkedin = [n for n in linkedin_names if (n[0].lower(), n[1].lower()) not in existing_name_keys]
-    names.extend(new_linkedin)
-    li_msg = f"Found {len(linkedin_names)} LinkedIn names ({len(new_linkedin)} new)"
-    if li_status == "blocked":
-        li_msg += " [search blocked]"
-    print(f"         {li_msg}")
+    # PHASE 1b: LinkedIn Name Discovery (skip if Phase 1 found nothing or Google blocked)
+    has_phase1_results = len(mailto_emails) + len(cf_emails) + len(body_emails) + len(names) > 0
+    if has_phase1_results and not search_disabled:
+        print(f"      🔗 Phase 1b: LinkedIn name discovery...")
+        li_status, linkedin_names = linkedin_name_discovery(name, state_abbr=state_abbr)
+        existing_name_keys = {(n[0].lower(), n[1].lower()) for n in names}
+        new_linkedin = [n for n in linkedin_names if (n[0].lower(), n[1].lower()) not in existing_name_keys]
+        names.extend(new_linkedin)
+        li_msg = f"Found {len(linkedin_names)} LinkedIn names ({len(new_linkedin)} new)"
+        if li_status == "blocked":
+            li_msg += " [search blocked]"
+        print(f"         {li_msg}")
+    elif search_disabled:
+        print(f"      ⏭️ Phase 1b: Skipped (search disabled)")
+    else:
+        print(f"      ⏭️ Phase 1b: Skipped (no Phase 1 results)")
 
     # PHASE 2: Pattern Detection (check cache first, include CF emails)
     all_high_emails = mailto_emails + cf_emails
@@ -1300,7 +1454,7 @@ def process_county(county, state_id, force=False, deep=False):
     dork_emails = []
     pdf_emails = []
     pdf_names = []
-    if deep:
+    if deep and not search_disabled:
         print(f"      🕵️ Phase 5: Intelligence sweep (--deep)...")
 
         # 5a: Google dorking for @domain across the web
@@ -1333,6 +1487,8 @@ def process_county(county, state_id, force=False, deep=False):
             new_pdf_names = [n for n in pdf_names if (n[0].lower(), n[1].lower()) not in existing_name_keys]
             names.extend(new_pdf_names)
             print(f"         📄 PDFs: {len(new_pdf_names)} new names")
+    elif deep and search_disabled:
+        print(f"      ⏭️ Phase 5: Skipped (search disabled)")
     else:
         print(f"      ⏭️ Phase 5: Skipped (use --deep to enable)")
 
@@ -1344,8 +1500,10 @@ def process_county(county, state_id, force=False, deep=False):
     for email in mailto_emails:
         relevance, dept = score_dept_relevance(email)
         contacts.append({
-            "state_id": state_id, "county_id": cid,
-            "entity_name": name, "entity_type": "county",
+            "state_id": state_id,
+            "county_id": cid if entity_type == "county" else county.get("county_id"),
+            "city_id": cid if entity_type == "city" else None,
+            "entity_name": name, "entity_type": entity_type,
             "email": email, "department": dept,
             "website_url": base_url, "verified": True,
             "confidence": "high", "source": "mailto",
@@ -1358,8 +1516,10 @@ def process_county(county, state_id, force=False, deep=False):
         if email not in set(mailto_emails):  # avoid dupes with mailto
             relevance, dept = score_dept_relevance(email)
             contacts.append({
-                "state_id": state_id, "county_id": cid,
-                "entity_name": name, "entity_type": "county",
+                "state_id": state_id,
+            "county_id": cid if entity_type == "county" else county.get("county_id"),
+            "city_id": cid if entity_type == "city" else None,
+                "entity_name": name, "entity_type": entity_type,
                 "email": email, "department": dept,
                 "website_url": base_url, "verified": True,
                 "confidence": "high", "source": "cloudflare_decoded",
@@ -1371,8 +1531,10 @@ def process_county(county, state_id, force=False, deep=False):
     for email in body_emails:
         relevance, dept = score_dept_relevance(email)
         contacts.append({
-            "state_id": state_id, "county_id": cid,
-            "entity_name": name, "entity_type": "county",
+            "state_id": state_id,
+            "county_id": cid if entity_type == "county" else county.get("county_id"),
+            "city_id": cid if entity_type == "city" else None,
+            "entity_name": name, "entity_type": entity_type,
             "email": email, "department": dept,
             "website_url": base_url, "verified": True,
             "confidence": "medium", "source": "body",
@@ -1384,8 +1546,10 @@ def process_county(county, state_id, force=False, deep=False):
     for email in dork_emails:
         relevance, dept = score_dept_relevance(email)
         contacts.append({
-            "state_id": state_id, "county_id": cid,
-            "entity_name": name, "entity_type": "county",
+            "state_id": state_id,
+            "county_id": cid if entity_type == "county" else county.get("county_id"),
+            "city_id": cid if entity_type == "city" else None,
+            "entity_name": name, "entity_type": entity_type,
             "email": email, "department": dept,
             "website_url": base_url, "verified": True,
             "confidence": "medium", "source": "google_dork",
@@ -1397,8 +1561,10 @@ def process_county(county, state_id, force=False, deep=False):
     for email in pdf_emails:
         relevance, dept = score_dept_relevance(email)
         contacts.append({
-            "state_id": state_id, "county_id": cid,
-            "entity_name": name, "entity_type": "county",
+            "state_id": state_id,
+            "county_id": cid if entity_type == "county" else county.get("county_id"),
+            "city_id": cid if entity_type == "city" else None,
+            "entity_name": name, "entity_type": entity_type,
             "email": email, "department": dept,
             "website_url": base_url, "verified": True,
             "confidence": "medium", "source": "pdf_document",
@@ -1413,8 +1579,10 @@ def process_county(county, state_id, force=False, deep=False):
         # Minutes-sourced names get very_low confidence (guessing both name AND email)
         conf = "very_low" if src == "minutes" else "low"
         contacts.append({
-            "state_id": state_id, "county_id": cid,
-            "entity_name": name, "entity_type": "county",
+            "state_id": state_id,
+            "county_id": cid if entity_type == "county" else county.get("county_id"),
+            "city_id": cid if entity_type == "city" else None,
+            "entity_name": name, "entity_type": entity_type,
             "contact_name": g.get("contact_name"),
             "title": g.get("title"),
             "email": g["email"], "department": dept or g.get("title"),
@@ -1427,7 +1595,7 @@ def process_county(county, state_id, force=False, deep=False):
     saved = save_contacts(contacts, state_id)
 
     # Update county crawl timestamp
-    mark_county_crawled(cid, base_url)
+    mark_entity_crawled(cid, base_url, table=table)
 
     # Cache pattern + catch-all status for future runs
     if pattern_name:
@@ -1436,7 +1604,8 @@ def process_county(county, state_id, force=False, deep=False):
     # Log crawl run summary
     try:
         supabase.table("crawl_runs").insert({
-            "county_id": cid,
+            "county_id": cid if entity_type == "county" else county.get("county_id"),
+            "city_id": cid if entity_type == "city" else None,
             "state_id": state_id,
             "domain": domain,
             "pages_crawled": pages,
@@ -1469,56 +1638,112 @@ def main():
     parser.add_argument("--deep", action="store_true",
                         help="Enable Phase 5: Google dork + PDF extraction")
     parser.add_argument("--counties", nargs="+",
-                        help="Target specific counties (e.g. 'Bexar County' 'Harris County')")
+                        help="Target specific counties/cities (e.g. 'Bexar County' 'Houston city')")
     parser.add_argument("--state", default="TX",
                         help="State abbreviation (default: TX)")
+    parser.add_argument("--type", default="county", choices=["county", "city"],
+                        help="Entity type to crawl (default: county)")
+    parser.add_argument("--skip-cdp", action="store_true", default=True,
+                        help="Skip Census Designated Places (default: True)")
+    parser.add_argument("--include-cdp", action="store_true",
+                        help="Include CDPs (overrides --skip-cdp)")
+    parser.add_argument("--min-pop", type=int, default=0,
+                        help="Minimum population to crawl (default: 0)")
+    parser.add_argument("--no-search", action="store_true",
+                        help="Skip all search-dependent phases (LinkedIn, dork, website search fallback)")
+    parser.add_argument("--skip", type=int, default=0,
+                        help="Skip first N entities (resume from entity N+1)")
     args = parser.parse_args()
+
+    entity_type = args.type
+    table = "counties" if entity_type == "county" else "cities"
+    label = "counties" if entity_type == "county" else "cities"
+    Label = label.capitalize()
+    skip_cdp = args.skip_cdp and not args.include_cdp
+
+    # Wire --no-search to global flag
+    global search_disabled
+    if args.no_search:
+        search_disabled = True
 
     print("=" * 65)
     print("🔥 Email Discovery Engine v3.1")
     print("   Phase 1:  Crawl (mailto + CF decode + body)")
-    print("   Phase 1b: LinkedIn name discovery")
+    if search_disabled:
+        print("   Phase 1b: LinkedIn name discovery [DISABLED — --no-search]")
+    else:
+        print("   Phase 1b: LinkedIn name discovery")
     print("   Phase 2:  Pattern detection + caching")
     print("   Phase 3:  Name → email generation")
     print("   Phase 4:  SMTP verification")
-    if args.deep:
-        print("   Phase 5:  Intelligence sweep (Google dork + PDF) ✅")
+    if args.deep and not search_disabled:
+        print("   Phase 5:  Intelligence sweep (DDG dork + PDF) ✅")
+    elif args.deep and search_disabled:
+        print("   Phase 5:  Intelligence sweep [DISABLED — --no-search]")
     else:
         print("   Phase 5:  Intelligence sweep [SKIPPED — use --deep]")
-    print(f"   Flags:    {'--force ' if args.force else ''}{'--deep ' if args.deep else ''}--state {args.state}")
+    flags = f"{'--force ' if args.force else ''}{'--deep ' if args.deep else ''}--state {args.state} --type {entity_type}"
+    if skip_cdp:
+        flags += " --skip-cdp"
+    if args.min_pop > 0:
+        flags += f" --min-pop {args.min_pop}"
+    if search_disabled:
+        flags += " --no-search"
+    print(f"   Flags:    {flags}")
     print("=" * 65)
 
     state = supabase.table("states").select("id").eq("abbreviation", args.state).single().execute()
     state_id = state.data["id"]
 
-    counties = []
+    entities = []
     offset = 0
     while True:
-        r = supabase.table("counties").select("*").eq("state_id", state_id).range(offset, offset + 999).execute()
-        counties.extend(r.data)
+        r = supabase.table(table).select("*").eq("state_id", state_id).range(offset, offset + 999).execute()
+        entities.extend(r.data)
         if len(r.data) < 1000:
             break
         offset += 1000
 
-    # Filter to specific counties if requested
+    total_loaded = len(entities)
+
+    # Filter out CDPs (unincorporated areas with no municipal government)
+    if entity_type == "city" and skip_cdp:
+        entities = [e for e in entities if not e["name"].lower().endswith(" cdp")]
+        cdp_skipped = total_loaded - len(entities)
+        if cdp_skipped:
+            print(f"\n   ⏭️  Skipped {cdp_skipped} CDPs (use --include-cdp to override)")
+
+    # Filter by minimum population
+    if args.min_pop > 0:
+        before = len(entities)
+        entities = [e for e in entities if (e.get("population") or 0) >= args.min_pop]
+        pop_skipped = before - len(entities)
+        if pop_skipped:
+            print(f"   ⏭️  Skipped {pop_skipped} entities under population {args.min_pop}")
+
+    # Filter to specific entities if requested
     if args.counties:
         target_names = {c.lower() for c in args.counties}
-        counties = [c for c in counties if c["name"].lower() in target_names]
-        if not counties:
-            print(f"\n❌ No counties matched: {args.counties}")
-            print(f"   Available: {', '.join(sorted(c['name'] for c in counties)[:10])}...")
+        entities = [c for c in entities if c["name"].lower() in target_names]
+        if not entities:
+            print(f"\n❌ No {label} matched: {args.counties}")
             return
 
-    print(f"\n📊 {len(counties)} {args.state} counties to process\n")
+    # Skip first N entities if --skip provided
+    if args.skip > 0:
+        entities = entities[args.skip:]
+        print(f"   ⏭️  Skipped first {args.skip} entities (--skip {args.skip})")
+
+    print(f"\n📊 {len(entities)} {args.state} {label} to process\n")
 
     total = 0
     with_results = 0
 
-    for i, county in enumerate(counties, 1):
+    for i, entity in enumerate(entities, args.skip + 1):
         print(f"{'='*50}")
-        print(f"[{i}/{len(counties)}] {county['name']}")
+        print(f"[{i}/{len(entities)}] {entity['name']}")
         try:
-            n = process_county(county, state_id, force=args.force, deep=args.deep)
+            n = process_county(entity, state_id, force=args.force, deep=args.deep, entity_type=entity_type, state_abbr=args.state)
             if n > 0:
                 with_results += 1
                 total += n
@@ -1528,10 +1753,12 @@ def main():
 
     print(f"\n{'='*65}")
     print(f"✅ COMPLETE")
-    print(f"   Counties processed:    {len(counties)}")
-    print(f"   Counties with results: {with_results}")
+    print(f"   {Label} processed:    {len(entities)}")
+    print(f"   {Label} with results: {with_results}")
     print(f"   Total contacts saved:  {total}")
     print(f"{'='*65}")
+
+
 
 
 if __name__ == "__main__":

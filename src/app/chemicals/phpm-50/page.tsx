@@ -17,7 +17,10 @@ export const metadata: Metadata = {
         title: "PHPM-50™ (PHPM50) | Heatless Tack Oil & Hydro-Reactive Pothole Patch",
         description: "PHPM50 heatless tack oil and pothole patch — cures permanently in standing water. Available in 275-gallon totes.",
         images: [{ url: "https://crownwoodchemicals.com/images/phpm-hero.png", width: 1200, height: 630 }],
-    }
+    },
+    alternates: {
+        canonical: "/chemicals/phpm-50",
+    },
 };
 
 export default function PhpmPage() {
@@ -36,6 +39,7 @@ export default function PhpmPage() {
             "@type": "Offer",
             "url": "https://crownwoodchemicals.com/chemicals/phpm-50",
             "priceCurrency": "USD",
+            "price": "2750.00",
             "availability": "https://schema.org/InStock",
             "seller": {
                 "@type": "Organization",

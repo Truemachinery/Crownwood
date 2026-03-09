@@ -10,7 +10,10 @@ export const metadata = {
         title: "Knowledge Hub | Crownwood Chemicals",
         description: "Technical insights, application protocols, and industry guides for chemical infrastructure and heavy construction.",
         type: "website",
-    }
+    },
+    alternates: {
+        canonical: "/knowledge-hub",
+    },
 };
 
 export default function KnowledgeHubPage() {

@@ -45,12 +45,19 @@ RESEND_API_KEY = os.environ.get("RESEND_API_KEY")
 SUPABASE_URL = os.environ.get("NEXT_PUBLIC_SUPABASE_URL") or os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
 
-if not SUPABASE_URL or not SUPABASE_KEY:
-    raise ValueError("Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY")
-if not RESEND_API_KEY:
-    raise ValueError("Set RESEND_API_KEY")
+# Lazy init — preview command doesn't need these
+supabase = None
+def _get_supabase():
+    global supabase
+    if supabase is None:
+        if not SUPABASE_URL or not SUPABASE_KEY:
+            raise ValueError("Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY")
+        supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+    return supabase
 
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+def _require_resend():
+    if not RESEND_API_KEY:
+        raise ValueError("Set RESEND_API_KEY")
 
 FROM_EMAIL = "Crownwood Chemicals <outreach@sales.crownwoodchemicals.com>"
 REPLY_TO = "nate@crownwoodchemicals.com"
@@ -63,15 +70,22 @@ CONFIDENCE_RANK = {"high": 4, "medium": 3, "low": 2, "very_low": 1}
 
 
 # =====================================================
-# PRODUCT EMAIL TEMPLATES
+# SEQUENCE TEMPLATES
 # =====================================================
 
-def get_template(product, contact):
-    """Return (subject, html_body) for a product email."""
+# Max steps per product sequence
+SEQUENCE_STEPS = {"permabase-black": 4, "permabase": 1, "meltdown": 1, "phpm-50": 1}
+
+# Day delays between steps (index 0 = delay before step 2, etc.)
+STEP_DELAYS = {1: 0, 2: 4, 3: 9, 4: 16}
+
+
+def get_sequence_template(product, contact, step=1):
+    """Return (subject, html_body, preview_text) for a product email at a given sequence step."""
     name = contact.get("contact_name") or "Public Works Director"
     entity = contact.get("entity_name", "your county")
     first_name = name.split()[0] if name and name != "Public Works Director" else None
-    greeting = f"Hi {first_name}," if first_name else f"Hello,"
+    greeting = f"Hi {first_name}," if first_name else "Hello,"
 
     templates = {
         "meltdown": {
@@ -170,107 +184,157 @@ def get_template(product, contact):
 </div>"""
         },
 
-        "permabase-black": {
-            "subject": f"Permabase Black — Asphalt Preservation for {entity} Roads",
-            "html": f"""
-<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a2e;">
-  <div style="background: linear-gradient(135deg, #0a0a0a 0%, #2d2d2d 100%); padding: 32px; border-radius: 12px 12px 0 0;">
-    <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Permabase Black</h1>
-    <p style="color: #a1a1aa; margin: 8px 0 0 0; font-size: 14px;">High-Performance Asphalt Emulsion Sealer</p>
-  </div>
-  <div style="padding: 32px; background: #ffffff; border: 1px solid #e2e8f0; border-top: none;">
-    <p style="font-size: 16px; line-height: 1.6;">{greeting}</p>
-    <p style="font-size: 16px; line-height: 1.6;">
-      I'm reaching out from <strong>Crownwood Chemicals</strong> about asphalt maintenance for {entity}.
-      Our <strong>Permabase Black</strong> emulsion sealer extends pavement life and restores appearance:
-    </p>
-    <ul style="font-size: 15px; line-height: 1.8; color: #334155;">
-      <li>✅ <strong>Seals & protects</strong> existing asphalt from water, UV, and oxidation</li>
-      <li>✅ <strong>Fills hairline cracks</strong> — prevents water infiltration</li>
-      <li>✅ <strong>Restores black appearance</strong> — like fresh pavement</li>
-      <li>✅ <strong>275-gallon totes</strong> — covers ~14,000 sq ft per tote</li>
-      <li>✅ <strong>Cost: fraction of repaving</strong> — extends road life 5-7 years</li>
-    </ul>
-    <p style="font-size: 16px; line-height: 1.6;">
-      Perfect for county parking lots, subdivision streets, and low-traffic roads.
-      We deliver throughout Texas.
-    </p>
-    <div style="text-align: center; margin: 24px 0;">
-      <a href="https://crownwoodchemicals.com/chemicals/permabase-black"
-         style="background: linear-gradient(135deg, #3f3f46, #18181b); color: white; padding: 14px 32px;
-                border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;
-                display: inline-block;">
-        Learn More About Permabase Black →
-      </a>
-    </div>
-    <p style="font-size: 16px; line-height: 1.6;">
-      Would you like a quote for your county's road network?
-    </p>
-    <p style="font-size: 16px; line-height: 1.6; margin-top: 24px;">
-      Best regards,<br>
-      <strong>Crownwood Chemicals</strong><br>
-      <span style="color: #64748b;">sales@crownwoodchemicals.com</span>
-    </p>
-  </div>
-  <div style="padding: 16px; text-align: center; font-size: 12px; color: #94a3b8; background: #f8fafc; border-radius: 0 0 12px 12px;">
-    Crownwood Chemicals · Texas · <a href="https://crownwoodchemicals.com" style="color: #64748b;">crownwoodchemicals.com</a>
-  </div>
-</div>"""
-        },
+        "permabase-black": _pb_black_sequence(greeting, first_name, entity, step),
 
         "phpm-50": {
-            "subject": f"PHPM-50 Dust Control — Road Maintenance Solution for {entity}",
-            "html": f"""
-<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a2e;">
-  <div style="background: linear-gradient(135deg, #78350f 0%, #a16207 100%); padding: 32px; border-radius: 12px 12px 0 0;">
-    <h1 style="color: #fef3c7; margin: 0; font-size: 28px;">PHPM-50</h1>
-    <p style="color: #fde68a; margin: 8px 0 0 0; font-size: 14px;">Dust Control & Road Stabilizer</p>
-  </div>
-  <div style="padding: 32px; background: #ffffff; border: 1px solid #e2e8f0; border-top: none;">
+            1: {
+                "subject": f"PHPM-50 Dust Control — Road Maintenance Solution for {entity}",
+                "preview": "Permanent dust suppression for unpaved county roads.",
+                "html": f"""<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a2e;">
+  <div style="padding: 32px; background: #ffffff;">
     <p style="font-size: 16px; line-height: 1.6;">{greeting}</p>
     <p style="font-size: 16px; line-height: 1.6;">
       Is dust on unpaved roads a challenge for {entity}? Our <strong>PHPM-50</strong>
-      dust control agent provides long-lasting suppression:
+      dust control agent provides long-lasting suppression — 85-95% reduction, lasts through
+      multiple rain cycles, and hardens the road surface. Non-toxic, spray-on with a standard water truck.
     </p>
-    <ul style="font-size: 15px; line-height: 1.8; color: #334155;">
-      <li>✅ <strong>Suppresses dust 85-95%</strong> — immediate results</li>
-      <li>✅ <strong>Lasts through multiple rain cycles</strong> — not washed away</li>
-      <li>✅ <strong>Hardens road surface</strong> — reduces maintenance needs</li>
-      <li>✅ <strong>Environmentally friendly</strong> — non-toxic formula</li>
-      <li>✅ <strong>Easy application</strong> — standard water truck</li>
-    </ul>
-    <p style="font-size: 16px; line-height: 1.6;">
-      PHPM-50 is ideal for unpaved county roads, construction access roads, and rural subdivisions.
-      Available in 275-gallon totes and bulk delivery.
-    </p>
-    <div style="text-align: center; margin: 24px 0;">
-      <a href="https://crownwoodchemicals.com/chemicals/phpm-50"
-         style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 14px 32px;
-                border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;
-                display: inline-block;">
-        Learn More About PHPM-50 →
-      </a>
-    </div>
-    <p style="font-size: 16px; line-height: 1.6;">
-      I'd love to discuss how PHPM-50 can help with your dust control needs. Available for a quick call?
-    </p>
+    <p style="font-size: 16px; line-height: 1.6;">Available in 275-gallon totes. We deliver throughout Texas.</p>
+    <p style="font-size: 16px; line-height: 1.6;">Worth a look?</p>
     <p style="font-size: 16px; line-height: 1.6; margin-top: 24px;">
-      Best regards,<br>
-      <strong>Crownwood Chemicals</strong><br>
-      <span style="color: #64748b;">sales@crownwoodchemicals.com</span>
+      — Nathaniel Jose<br>Crownwood Chemicals · San Antonio, TX<br>
+      <span style="color: #64748b;">Nate@crownwoodchemicals.com · (210) 792-5236</span>
     </p>
-  </div>
-  <div style="padding: 16px; text-align: center; font-size: 12px; color: #94a3b8; background: #f8fafc; border-radius: 0 0 12px 12px;">
-    Crownwood Chemicals · Texas · <a href="https://crownwoodchemicals.com" style="color: #64748b;">crownwoodchemicals.com</a>
   </div>
 </div>"""
+            },
         },
     }
 
     tmpl = templates.get(product)
     if not tmpl:
         raise ValueError(f"Unknown product: {product}. Options: {', '.join(templates.keys())}")
-    return tmpl["subject"], tmpl["html"]
+
+    # For products with sequences, tmpl is already the step dict
+    # For products without sequences, tmpl is a dict with step keys
+    if isinstance(tmpl, dict) and "subject" in tmpl:
+        return tmpl["subject"], tmpl["html"], tmpl.get("preview", "")
+    elif isinstance(tmpl, dict) and step in tmpl:
+        s = tmpl[step]
+        return s["subject"], s["html"], s.get("preview", "")
+    else:
+        raise ValueError(f"No step {step} for product {product}")
+
+
+def _pb_black_sequence(greeting, first_name, entity, step):
+    """Permabase Black 4-step cold outreach sequence."""
+    PRODUCT_URL = "https://www.crownwoodchemicals.com/chemicals/permabase-black"
+    SIG_FULL = """
+— Nathaniel Jose
+Crownwood Chemicals · San Antonio, TX
+Nate@crownwoodchemicals.com · (210) 792-5236
+crownwoodchemicals.com"""
+    SIG_SHORT = """
+— Nate
+(210) 792-5236"""
+
+    sequences = {
+        # ── STEP 1: THE HOOK (~110 words, minimal HTML with button) ──
+        1: {
+            "subject": f"Stabilize + prime 1 mile of county road for $5,400 — {entity}",
+            "preview": "No heat required. Shoots from any water truck or spray trailer.",
+            "html": f"""<div style="font-family: Georgia, 'Times New Roman', serif; max-width: 600px; margin: 0 auto; color: #27272a; font-size: 16px; line-height: 1.7;">
+
+<p>{greeting}</p>
+
+<p>Most counties are facing the same math: miles of failing dirt and chipseal roads, a shrinking budget, and no asphalt money.</p>
+
+<p><strong>Permabase Black</strong> closes that gap. It's a polymer emulsion that permanently stabilizes the subgrade and doubles as the prime coat and tack coat underseal — one product, one pass, three jobs done. Shoots cold from any water truck or spray trailer. No heat, no special equipment.</p>
+
+<p>One 275-gallon tote covers ~1 mile at 20ft wide. <strong>$5,400 delivered</strong> to your job site. Made in Texas.</p>
+
+<div style="text-align: center; margin: 28px 0;">
+  <a href="{PRODUCT_URL}" target="_blank"
+     style="background-color:#18181b;color:#ffffff;font-family:Arial,sans-serif;font-size:15px;font-weight:700;
+            text-decoration:none;padding:14px 36px;border-radius:4px;display:inline-block;">
+    Watch the Field Demo →
+  </a>
+</div>
+
+<p>Worth a look for your road program?</p>
+
+<p style="margin-top: 28px; font-size: 14px; color: #52525b; border-top: 1px solid #e4e4e7; padding-top: 20px;">
+  <strong>Nathaniel Jose</strong><br>
+  Crownwood Chemicals · San Antonio, TX<br>
+  <a href="mailto:Nate@crownwoodchemicals.com" style="color:#2563eb;text-decoration:none;">Nate@crownwoodchemicals.com</a> · <a href="tel:+12107925236" style="color:#2563eb;text-decoration:none;">(210) 792-5236</a><br>
+  <a href="https://www.crownwoodchemicals.com" style="color:#71717a;text-decoration:none;">crownwoodchemicals.com</a>
+</p>
+
+</div>"""
+        },
+
+        # ── STEP 2: ANGLE SHIFT — "no heat, any equipment" (Day 4, plain text) ──
+        2: {
+            "subject": f"re: quick follow-up — {entity} road question",
+            "preview": "One detail I didn't mention — no heat required.",
+            "html": f"""<div style="font-family: Georgia, 'Times New Roman', serif; max-width: 600px; margin: 0 auto; color: #27272a; font-size: 16px; line-height: 1.7;">
+
+<p>{greeting}</p>
+
+<p>Sent a note a few days ago about Permabase Black — wanted to add one detail.</p>
+
+<p>Unlike tack or prime emulsions, it requires no heat. Apply it cold, straight from whatever you already have — water truck, distributor, or even a homemade trailer with a trash pump. If it sprays water, it sprays Permabase Black.</p>
+
+<p>Here's the field demo: <a href="{PRODUCT_URL}" style="color:#2563eb;">{PRODUCT_URL}</a></p>
+
+<p style="white-space: pre-line;">{SIG_SHORT}</p>
+
+</div>"""
+        },
+
+        # ── STEP 3: VALUE ADD — cost comparison (Day 9, plain text) ──
+        3: {
+            "subject": f"cost comparison for your files — {entity}",
+            "preview": "$5,400/mile vs. $80,000+/mile — the budget math.",
+            "html": f"""<div style="font-family: Georgia, 'Times New Roman', serif; max-width: 600px; margin: 0 auto; color: #27272a; font-size: 16px; line-height: 1.7;">
+
+<p>{greeting}</p>
+
+<p>Figured this might be useful for road budget planning:</p>
+
+<p>
+• Permabase Black: ~$5,400/mile (base stabilization + prime coat, one pass)<br>
+• Hot-mix asphalt: $80,000–$120,000+/mile<br>
+• Lime + asphalt cap: two mobilizations, double the cost
+</p>
+
+<p>Happy to put together a quote for specific footage if anything's on the radar.</p>
+
+<p style="white-space: pre-line;">{SIG_SHORT}</p>
+
+</div>"""
+        },
+
+        # ── STEP 4: BREAKUP (Day 16, plain text) ──
+        4: {
+            "subject": "closing your file",
+            "preview": "",
+            "html": f"""<div style="font-family: Georgia, 'Times New Roman', serif; max-width: 600px; margin: 0 auto; color: #27272a; font-size: 16px; line-height: 1.7;">
+
+<p>{greeting}</p>
+
+<p>Haven't heard back, so I'll assume the timing isn't right — closing your file.</p>
+
+<p>If road stabilization or dust control ever comes around, you can reach me directly at <a href="mailto:Nate@crownwoodchemicals.com" style="color:#2563eb;">Nate@crownwoodchemicals.com</a> or (210) 792-5236.</p>
+
+<p>Good luck with the season.</p>
+
+<p style="white-space: pre-line;">{SIG_SHORT}</p>
+
+</div>"""
+        },
+    }
+
+    return sequences.get(step, sequences[1])
 
 
 # =====================================================
@@ -280,9 +344,9 @@ def get_template(product, contact):
 def create_campaign(product, states, min_confidence="medium", min_relevance=0, entity_type=None):
     """Create a new campaign and return the campaign ID."""
     # Build target query to count contacts
-    query = supabase.table("municipal_contacts").select("id", count="exact")
+    query = _get_supabase().table("municipal_contacts").select("id", count="exact")
     if states:
-        state_rows = supabase.table("states").select("id, abbreviation").execute()
+        state_rows = _get_supabase().table("states").select("id, abbreviation").execute()
         state_map = {s["abbreviation"]: s["id"] for s in state_rows.data}
         state_ids = [state_map[s] for s in states if s in state_map]
         if state_ids:
@@ -301,10 +365,10 @@ def create_campaign(product, states, min_confidence="medium", min_relevance=0, e
 
     # Get subject line for template preview
     sample_contact = {"contact_name": "John Smith", "entity_name": "Sample County"}
-    subject, _ = get_template(product, sample_contact)
+    subject, _, _ = get_sequence_template(product, sample_contact, step=1)
 
     # Create campaign record
-    campaign = supabase.table("email_campaigns").insert({
+    campaign = _get_supabase().table("email_campaigns").insert({
         "name": f"{product.title()} Campaign — {', '.join(states) if states else 'All States'}",
         "product": product,
         "subject_line": subject.replace("Sample County", "{county}"),
@@ -333,10 +397,10 @@ def create_campaign(product, states, min_confidence="medium", min_relevance=0, e
     return cid
 
 
-def send_campaign(campaign_id, dry_run=False, batch_size=50, min_confidence="medium", min_relevance=0):
+def send_campaign(campaign_id, dry_run=False, batch_size=50, min_confidence="medium", min_relevance=0, step=1):
     """Send emails for a campaign."""
     # Load campaign
-    camp = supabase.table("email_campaigns").select("*").eq("id", campaign_id).single().execute()
+    camp = _get_supabase().table("email_campaigns").select("*").eq("id", campaign_id).single().execute()
     if not camp.data:
         print(f"❌ Campaign {campaign_id} not found")
         return
@@ -344,19 +408,35 @@ def send_campaign(campaign_id, dry_run=False, batch_size=50, min_confidence="med
     product = campaign["product"]
     target_states = campaign.get("target_states") or []
 
+    max_steps = SEQUENCE_STEPS.get(product, 1)
+    if step > max_steps:
+        print(f"❌ Product '{product}' only has {max_steps} step(s). Requested step {step}.")
+        return
+
     print(f"\n{'='*60}")
     print(f"📧 {'DRY RUN — ' if dry_run else ''}Sending: {campaign['name']}")
-    print(f"   Product: {product}")
+    print(f"   Product: {product}  |  Step: {step}/{max_steps}  |  Day {STEP_DELAYS.get(step, 0)}")
     print(f"{'='*60}")
 
-    # Get contacts that haven't been sent this campaign
-    already_sent = supabase.table("email_sends").select("contact_id").eq("campaign_id", campaign_id).execute()
-    sent_ids = {r["contact_id"] for r in already_sent.data}
+    # Get contacts that have already received emails for this campaign
+    try:
+        already_sent = _get_supabase().table("email_sends").select("contact_id, sequence_step").eq("campaign_id", campaign_id).execute()
+    except Exception:
+        # sequence_step column might not exist yet
+        already_sent = _get_supabase().table("email_sends").select("contact_id").eq("campaign_id", campaign_id).execute()
+    # Track which contacts received which steps
+    sent_steps = {}
+    for r in already_sent.data:
+        cid = r["contact_id"]
+        s = r.get("sequence_step") or 1
+        sent_steps.setdefault(cid, set()).add(s)
+    # For this step, skip contacts who already received it
+    sent_ids = {cid for cid, steps in sent_steps.items() if step in steps}
 
     # Build contact query
-    query = supabase.table("municipal_contacts").select("*")
+    query = _get_supabase().table("municipal_contacts").select("*")
     if target_states:
-        state_rows = supabase.table("states").select("id, abbreviation").execute()
+        state_rows = _get_supabase().table("states").select("id, abbreviation").execute()
         state_map = {s["abbreviation"]: s["id"] for s in state_rows.data}
         state_ids = [state_map[s] for s in target_states if s in state_map]
         if state_ids:
@@ -392,16 +472,18 @@ def send_campaign(campaign_id, dry_run=False, batch_size=50, min_confidence="med
         return
 
     if dry_run:
-        print(f"\n   🔍 DRY RUN — First 5 recipients:")
+        print(f"\n   🔍 DRY RUN — Step {step} — First 5 recipients:")
         for c in to_send[:5]:
-            subject, _ = get_template(product, c)
+            subject, _, preview = get_sequence_template(product, c, step=step)
             print(f"      → {c['email']} ({c.get('entity_name', 'N/A')}) [{c.get('confidence', '?')}]")
             print(f"        Subject: {subject}")
-        print(f"\n   Would send {len(to_send)} emails. Run without --dry-run to send.")
+            if preview:
+                print(f"        Preview: {preview}")
+        print(f"\n   Would send {len(to_send)} emails (step {step}). Run without --dry-run to send.")
         return
 
     # Update campaign status
-    supabase.table("email_campaigns").update({"status": "sending"}).eq("id", campaign_id).execute()
+    _get_supabase().table("email_campaigns").update({"status": "sending"}).eq("id", campaign_id).execute()
 
     sent = 0
     failed = 0
@@ -412,7 +494,7 @@ def send_campaign(campaign_id, dry_run=False, batch_size=50, min_confidence="med
             print(f"\n   ⏸️  Batch limit ({batch_size}) reached. Run again to continue.")
             break
 
-        subject, html = get_template(product, contact)
+        subject, html, preview = get_sequence_template(product, contact, step=step)
 
         try:
             response = requests.post(
@@ -427,6 +509,9 @@ def send_campaign(campaign_id, dry_run=False, batch_size=50, min_confidence="med
                     "reply_to": REPLY_TO,
                     "subject": subject,
                     "html": html,
+                    **({
+                        "headers": {"X-Entity-Ref-ID": f"{campaign_id}-{contact['id']}-s{step}"}
+                    } if step > 1 else {}),
                 },
                 timeout=10,
             )
@@ -434,14 +519,20 @@ def send_campaign(campaign_id, dry_run=False, batch_size=50, min_confidence="med
             if response.status_code == 200:
                 resend_id = response.json().get("id", "")
                 # Record send
-                supabase.table("email_sends").insert({
+                send_record = {
                     "campaign_id": campaign_id,
                     "contact_id": contact["id"],
                     "status": "sent",
                     "resend_message_id": resend_id,
-                }).execute()
+                }
+                try:
+                    send_record["sequence_step"] = step
+                    _get_supabase().table("email_sends").insert(send_record).execute()
+                except Exception:
+                    del send_record["sequence_step"]
+                    _get_supabase().table("email_sends").insert(send_record).execute()
                 # Update contact status
-                supabase.table("municipal_contacts").update(
+                _get_supabase().table("municipal_contacts").update(
                     {"campaign_status": "sent"}
                 ).eq("id", contact["id"]).execute()
 
@@ -455,12 +546,12 @@ def send_campaign(campaign_id, dry_run=False, batch_size=50, min_confidence="med
 
                 # Check for bounce
                 if response.status_code == 422:
-                    supabase.table("email_sends").insert({
+                    _get_supabase().table("email_sends").insert({
                         "campaign_id": campaign_id,
                         "contact_id": contact["id"],
                         "status": "bounced",
                     }).execute()
-                    supabase.table("municipal_contacts").update(
+                    _get_supabase().table("municipal_contacts").update(
                         {"campaign_status": "bounced"}
                     ).eq("id", contact["id"]).execute()
                     bounced += 1
@@ -472,7 +563,7 @@ def send_campaign(campaign_id, dry_run=False, batch_size=50, min_confidence="med
         time.sleep(SEND_DELAY)
 
     # Update campaign stats
-    supabase.table("email_campaigns").update({
+    _get_supabase().table("email_campaigns").update({
         "status": "completed" if sent + len(sent_ids) >= len(contacts) else "sending",
         "total_sent": len(sent_ids) + sent,
         "total_bounced": bounced,
@@ -489,13 +580,13 @@ def send_campaign(campaign_id, dry_run=False, batch_size=50, min_confidence="med
 
 def show_stats(campaign_id):
     """Show campaign statistics."""
-    camp = supabase.table("email_campaigns").select("*").eq("id", campaign_id).single().execute()
+    camp = _get_supabase().table("email_campaigns").select("*").eq("id", campaign_id).single().execute()
     if not camp.data:
         print(f"❌ Campaign {campaign_id} not found")
         return
     c = camp.data
 
-    sends = supabase.table("email_sends").select("status", count="exact").eq("campaign_id", campaign_id).execute()
+    sends = _get_supabase().table("email_sends").select("status", count="exact").eq("campaign_id", campaign_id).execute()
     status_counts = {}
     for s in sends.data:
         st = s.get("status", "unknown")
@@ -520,7 +611,7 @@ def show_stats(campaign_id):
 
 def list_campaigns():
     """List all campaigns."""
-    camps = supabase.table("email_campaigns").select("*").order("created_at", desc=True).execute()
+    camps = _get_supabase().table("email_campaigns").select("*").order("created_at", desc=True).execute()
     if not camps.data:
         print("No campaigns found.")
         return
@@ -561,6 +652,8 @@ def main():
     send_parser.add_argument("--min-confidence", default="medium",
                              choices=["high", "medium", "low", "very_low"])
     send_parser.add_argument("--min-relevance", type=int, default=0)
+    send_parser.add_argument("--step", type=int, default=1,
+                             help="Sequence step to send (1-4, default: 1)")
 
     # Stats
     stats_parser = subparsers.add_parser("stats", help="Show campaign stats")
@@ -569,6 +662,13 @@ def main():
     # List
     subparsers.add_parser("list", help="List all campaigns")
 
+    # Preview
+    preview_parser = subparsers.add_parser("preview", help="Preview a template")
+    preview_parser.add_argument("--product", required=True,
+                                choices=["meltdown", "permabase", "permabase-black", "phpm-50"])
+    preview_parser.add_argument("--step", type=int, default=1,
+                                help="Sequence step to preview (1-4)")
+
     args = parser.parse_args()
 
     if args.command == "create":
@@ -576,11 +676,18 @@ def main():
                        args.min_relevance, args.entity_type)
     elif args.command == "send":
         send_campaign(args.campaign_id, args.dry_run, args.batch_size,
-                     args.min_confidence, args.min_relevance)
+                     args.min_confidence, args.min_relevance, step=args.step)
     elif args.command == "stats":
         show_stats(args.campaign_id)
     elif args.command == "list":
         list_campaigns()
+    elif args.command == "preview":
+        sample = {"contact_name": "John Smith", "entity_name": "Bexar County"}
+        subject, html, preview = get_sequence_template(args.product, sample, step=args.step)
+        print(f"\nSubject: {subject}")
+        print(f"Preview: {preview}")
+        print(f"\n--- HTML Body ---\n{html}")
+        print(f"\nWord count (visible text): ~{len(html.split())} tokens")
     else:
         parser.print_help()
 

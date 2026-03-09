@@ -11,7 +11,10 @@ export const metadata: Metadata = {
         title: "The Ultimate Guide to Sealcoating: Types, Brands & Performance",
         description: "A deep dive into sealcoat chemistry, application mechanics, and brand-by-brand comparison.",
         type: "article",
-    }
+    },
+    alternates: {
+        canonical: "/knowledge-hub/ultimate-guide-to-sealcoating",
+    },
 };
 
 const articleSchema = {

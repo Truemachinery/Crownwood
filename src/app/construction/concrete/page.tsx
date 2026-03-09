@@ -18,7 +18,10 @@ export const metadata: Metadata = {
         title: "San Antonio Commercial Concrete Services | Crownwood Chemicals",
         description: "Heavy industrial commercial concrete flatwork, ADA ramps, and structural repair in San Antonio.",
         images: [{ url: "https://crownwoodchemicals.com/images/concrete-hero.png", width: 1200, height: 630 }],
-    }
+    },
+    alternates: {
+        canonical: "/construction/concrete",
+    },
 };
 
 export const dynamic = 'force-static';
