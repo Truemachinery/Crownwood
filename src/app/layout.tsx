@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, DM_Serif_Display, JetBrains_Mono, Bebas_Neue, Barlow_Condensed } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -88,6 +89,7 @@ export default function RootLayout({
           <rect width="100%" height="100%" filter="url(#noiseFilter)" />
         </svg>
         {children}
+        <Analytics />
       </body>
     </html>
   );
