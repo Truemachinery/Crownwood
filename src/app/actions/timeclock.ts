@@ -1,16 +1,12 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { createClient } from "@supabase/supabase-js";
+import { getServiceClient } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 
 // IMPORTANT: We use the service_role key here to bypass RLS entirely,
 // because these server actions act as the trusted backend. 
 // The client never talks to Supabase directly for this feature.
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 // --- AUTH ACTIONS ---
 
@@ -43,7 +39,7 @@ export async function logoutTimeclockAdmin() {
 // --- EMPLOYEE ACTIONS ---
 
 export async function getEmployees() {
-    const { data, error } = await supabase
+    const { data, error } = await getServiceClient()
         .from("employees")
         .select("*")
         .eq("is_active", true)
@@ -54,7 +50,7 @@ export async function getEmployees() {
 }
 
 export async function getAllEmployeesAdmin() {
-    const { data, error } = await supabase
+    const { data, error } = await getServiceClient()
         .from("employees")
         .select("*")
         .order("is_active", { ascending: false })
@@ -65,7 +61,7 @@ export async function getAllEmployeesAdmin() {
 }
 
 export async function createEmployee(first_name: string, last_name: string, hourly_rate: number) {
-    const { data, error } = await supabase
+    const { data, error } = await getServiceClient()
         .from("employees")
         .insert([{ first_name, last_name, hourly_rate }])
         .select()
@@ -78,7 +74,7 @@ export async function createEmployee(first_name: string, last_name: string, hour
 }
 
 export async function updateEmployee(id: string, updates: { first_name?: string, last_name?: string, hourly_rate?: number, is_active?: boolean }) {
-    const { data, error } = await supabase
+    const { data, error } = await getServiceClient()
         .from("employees")
         .update(updates)
         .eq("id", id)
@@ -94,7 +90,7 @@ export async function updateEmployee(id: string, updates: { first_name?: string,
 // --- TIME ENTRY ACTIONS ---
 
 export async function getCurrentShift(employee_id: string) {
-    const { data, error } = await supabase
+    const { data, error } = await getServiceClient()
         .from("time_entries")
         .select("*")
         .eq("employee_id", employee_id)
@@ -112,7 +108,7 @@ export async function clockIn(employee_id: string) {
     const active = await getCurrentShift(employee_id);
     if (active) throw new Error("Already clocked in");
 
-    const { data, error } = await supabase
+    const { data, error } = await getServiceClient()
         .from("time_entries")
         .insert([{ employee_id, clock_in: new Date().toISOString() }])
         .select()
@@ -125,7 +121,7 @@ export async function clockIn(employee_id: string) {
 }
 
 export async function clockOut(time_entry_id: string, notes?: string) {
-    const { data, error } = await supabase
+    const { data, error } = await getServiceClient()
         .from("time_entries")
         .update({ clock_out: new Date().toISOString(), notes: notes || null })
         .eq("id", time_entry_id)
@@ -139,7 +135,7 @@ export async function clockOut(time_entry_id: string, notes?: string) {
 }
 
 export async function getRecentTimesheets(employee_id: string, limit = 50) {
-    const { data, error } = await supabase
+    const { data, error } = await getServiceClient()
         .from("time_entries")
         .select("*")
         .eq("employee_id", employee_id)
@@ -152,7 +148,7 @@ export async function getRecentTimesheets(employee_id: string, limit = 50) {
 }
 
 export async function getAllTimeEntriesAdmin(limit = 200) {
-    const { data, error } = await supabase
+    const { data, error } = await getServiceClient()
         .from("time_entries")
         .select("*, employees(first_name, last_name, hourly_rate)")
         .order("clock_in", { ascending: false })
@@ -167,7 +163,7 @@ export async function updateTimeEntryAdmin(id: string, clock_in: string, clock_o
     if (clock_out !== undefined) updates.clock_out = clock_out;
     if (notes !== undefined) updates.notes = notes;
 
-    const { data, error } = await supabase
+    const { data, error } = await getServiceClient()
         .from("time_entries")
         .update(updates)
         .eq("id", id)
@@ -181,7 +177,7 @@ export async function updateTimeEntryAdmin(id: string, clock_in: string, clock_o
 }
 
 export async function deleteTimeEntryAdmin(id: string) {
-    const { error } = await supabase
+    const { error } = await getServiceClient()
         .from("time_entries")
         .delete()
         .eq("id", id);
