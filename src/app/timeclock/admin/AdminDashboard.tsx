@@ -119,11 +119,11 @@ export function AdminDashboard({ initialEmployees, initialTimeEntries }: { initi
     });
 
     // Sort shifts inside each employee chronologically
-    Object.values(payrollMap).forEach(emp => {
+    Object.values(payrollMap).forEach((emp: any) => {
         emp.weeklyShifts.sort((a: any, b: any) => new Date(a.clock_in).getTime() - new Date(b.clock_in).getTime());
     });
 
-    const payrollList = Object.values(payrollMap).filter(p => p.totalHours > 0 || p.is_active).sort((a, b) => b.totalHours - a.totalHours);
+    const payrollList = Object.values(payrollMap).filter((p: any) => p.totalHours > 0 || p.is_active).sort((a: any, b: any) => b.totalHours - a.totalHours);
 
     // --- RENDER ---
     const handleExport1099 = () => {
@@ -147,7 +147,7 @@ export function AdminDashboard({ initialEmployees, initialTimeEntries }: { initi
             }
         });
 
-        const ytdList = Object.values(ytdMap).filter(p => p.ytdHours > 0 || p.is_active);
+        const ytdList = Object.values(ytdMap).filter((p: any) => p.ytdHours > 0 || p.is_active);
 
         // Generate CSV
         let csvContent = "data:text/csv;charset=utf-8,";
@@ -391,7 +391,7 @@ export function AdminDashboard({ initialEmployees, initialTimeEntries }: { initi
                             </div>
                             <div className="text-right">
                                 <div className="text-xs uppercase font-mono text-white/40 tracking-widest">Total Liability (This Week)</div>
-                                <div className="font-bebas text-4xl text-emerald-400">${payrollList.reduce((acc, p) => acc + p.totalPay, 0).toFixed(2)}</div>
+                                <div className="font-bebas text-4xl text-emerald-400">${payrollList.reduce((acc: number, p: any) => acc + p.totalPay, 0).toFixed(2)}</div>
                             </div>
                         </div>
 
@@ -415,7 +415,7 @@ export function AdminDashboard({ initialEmployees, initialTimeEntries }: { initi
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {payrollList.map(p => {
+                                    {payrollList.map((p: any) => {
                                         const isExpanded = expandedEids.includes(p.id);
                                         return (
                                             <React.Fragment key={p.id}>
