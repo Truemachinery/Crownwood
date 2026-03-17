@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSupabase } from "@/lib/supabase";
-import { Inbox, Clock, CheckCircle, Mail, Phone, Building2, FileText, ExternalLink, RefreshCw, Loader2, Eye, ChevronDown, ChevronUp, LogOut, Database } from "lucide-react";
+import { Inbox, Clock, CheckCircle, Mail, Phone, Building2, FileText, ExternalLink, RefreshCw, Loader2, Eye, ChevronDown, ChevronUp, LogOut, Database, Receipt, ShoppingCart, CreditCard, Users } from "lucide-react";
 
 interface Inquiry {
     id: string;
@@ -96,37 +96,54 @@ export default function AdminPage() {
             {/* Header */}
             <div className="border-b border-white/10 bg-[#111]">
                 <div className="max-w-7xl mx-auto px-6 md:px-12 py-8">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                        <div>
-                            <h1 className="font-heading font-bold text-3xl uppercase tracking-tight flex items-center gap-3">
-                                <Inbox className="w-8 h-8 text-safety-amber" />
-                                Inquiry Dashboard
-                            </h1>
-                            <p className="font-mono text-sm text-concrete/50 mt-1 tracking-wide">
-                                Crownwood Chemicals — Lead Management
-                            </p>
+                    <div className="flex flex-col gap-4">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <h1 className="font-heading font-bold text-3xl uppercase tracking-tight flex items-center gap-3">
+                                    <Inbox className="w-8 h-8 text-safety-amber" />
+                                    Admin Dashboard
+                                </h1>
+                                <p className="font-mono text-sm text-concrete/50 mt-1 tracking-wide">
+                                    Crownwood Chemicals — Management Hub
+                                </p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={fetchInquiries}
+                                    disabled={loading}
+                                    className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider hover:bg-white/10 transition-colors disabled:opacity-50"
+                                >
+                                    <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+                                    Refresh
+                                </button>
+                                <button
+                                    onClick={handleLogout}
+                                    className="flex items-center gap-2 bg-red-500/5 border border-red-500/20 px-3 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider text-red-400 hover:bg-red-500/10 transition-colors"
+                                >
+                                    <LogOut className="w-3.5 h-3.5" />
+                                </button>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <button
-                                onClick={fetchInquiries}
-                                disabled={loading}
-                                className="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-3 rounded-xl font-heading font-bold text-sm uppercase tracking-wider hover:bg-white/10 transition-colors disabled:opacity-50"
-                            >
-                                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-                                Refresh
+                        {/* Accounting Nav */}
+                        <div className="flex gap-2 flex-wrap">
+                            <button onClick={() => router.push("/admin/quotes")} className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider text-concrete/70 hover:bg-white/10 hover:text-safety-amber transition-colors">
+                                <FileText className="w-3.5 h-3.5" /> Quotes
                             </button>
-                            <button
-                                onClick={() => router.push("/admin/contacts")}
-                                className="flex items-center gap-2 bg-safety-amber/10 border border-safety-amber/20 px-5 py-3 rounded-xl font-heading font-bold text-sm uppercase tracking-wider text-safety-amber hover:bg-safety-amber/20 transition-colors"
-                            >
-                                <Database className="w-4 h-4" />
-                                Municipal Contacts
+                            <button onClick={() => router.push("/admin/invoices")} className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider text-concrete/70 hover:bg-white/10 hover:text-safety-amber transition-colors">
+                                <Receipt className="w-3.5 h-3.5" /> Invoices
                             </button>
-                            <button
-                                onClick={handleLogout}
-                                className="flex items-center gap-2 bg-red-500/5 border border-red-500/20 px-4 py-3 rounded-xl font-heading font-bold text-sm uppercase tracking-wider text-red-400 hover:bg-red-500/10 transition-colors"
-                            >
-                                <LogOut className="w-4 h-4" />
+                            <button onClick={() => router.push("/admin/purchase-orders")} className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider text-concrete/70 hover:bg-white/10 hover:text-safety-amber transition-colors">
+                                <ShoppingCart className="w-3.5 h-3.5" /> Purchase Orders
+                            </button>
+                            <button onClick={() => router.push("/admin/bills")} className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider text-concrete/70 hover:bg-white/10 hover:text-safety-amber transition-colors">
+                                <CreditCard className="w-3.5 h-3.5" /> Bills
+                            </button>
+                            <button onClick={() => router.push("/admin/customers")} className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider text-concrete/70 hover:bg-white/10 hover:text-safety-amber transition-colors">
+                                <Users className="w-3.5 h-3.5" /> Customers
+                            </button>
+                            <div className="w-px h-8 bg-white/10 self-center mx-1" />
+                            <button onClick={() => router.push("/admin/contacts")} className="flex items-center gap-2 bg-safety-amber/10 border border-safety-amber/20 px-4 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider text-safety-amber hover:bg-safety-amber/20 transition-colors">
+                                <Database className="w-3.5 h-3.5" /> Municipal Contacts
                             </button>
                         </div>
                     </div>
