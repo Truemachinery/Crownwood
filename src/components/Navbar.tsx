@@ -118,6 +118,7 @@ function NavDropdown({ item }: { item: NavItem }) {
 
 export function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
     const navRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -128,12 +129,22 @@ export function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (mobileOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => { document.body.style.overflow = ""; };
+    }, [mobileOpen]);
+
     return (
         <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-5xl transition-all duration-500 flex justify-center">
             <nav
                 ref={navRef}
                 className={cn(
-                    "flex items-center justify-between px-6 py-3 rounded-[2rem] border border-white/5 backdrop-blur-md transition-all duration-500",
+                    "relative flex items-center justify-between px-6 py-3 rounded-[2rem] border border-white/5 backdrop-blur-md transition-all duration-500",
                     scrolled ? "bg-industrial/90 shadow-2xl w-full" : "bg-industrial/50 w-full"
                 )}
             >
@@ -153,14 +164,71 @@ export function Navbar() {
                 </Link>
 
                 {/* Mobile menu toggle */}
-                <button className="md:hidden text-concrete">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="4" x2="20" y1="12" y2="12" />
-                        <line x1="4" x2="20" y1="6" y2="6" />
-                        <line x1="4" x2="20" y1="18" y2="18" />
-                    </svg>
+                <button
+                    className="md:hidden text-concrete z-10"
+                    onClick={() => setMobileOpen(!mobileOpen)}
+                    aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                >
+                    {mobileOpen ? (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="18" x2="6" y1="6" y2="18" />
+                            <line x1="6" x2="18" y1="6" y2="18" />
+                        </svg>
+                    ) : (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="4" x2="20" y1="12" y2="12" />
+                            <line x1="4" x2="20" y1="6" y2="6" />
+                            <line x1="4" x2="20" y1="18" y2="18" />
+                        </svg>
+                    )}
                 </button>
             </nav>
+
+            {/* Mobile menu panel */}
+            <div
+                className={cn(
+                    "absolute top-full left-0 right-0 mt-2 mx-4 rounded-2xl border border-white/10 bg-industrial/95 backdrop-blur-xl shadow-2xl shadow-black/50 md:hidden transition-all duration-300 overflow-hidden",
+                    mobileOpen
+                        ? "opacity-100 translate-y-0 pointer-events-auto max-h-[80vh]"
+                        : "opacity-0 -translate-y-4 pointer-events-none max-h-0"
+                )}
+            >
+                <div className="p-6 flex flex-col gap-2">
+                    {LINKS.map((link) => (
+                        <div key={link.name}>
+                            <Link
+                                href={link.href}
+                                onClick={() => setMobileOpen(false)}
+                                className="block py-3 text-concrete font-heading font-bold uppercase tracking-widest text-base hover:text-high-vis-yellow transition-colors"
+                            >
+                                {link.name}
+                            </Link>
+                            {link.dropdown && (
+                                <div className="pl-4 pb-2 flex flex-col gap-1 border-l border-white/10 ml-2">
+                                    {link.dropdown.map((sub) => (
+                                        <Link
+                                            key={sub.name}
+                                            href={sub.href}
+                                            onClick={() => setMobileOpen(false)}
+                                            className="py-2 text-concrete/60 text-sm font-mono hover:text-high-vis-yellow transition-colors"
+                                        >
+                                            {sub.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+
+                    <Link
+                        href="/contact"
+                        onClick={() => setMobileOpen(false)}
+                        className="mt-4 block text-center bg-safety-amber text-asphalt font-heading font-bold px-5 py-3 rounded-full uppercase tracking-wider text-sm hover:scale-105 transition-transform"
+                    >
+                        Get Quote
+                    </Link>
+                </div>
+            </div>
         </div>
     );
 }

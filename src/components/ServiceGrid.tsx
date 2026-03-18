@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,26 +13,31 @@ const SERVICES = [
     {
         title: "Asphalt Paving Services",
         keywords: "San Antonio & Surrounding Areas",
+        href: "/construction/asphalt-paving",
         desc: "Serving residential, commercial, city, and county roads in San Antonio. We handle full tear-outs, overlays, new asphalt project installation, driveways, parking lots, and precise pothole repairs."
     },
     {
         title: "Land Clearing & Leveling",
         keywords: "Heavy-Duty Site Prep",
+        href: "/construction/land-clearing",
         desc: "Heavy-duty land clearing, precise grading, and levelling. Everything in and between to prepare San Antonio properties for pristine development and construction."
     },
     {
         title: "Sealcoat Services",
         keywords: "Weather Protection",
+        href: "/construction/sealcoat",
         desc: "Highly detailed parking lot and driveway sealcoating. Protecting valuable asphalt infrastructure against extreme Texas weather, oxidation, and wear."
     },
     {
         title: "Parking Lot Striping",
         keywords: "ADA Compliance",
+        href: "/construction/striping",
         desc: "Precision line striping to ensure ADA compliance, optimal traffic flow, and sharp, professional aesthetics for commercial and municipal properties."
     },
     {
         title: "Concrete Services",
         keywords: "Structural Foundations",
+        href: "/construction/concrete",
         desc: "Licensed and insured full concrete crew for projects small or massive. Commercial flatwork, structural foundations, and all other forms of custom concrete delivery engineered for absolute durability."
     }
 ];
@@ -78,9 +84,10 @@ export function ServiceGrid() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {SERVICES.map((s, i) => (
-                        <div
+                        <Link
                             key={i}
-                            className={`service-card group relative bg-industrial rounded-[2rem] p-8 border border-white/5 transition-all duration-300 hover:-translate-y-2 hover:border-safety-amber/50 cursor-pointer overflow-hidden shadow-xl ${i === 0 ? 'lg:col-span-2' : ''}`}
+                            href={s.href}
+                            className={`service-card group relative bg-industrial rounded-[2rem] p-8 border border-white/5 transition-all duration-300 hover:-translate-y-2 hover:border-safety-amber/50 cursor-pointer overflow-hidden shadow-xl block ${i === 0 ? 'lg:col-span-2' : ''}`}
                         >
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-safety-amber to-high-vis-yellow transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 ease-out" />
 
@@ -97,7 +104,7 @@ export function ServiceGrid() {
                                     {s.desc}
                                 </p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
