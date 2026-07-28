@@ -1,44 +1,38 @@
 # Crownwood Chemicals
 
-> Manufacturer of polymer soil stabilization chemicals and provider of heavy construction services in Texas.
+> Texas supplier of road and soil products and provider of commercial and municipal construction services.
 
-## Products
+## Road Building Products
 
-### Permabase Black™
-Polymer bio-enzyme soil stabilizer with carbon-black tint. Permanently alters expansive clay, eliminates PM10 dust, and provides an asphalt-like aesthetic finish.
-Learn more: [Permabase Black](https://crownwoodchemicals.com/chemicals/permabase-black)
+Crownwood carries the PCT Fastphalt road line. Product claims on Crownwood pages are summarized from PCT manufacturer sheets; missing rates, cure times, packaging, compatibility, and certification details are identified rather than inferred.
 
-### Permabase™ (Standard)
-Clear polymer bio-enzyme soil stabilizer for permanent expansive clay stabilization and dust control.
-Learn more: [Permabase](https://crownwoodchemicals.com/chemicals/permabase)
+- [All PCT Road Building Products](https://crownwoodchemicals.com/chemicals/road-building-products)
+- [Dust Defeater](https://crownwoodchemicals.com/chemicals/dust-defeater) - cold-pour dust control for gravel and dirt roads
+- [FP PrimePatch / PHPM-50](https://crownwoodchemicals.com/chemicals/phpm-50) - no-heat tack membrane for patching and overlays
+- [Banana Slide](https://crownwoodchemicals.com/chemicals/banana-slide) - asphalt equipment release agent
+- [FP Blacktrac](https://crownwoodchemicals.com/chemicals/fp-blacktrac) - sprayable sealer for low-volume hot-mix roads
+- [Rumbleguard](https://crownwoodchemicals.com/chemicals/rumbleguard) - preventive treatment for rumble strips
+- [Eco Black / COS-50](https://crownwoodchemicals.com/chemicals/eco-black) - no-heat sealer for low-speed asphalt and chip seal
+- [BAM](https://crownwoodchemicals.com/chemicals/bam) - bonding adhesive material for injection and stockpile patching
+- [Monkey Business](https://crownwoodchemicals.com/chemicals/monkey-business) - D-limonene asphalt equipment cleaner
 
-### MeltDown MR-1™
-Soy-based 2-in-1 asphalt remover and release agent. Removes cured asphalt, tar, and tack oil while preventing adhesion to equipment. One product replaces separate remover and release agent.
-Learn more: [MeltDown MR-1](https://crownwoodchemicals.com/chemicals/meltdown)
+## Other Products
 
-### PHPM-50™
-Commercial-grade, hydro-reactive pothole repair polymer. Cures permanently in standing water and extreme temperatures with zero setup downtime.
-Learn more: [PHPM-50](https://crownwoodchemicals.com/chemicals/phpm-50)
+- [Permabase](https://crownwoodchemicals.com/chemicals/permabase) - soil-treatment product for suitable cohesive soils
+- [Permabase Black](https://crownwoodchemicals.com/chemicals/permabase-black) - tinted soil treatment for selected low-speed surfaces
+- [MeltDown MR-1](https://crownwoodchemicals.com/chemicals/meltdown) - soy-based asphalt remover and release treatment
 
 ## Construction Services
 
-- [Asphalt Paving](https://crownwoodchemicals.com/construction/asphalt-paving) — Parking lots, roadways, overlays, tear-outs, mill-and-overlay
-- [Concrete](https://crownwoodchemicals.com/construction/concrete) — Flatwork, ADA ramps, loading docks, dumpster pads, demolition
-- [Sealcoating](https://crownwoodchemicals.com/construction/sealcoat) — Commercial parking lot sealcoating, crack routing, preservation
-- [Striping](https://crownwoodchemicals.com/construction/striping) — ADA parking lot striping, thermoplastic, CAD layout design
-- [Land Clearing](https://crownwoodchemicals.com/construction/land-clearing) — Site prep, grading, forestry mulching, brush clearing
-- [Hydro Seeding](https://crownwoodchemicals.com/construction/hydro-seeding) — Erosion control, SWPPP compliance, revegetation
-
-## Knowledge Hub
-- [The Ultimate Guide to Sealcoating](https://crownwoodchemicals.com/knowledge-hub/ultimate-guide-to-sealcoating) — Types, brands, application rates, brand comparisons
-
-## Service Area
-Texas — San Antonio, Austin, Bexar County, and surrounding regions.
+- [Asphalt Paving](https://crownwoodchemicals.com/construction/asphalt-paving)
+- [Commercial Concrete](https://crownwoodchemicals.com/construction/concrete)
+- [Sealcoating](https://crownwoodchemicals.com/construction/sealcoat)
+- [Parking Lot Striping](https://crownwoodchemicals.com/construction/striping)
+- [Land Clearing and Site Prep](https://crownwoodchemicals.com/construction/land-clearing)
+- [Hydroseeding and Erosion Control](https://crownwoodchemicals.com/construction/hydro-seeding)
 
 ## Contact
-- Website: https://crownwoodchemicals.com
-- Contact page: https://crownwoodchemicals.com/contact
-- Email: nate@crownwoodchemicals.com
 
-## For AI Agents & Crawlers
-A detailed technical specification for all Crownwood Chemicals products is available at [llms-full.txt](https://crownwoodchemicals.com/llms-full.txt).
+- Based in: San Antonio, Texas
+- Email: nate@crownwoodchemicals.com
+- [Contact page](https://crownwoodchemicals.com/contact)

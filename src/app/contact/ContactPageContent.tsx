@@ -1,155 +1,56 @@
-"use client";
-
+import Link from "next/link";
+import { ArrowRight, Mail, MapPin } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
+import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import { Mail, Phone, MapPin, Clock, ArrowRight } from "lucide-react";
 
-const SERVICES = [
-    { name: "Permabase™", desc: "Polymer soil stabilization", href: "/chemicals/permabase" },
-    { name: "Permabase Black™", desc: "Asphalt rejuvenation", href: "/chemicals/permabase-black" },
-    { name: "MeltDown MR-1™", desc: "Soy-based asphalt remover", href: "/chemicals/meltdown" },
-    { name: "PHPM-50™", desc: "Pothole & patch material", href: "/chemicals/phpm-50" },
-    { name: "Asphalt Paving", desc: "Full-service paving", href: "/construction/asphalt-paving" },
-    { name: "Concrete", desc: "Flatwork & structural", href: "/construction/concrete" },
-    { name: "Sealcoat", desc: "Protective surface coating", href: "/construction/sealcoat" },
-    { name: "Striping", desc: "Pavement markings", href: "/construction/striping" },
+const startingPoints = [
+    ["PCT road products", "Dust, patching, preservation, release, and cleaning", "/chemicals/road-building-products"],
+    ["Soil products", "Permabase and Permabase Black", "/chemicals/permabase"],
+    ["Construction services", "Paving, concrete, surface work, clearing, and seeding", "/#construction"],
 ];
 
 export function ContactPageContent() {
     return (
-        <>
+        <main className="min-h-screen bg-asphalt text-concrete">
             <Navbar />
-            <main className="min-h-screen bg-[#0A0A0A] text-concrete">
-                {/* Hero */}
-                <section className="pt-32 pb-16 px-6 md:px-12 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-b from-safety-amber/5 via-transparent to-transparent" />
-                    <div className="max-w-6xl mx-auto relative">
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="w-12 h-[2px] bg-safety-amber" />
-                            <span className="font-mono text-xs text-safety-amber uppercase tracking-[0.25em]">
-                                Get in Touch
-                            </span>
-                        </div>
-                        <h1 className="font-heading font-bold text-4xl md:text-6xl uppercase tracking-tight leading-[0.95]">
-                            Let&apos;s Build
-                            <br />
-                            <span className="text-safety-amber">Something</span> Together
-                        </h1>
-                        <p className="font-sans text-lg text-concrete/60 mt-6 max-w-xl">
-                            Whether you need a quote on chemicals, a site assessment for construction,
-                            or want to discuss a municipal contract — we&apos;re here to help.
-                        </p>
-                    </div>
-                </section>
+            <section className="border-b border-white/10 px-6 pb-20 pt-40 md:px-12 lg:px-24">
+                <div className="mx-auto max-w-7xl">
+                    <p className="font-mono text-xs uppercase tracking-[0.22em] text-safety-amber">Contact Crownwood</p>
+                    <h1 className="mt-6 max-w-4xl font-heading text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">Tell us what the road, site, or equipment needs.</h1>
+                    <p className="mt-7 max-w-2xl font-sans text-lg leading-8 text-concrete/65">A useful first message includes the location, dimensions or quantity, current condition, intended use, schedule, and any plans or specifications.</p>
+                </div>
+            </section>
 
-                {/* Main Content Grid */}
-                <section className="px-6 md:px-12 pb-24">
-                    <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
-
-                        {/* Left: Contact Info */}
-                        <div className="lg:col-span-2 space-y-8">
-                            {/* Contact Details */}
-                            <div className="space-y-5">
-                                <a
-                                    href="mailto:nate@crownwoodchemicals.com"
-                                    className="flex items-start gap-4 group"
-                                >
-                                    <div className="w-11 h-11 rounded-xl bg-safety-amber/10 border border-safety-amber/20 flex items-center justify-center shrink-0 group-hover:bg-safety-amber/20 transition-colors">
-                                        <Mail className="w-5 h-5 text-safety-amber" />
-                                    </div>
-                                    <div>
-                                        <p className="font-heading font-bold text-sm uppercase tracking-wider text-concrete/50 mb-1">Email</p>
-                                        <p className="font-sans text-safety-amber group-hover:underline">nate@crownwoodchemicals.com</p>
-                                    </div>
-                                </a>
-
-                                <a
-                                    href="tel:+12105550123"
-                                    className="flex items-start gap-4 group"
-                                >
-                                    <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-white/10 transition-colors">
-                                        <Phone className="w-5 h-5 text-concrete/60" />
-                                    </div>
-                                    <div>
-                                        <p className="font-heading font-bold text-sm uppercase tracking-wider text-concrete/50 mb-1">Phone</p>
-                                        <p className="font-sans text-concrete/80">Call for Pricing</p>
-                                    </div>
-                                </a>
-
-                                <div className="flex items-start gap-4">
-                                    <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                                        <MapPin className="w-5 h-5 text-concrete/60" />
-                                    </div>
-                                    <div>
-                                        <p className="font-heading font-bold text-sm uppercase tracking-wider text-concrete/50 mb-1">Service Area</p>
-                                        <p className="font-sans text-concrete/80">
-                                            San Antonio, TX &amp; Statewide
-                                            <br />
-                                            <span className="text-concrete/50 text-sm">
-                                                Serving all 254 Texas counties
-                                            </span>
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-start gap-4">
-                                    <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                                        <Clock className="w-5 h-5 text-concrete/60" />
-                                    </div>
-                                    <div>
-                                        <p className="font-heading font-bold text-sm uppercase tracking-wider text-concrete/50 mb-1">Response Time</p>
-                                        <p className="font-sans text-concrete/80">
-                                            Typically within 24 hours
-                                            <br />
-                                            <span className="text-concrete/50 text-sm">
-                                                Mon – Fri, 7am – 6pm CT
-                                            </span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Divider */}
-                            <div className="border-t border-white/5" />
-
-                            {/* Quick links */}
-                            <div>
-                                <h3 className="font-heading font-bold text-xs uppercase tracking-[0.2em] text-concrete/40 mb-4">
-                                    Our Products &amp; Services
-                                </h3>
-                                <div className="grid grid-cols-1 gap-1.5">
-                                    {SERVICES.map((s) => (
-                                        <a
-                                            key={s.name}
-                                            href={s.href}
-                                            className="flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors group"
-                                        >
-                                            <div>
-                                                <span className="font-heading font-bold text-sm text-concrete/80 group-hover:text-safety-amber transition-colors">
-                                                    {s.name}
-                                                </span>
-                                                <span className="font-mono text-xs text-concrete/30 ml-2 hidden md:inline">
-                                                    {s.desc}
-                                                </span>
-                                            </div>
-                                            <ArrowRight className="w-3.5 h-3.5 text-concrete/20 group-hover:text-safety-amber transition-colors" />
-                                        </a>
-                                    ))}
-                                </div>
+            <section className="px-6 py-20 md:px-12 lg:px-24">
+                <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.7fr_1.3fr]">
+                    <div>
+                        <div className="border-t border-white/20">
+                            <a href="mailto:nate@crownwoodchemicals.com" className="flex gap-4 border-b border-white/15 py-6">
+                                <Mail className="mt-0.5 h-5 w-5 shrink-0 text-safety-amber" />
+                                <div><p className="font-mono text-[10px] uppercase tracking-[0.18em] text-concrete/40">Email</p><p className="mt-2 break-all font-sans text-sm text-concrete">nate@crownwoodchemicals.com</p></div>
+                            </a>
+                            <div className="flex gap-4 border-b border-white/15 py-6">
+                                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-safety-amber" />
+                                <div><p className="font-mono text-[10px] uppercase tracking-[0.18em] text-concrete/40">Based in</p><p className="mt-2 font-sans text-sm text-concrete">San Antonio, Texas</p></div>
                             </div>
                         </div>
 
-                        {/* Right: Contact Form */}
-                        <div className="lg:col-span-3">
-                            <ContactForm
-                                service="General Inquiry"
-                                servicePath="/contact"
-                                darkMode={true}
-                            />
+                        <p className="mt-10 font-mono text-[10px] uppercase tracking-[0.18em] text-concrete/40">Useful starting points</p>
+                        <div className="mt-4 border-t border-white/20">
+                            {startingPoints.map(([name, note, href]) => (
+                                <Link key={href} href={href} className="group grid gap-2 border-b border-white/15 py-5">
+                                    <span className="flex items-center justify-between font-heading text-sm font-bold text-concrete">{name}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+                                    <span className="font-sans text-xs leading-5 text-concrete/45">{note}</span>
+                                </Link>
+                            ))}
                         </div>
                     </div>
-                </section>
-            </main>
-        </>
+
+                    <ContactForm service="General inquiry" servicePath="/contact" darkMode />
+                </div>
+            </section>
+            <Footer />
+        </main>
     );
 }

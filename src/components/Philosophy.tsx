@@ -1,50 +1,31 @@
-"use client";
-
-import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+const commitments = [
+    ["Published facts stay published facts", "We identify the manufacturer behind a product and link the available technical sheet. We do not turn a short brochure into invented specifications."],
+    ["Unknowns stay visible", "If coverage, cure time, packaging, certification, or surface compatibility is missing, we say so and confirm it before the job."],
+    ["The recommendation starts with the site", "Traffic, pavement type, soil, equipment, drainage, schedule, and agency requirements determine the product and process."],
+];
 
 export function Philosophy() {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useGSAP(() => {
-        gsap.from(".manifesto-text", {
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top 75%",
-            },
-            y: 50,
-            opacity: 0,
-            duration: 1.5,
-            ease: "power3.out"
-        });
-
-        gsap.from(".manifesto-heading", {
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top 60%",
-            },
-            y: 80,
-            opacity: 0,
-            rotationX: -10,
-            duration: 1.5,
-            ease: "power4.out"
-        });
-    }, { scope: containerRef });
-
     return (
-        <section ref={containerRef} className="py-40 px-6 md:px-12 lg:px-24 bg-asphalt flex flex-col items-center justify-center text-center relative pointer-events-none perspective-[1200px]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,149,0,0.03)_0%,transparent_70%)]" />
-            <div className="max-w-6xl relative z-10">
-                <p className="manifesto-text font-sans text-concrete/70 text-xl md:text-3xl mb-12 tracking-wide font-medium max-w-4xl mx-auto leading-relaxed">
-                    Most contractors rely on toxic, outdated chemicals and endless water waste.
-                </p>
-                <h2 className="manifesto-heading font-drama italic text-5xl md:text-8xl lg:text-[7.5rem] text-safety-amber leading-[1.05] tracking-tight drop-shadow-2xl">
-                    We engineer permanent, eco-friendly stabilization and unrivaled construction precision.
-                </h2>
+        <section className="bg-concrete px-6 py-24 md:px-12 lg:px-24">
+            <div className="mx-auto max-w-7xl">
+                <div className="max-w-3xl">
+                    <p className="font-mono text-xs uppercase tracking-[0.22em] text-industrial/45">How we communicate</p>
+                    <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight text-industrial md:text-5xl">
+                        Useful information beats big promises.
+                    </h2>
+                    <p className="mt-6 font-sans text-lg leading-8 text-industrial/65">
+                        Road products are technical purchases. The site should help you narrow the choice and prepare better questions, not bury you in slogans.
+                    </p>
+                </div>
+                <div className="mt-14 grid border-y border-black/15 md:grid-cols-3">
+                    {commitments.map(([title, description], index) => (
+                        <div key={title} className="border-b border-black/15 py-8 md:border-b-0 md:border-r md:px-8 md:first:pl-0 md:last:border-r-0">
+                            <span className="font-mono text-xs text-safety-amber">0{index + 1}</span>
+                            <h3 className="mt-4 font-heading text-xl font-bold text-industrial">{title}</h3>
+                            <p className="mt-4 font-sans text-sm leading-6 text-industrial/60">{description}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </section>
     );

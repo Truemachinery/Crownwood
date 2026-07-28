@@ -1,16 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { Check, Loader2, Send } from "lucide-react";
 
 interface ContactFormProps {
-    /** The service/product page this form lives on (e.g. "Permabase Black™") */
     service: string;
-    /** The URL path slug for reference (e.g. "/chemicals/permabase-black") */
     servicePath: string;
-    /** Optional accent color class, defaults to safety-amber */
-    accentClass?: string;
-    /** Dark mode variant for dark background sections */
     darkMode?: boolean;
 }
 
@@ -24,188 +19,103 @@ interface FormData {
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-export function ContactForm({ service, servicePath, accentClass = "safety-amber", darkMode = false }: ContactFormProps) {
-    const formRef = useRef<HTMLFormElement>(null);
-    const [status, setStatus] = useState<FormStatus>("idle");
-    const [errorMsg, setErrorMsg] = useState("");
-    const [formData, setFormData] = useState<FormData>({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        message: "",
-    });
+const emptyForm: FormData = { name: "", email: "", phone: "", company: "", message: "" };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+export function ContactForm({ service, servicePath, darkMode = false }: ContactFormProps) {
+    const [status, setStatus] = useState<FormStatus>("idle");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [formData, setFormData] = useState<FormData>(emptyForm);
+
+    const updateField = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData((current) => ({ ...current, [event.target.name]: event.target.value }));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const submit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         setStatus("submitting");
-        setErrorMsg("");
+        setErrorMessage("");
 
         try {
-            const res = await fetch("/api/inquiries", {
+            const response = await fetch("/api/inquiries", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    ...formData,
-                    service,
-                    service_path: servicePath,
-                }),
+                body: JSON.stringify({ ...formData, service, service_path: servicePath }),
             });
 
-            if (!res.ok) {
-                const data = await res.json();
-                throw new Error(data.error || "Something went wrong");
+            if (!response.ok) {
+                const data = await response.json() as { error?: string };
+                throw new Error(data.error || "The inquiry could not be submitted.");
             }
 
+            setFormData(emptyForm);
             setStatus("success");
-            setFormData({ name: "", email: "", phone: "", company: "", message: "" });
-        } catch (err: any) {
+        } catch (error: unknown) {
+            setErrorMessage(error instanceof Error ? error.message : "The inquiry could not be submitted.");
             setStatus("error");
-            setErrorMsg(err.message || "Failed to submit. Please try again.");
         }
     };
 
-    const textColor = darkMode ? "text-concrete" : "text-industrial";
-    const subtextColor = darkMode ? "text-concrete/60" : "text-industrial/50";
-    const inputBg = darkMode ? "bg-white/5 border-white/10 text-concrete placeholder:text-concrete/30" : "bg-white border-black/10 text-industrial placeholder:text-industrial/30";
-    const inputFocus = darkMode ? "focus:border-safety-amber/50 focus:ring-safety-amber/20" : "focus:border-safety-amber focus:ring-safety-amber/20";
+    const text = darkMode ? "text-concrete" : "text-industrial";
+    const muted = darkMode ? "text-concrete/55" : "text-industrial/55";
+    const border = darkMode ? "border-white/20" : "border-black/20";
+    const input = darkMode
+        ? "border-white/20 bg-white/5 text-concrete placeholder:text-concrete/30 focus:border-safety-amber"
+        : "border-black/20 bg-white text-industrial placeholder:text-industrial/30 focus:border-safety-amber";
 
     if (status === "success") {
         return (
-            <div className={`rounded-3xl border ${darkMode ? 'bg-white/5 border-white/10' : 'bg-white border-black/5'} p-12 text-center`}>
-                <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-6" />
-                <h3 className={`font-heading font-bold text-2xl ${textColor} uppercase tracking-tight mb-3`}>
-                    Inquiry Received
-                </h3>
-                <p className={`font-sans text-lg ${subtextColor} mb-2`}>
-                    Thank you for your interest in <strong className={textColor}>{service}</strong>.
-                </p>
-                <p className={`font-sans ${subtextColor}`}>
-                    Our team will review your request and get back to you shortly.
-                </p>
-                <button
-                    onClick={() => setStatus("idle")}
-                    className={`mt-8 font-mono text-sm text-${accentClass} uppercase tracking-widest hover:underline`}
-                >
-                    Submit Another Inquiry
-                </button>
+            <div className={`border ${border} p-8 md:p-10`} role="status">
+                <Check className="h-7 w-7 text-emerald-500" />
+                <h3 className={`mt-5 font-heading text-2xl font-bold ${text}`}>Inquiry received.</h3>
+                <p className={`mt-3 font-sans leading-7 ${muted}`}>Thank you for asking about {service}. Crownwood will review the project information and follow up.</p>
+                <button type="button" onClick={() => setStatus("idle")} className={`mt-7 border-b border-current pb-1 font-heading text-sm font-bold ${text}`}>Send another inquiry</button>
             </div>
         );
     }
 
     return (
-        <form ref={formRef} onSubmit={handleSubmit} className={`rounded-3xl border ${darkMode ? 'bg-white/5 border-white/10' : 'bg-white border-black/5 shadow-xl'} p-8 md:p-10`}>
-            {/* Service badge — shows which page they're on */}
-            <div className="flex items-center gap-3 mb-8">
-                <div className={`px-4 py-2 rounded-full font-mono text-xs uppercase tracking-widest border ${darkMode ? 'bg-safety-amber/10 border-safety-amber/20 text-safety-amber' : 'bg-industrial/5 border-industrial/10 text-industrial/70'}`}>
-                    Inquiring About: <strong className={darkMode ? 'text-safety-amber' : 'text-industrial'}>{service}</strong>
-                </div>
+        <form onSubmit={submit} className={`border ${border} p-6 md:p-9`}>
+            <div className={`border-b ${border} pb-5`}>
+                <p className={`font-mono text-[10px] uppercase tracking-[0.18em] ${muted}`}>Inquiry topic</p>
+                <p className={`mt-2 font-heading text-lg font-bold ${text}`}>{service}</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-                <div>
-                    <label className={`block font-heading font-bold text-xs uppercase tracking-widest ${subtextColor} mb-2`}>
-                        Full Name *
-                    </label>
-                    <input
-                        type="text"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="John Smith"
-                        className={`w-full px-5 py-4 rounded-xl border ${inputBg} ${inputFocus} focus:ring-2 focus:outline-none transition-colors font-sans`}
-                    />
-                </div>
-                <div>
-                    <label className={`block font-heading font-bold text-xs uppercase tracking-widest ${subtextColor} mb-2`}>
-                        Email Address *
-                    </label>
-                    <input
-                        type="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="john@company.com"
-                        className={`w-full px-5 py-4 rounded-xl border ${inputBg} ${inputFocus} focus:ring-2 focus:outline-none transition-colors font-sans`}
-                    />
-                </div>
-                <div>
-                    <label className={`block font-heading font-bold text-xs uppercase tracking-widest ${subtextColor} mb-2`}>
-                        Phone Number
-                    </label>
-                    <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="(210) 555-0123"
-                        className={`w-full px-5 py-4 rounded-xl border ${inputBg} ${inputFocus} focus:ring-2 focus:outline-none transition-colors font-sans`}
-                    />
-                </div>
-                <div>
-                    <label className={`block font-heading font-bold text-xs uppercase tracking-widest ${subtextColor} mb-2`}>
-                        Company / Organization
-                    </label>
-                    <input
-                        type="text"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleChange}
-                        placeholder="ABC Construction"
-                        className={`w-full px-5 py-4 rounded-xl border ${inputBg} ${inputFocus} focus:ring-2 focus:outline-none transition-colors font-sans`}
-                    />
-                </div>
+            <div className="mt-7 grid gap-5 md:grid-cols-2">
+                <Field label="Full name" required darkMode={darkMode}>
+                    <input name="name" required autoComplete="name" value={formData.name} onChange={updateField} placeholder="Your name" className={`w-full border px-4 py-3 font-sans outline-none ${input}`} />
+                </Field>
+                <Field label="Email" required darkMode={darkMode}>
+                    <input type="email" name="email" required autoComplete="email" value={formData.email} onChange={updateField} placeholder="you@company.com" className={`w-full border px-4 py-3 font-sans outline-none ${input}`} />
+                </Field>
+                <Field label="Phone" darkMode={darkMode}>
+                    <input type="tel" name="phone" autoComplete="tel" value={formData.phone} onChange={updateField} placeholder="(210) 555-0123" className={`w-full border px-4 py-3 font-sans outline-none ${input}`} />
+                </Field>
+                <Field label="Company or organization" darkMode={darkMode}>
+                    <input name="company" autoComplete="organization" value={formData.company} onChange={updateField} placeholder="Company name" className={`w-full border px-4 py-3 font-sans outline-none ${input}`} />
+                </Field>
             </div>
 
-            <div className="mb-6">
-                <label className={`block font-heading font-bold text-xs uppercase tracking-widest ${subtextColor} mb-2`}>
-                    Message / Project Details *
-                </label>
-                <textarea
-                    name="message"
-                    required
-                    rows={4}
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder={`Tell us about your project — location, scope, timeline, or any questions about ${service}...`}
-                    className={`w-full px-5 py-4 rounded-xl border ${inputBg} ${inputFocus} focus:ring-2 focus:outline-none transition-colors font-sans resize-none`}
-                />
+            <div className="mt-5">
+                <Field label="Project details" required darkMode={darkMode}>
+                    <textarea name="message" required rows={5} value={formData.message} onChange={updateField} placeholder={`Location, area or quantity, site condition, schedule, and questions about ${service}.`} className={`w-full resize-y border px-4 py-3 font-sans outline-none ${input}`} />
+                </Field>
             </div>
 
-            {status === "error" && (
-                <div className="flex items-center gap-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl px-5 py-3 mb-6 font-sans text-sm">
-                    <AlertCircle className="w-5 h-5 shrink-0" />
-                    {errorMsg}
-                </div>
-            )}
+            {status === "error" && <p className="mt-5 border-l-4 border-red-500 bg-red-500/10 px-4 py-3 font-sans text-sm text-red-500" role="alert">{errorMessage}</p>}
 
-            <button
-                type="submit"
-                disabled={status === "submitting"}
-                className={`w-full flex items-center justify-center gap-3 bg-safety-amber text-asphalt px-8 py-4 rounded-full font-heading font-bold text-lg uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-[0_0_30px_rgba(245,158,11,0.2)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100`}
-            >
-                {status === "submitting" ? (
-                    <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Submitting...
-                    </>
-                ) : (
-                    <>
-                        <Send className="w-5 h-5" />
-                        Request Quote for {service}
-                    </>
-                )}
+            <button type="submit" disabled={status === "submitting"} className="mt-6 inline-flex w-full items-center justify-center gap-3 bg-safety-amber px-7 py-4 font-heading text-sm font-bold text-asphalt hover:bg-white disabled:cursor-not-allowed disabled:opacity-60">
+                {status === "submitting" ? <><Loader2 className="h-4 w-4 animate-spin" /> Sending inquiry</> : <><Send className="h-4 w-4" /> Request information</>}
             </button>
-
-            <p className={`text-center font-mono text-[11px] ${subtextColor} mt-4 tracking-wide`}>
-                We typically respond within 24 hours.
-            </p>
+            <p className={`mt-4 font-sans text-xs leading-5 ${muted}`}>Include photos or plans when Crownwood follows up if they will help explain the condition.</p>
         </form>
+    );
+}
+
+function Field({ label, required = false, darkMode, children }: { label: string; required?: boolean; darkMode: boolean; children: React.ReactNode }) {
+    return (
+        <label className="block">
+            <span className={`mb-2 block font-heading text-sm font-bold ${darkMode ? "text-concrete/75" : "text-industrial/75"}`}>{label}{required ? " *" : ""}</span>
+            {children}
+        </label>
     );
 }

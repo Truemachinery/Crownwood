@@ -6,11 +6,11 @@ export const dynamic = 'force-static';
 export const metadata: Metadata = {
     title: "Contact | Crownwood Chemicals",
     description:
-        "Get in touch with Crownwood Chemicals for soil stabilization, asphalt paving, sealcoating, and industrial construction services across Texas.",
+        "Contact Crownwood Chemicals about road products, soil treatment, asphalt maintenance materials, and construction services in Texas.",
     keywords: ["Contact Crownwood Chemicals", "San Antonio Asphalt Paving Quote", "Soil Stabilizer Quote Texas", "Commercial Construction Quote San Antonio", "Crownwood Chemicals Phone"],
     openGraph: {
         title: "Contact Crownwood Chemicals",
-        description: "Request a quote or schedule a site assessment for soil stabilization, asphalt paving, sealcoating, or industrial construction in Texas.",
+        description: "Request product information or discuss a construction project with Crownwood Chemicals.",
         type: "website",
     },
     alternates: {

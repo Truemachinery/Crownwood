@@ -10,6 +10,8 @@ import { HomepageShowcases } from "@/components/HomepageShowcases";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
+  title: "Crownwood Chemicals | Road Products & Construction Services",
+  description: "Road and soil products, PCT Fastphalt asphalt-maintenance materials, and construction services for projects in San Antonio and across Texas.",
   alternates: {
     canonical: "/",
   },

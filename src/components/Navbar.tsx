@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type NavItem = {
@@ -10,225 +11,108 @@ type NavItem = {
     dropdown?: { name: string; href: string }[];
 };
 
-const LINKS: NavItem[] = [
+const links: NavItem[] = [
     {
-        name: "Chemicals",
+        name: "Products",
         href: "/#chemicals",
         dropdown: [
+            { name: "Road building products", href: "/chemicals/road-building-products" },
             { name: "Permabase", href: "/chemicals/permabase" },
             { name: "Permabase Black", href: "/chemicals/permabase-black" },
             { name: "MeltDown MR-1", href: "/chemicals/meltdown" },
-            { name: "PHPM-50", href: "/chemicals/phpm-50" },
         ],
     },
     {
-        name: "Construction",
+        name: "Services",
         href: "/#construction",
         dropdown: [
-            { name: "Asphalt Paving", href: "/construction/asphalt-paving" },
+            { name: "Asphalt paving", href: "/construction/asphalt-paving" },
             { name: "Concrete", href: "/construction/concrete" },
-            { name: "Sealcoat", href: "/construction/sealcoat" },
+            { name: "Sealcoating", href: "/construction/sealcoat" },
             { name: "Striping", href: "/construction/striping" },
-            { name: "Land Clearing", href: "/construction/land-clearing" },
-            { name: "Hydro Seeding", href: "/construction/hydro-seeding" },
+            { name: "Land clearing", href: "/construction/land-clearing" },
+            { name: "Hydroseeding", href: "/construction/hydro-seeding" },
         ],
     },
-    { name: "Municipal Bids", href: "/#bids" },
-    { name: "Knowledge Hub", href: "/knowledge-hub" },
+    { name: "Knowledge", href: "/knowledge-hub" },
     { name: "Contact", href: "/contact" },
 ];
 
-function NavDropdown({ item }: { item: NavItem }) {
+function DesktopNavItem({ item }: { item: NavItem }) {
     const [open, setOpen] = useState(false);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const handleEnter = () => {
+    const openMenu = () => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
         setOpen(true);
     };
-
-    const handleLeave = () => {
-        timeoutRef.current = setTimeout(() => setOpen(false), 150);
+    const closeMenu = () => {
+        timeoutRef.current = setTimeout(() => setOpen(false), 120);
     };
 
     if (!item.dropdown) {
-        return (
-            <Link
-                href={item.href}
-                className="hover:text-high-vis-yellow transition-colors relative group"
-            >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-high-vis-yellow transition-all duration-300 group-hover:w-full" />
-            </Link>
-        );
+        return <Link href={item.href} className="py-7 font-heading text-sm font-medium text-concrete/75 hover:text-white">{item.name}</Link>;
     }
 
     return (
-        <div
-            className="relative"
-            onMouseEnter={handleEnter}
-            onMouseLeave={handleLeave}
-        >
-            <button
-                className="hover:text-high-vis-yellow transition-colors relative group flex items-center gap-1"
-            >
+        <div className="relative" onMouseEnter={openMenu} onMouseLeave={closeMenu}>
+            <Link href={item.href} className="flex items-center gap-1.5 py-7 font-heading text-sm font-medium text-concrete/75 hover:text-white">
                 {item.name}
-                <svg
-                    width="10"
-                    height="10"
-                    viewBox="0 0 10 10"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={cn(
-                        "transition-transform duration-200",
-                        open && "rotate-180"
-                    )}
-                >
-                    <path d="M2 4 L5 7 L8 4" />
-                </svg>
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-high-vis-yellow transition-all duration-300 group-hover:w-full" />
-            </button>
-
-            <div
-                className={cn(
-                    "absolute top-full left-1/2 -translate-x-1/2 pt-3 transition-all duration-200 z-50",
-                    open
-                        ? "opacity-100 translate-y-0 pointer-events-auto"
-                        : "opacity-0 -translate-y-1 pointer-events-none"
-                )}
-            >
-                <div className="bg-industrial/95 backdrop-blur-xl border border-white/10 rounded-xl py-2 min-w-[200px] shadow-2xl shadow-black/40">
-                    {item.dropdown.map((sub) => (
-                        <Link
-                            key={sub.name}
-                            href={sub.href}
-                            className="block px-4 py-2.5 text-concrete/70 hover:text-high-vis-yellow hover:bg-white/5 transition-all duration-150 whitespace-nowrap"
-                        >
-                            {sub.name}
-                        </Link>
-                    ))}
-                </div>
+                <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", open && "rotate-180")} />
+            </Link>
+            <div className={cn("absolute left-0 top-full w-64 border border-white/10 bg-asphalt p-2 shadow-2xl transition-all", open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0")}>
+                {item.dropdown.map((subitem) => (
+                    <Link key={subitem.href} href={subitem.href} className="block border-b border-white/5 px-4 py-3 font-sans text-sm text-concrete/65 last:border-b-0 hover:bg-white/5 hover:text-white">
+                        {subitem.name}
+                    </Link>
+                ))}
             </div>
         </div>
     );
 }
 
 export function Navbar() {
-    const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const navRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    // Lock body scroll when mobile menu is open
-    useEffect(() => {
-        if (mobileOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "";
-        }
+        document.body.style.overflow = mobileOpen ? "hidden" : "";
         return () => { document.body.style.overflow = ""; };
     }, [mobileOpen]);
 
     return (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-5xl transition-all duration-500 flex justify-center">
-            <nav
-                ref={navRef}
-                className={cn(
-                    "relative flex items-center justify-between px-6 py-3 rounded-[2rem] border border-white/5 backdrop-blur-md transition-all duration-500",
-                    scrolled ? "bg-industrial/90 shadow-2xl w-full" : "bg-industrial/50 w-full"
-                )}
-            >
-                <Link href="/" className="font-heading font-bold text-concrete tracking-widest uppercase text-xl z-10 flex items-center gap-2">
-                    <div className="w-4 h-4 rounded-full bg-safety-amber" />
-                    Crownwood
+        <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-asphalt/95 backdrop-blur-sm">
+            <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 md:px-8">
+                <Link href="/" className="flex items-center gap-3 text-concrete">
+                    <span className="h-3 w-3 bg-safety-amber" />
+                    <span className="font-heading text-lg font-bold tracking-[0.12em]">CROWNWOOD</span>
+                    <span className="hidden border-l border-white/15 pl-3 font-mono text-[10px] uppercase tracking-[0.16em] text-concrete/45 sm:inline">Chemicals</span>
                 </Link>
 
-                <div className="hidden md:flex items-center gap-8 font-mono text-sm tracking-wide text-concrete/80">
-                    {LINKS.map((link) => (
-                        <NavDropdown key={link.name} item={link} />
-                    ))}
+                <div className="hidden items-center gap-8 md:flex">
+                    {links.map((item) => <DesktopNavItem key={item.name} item={item} />)}
+                    <Link href="/contact" className="bg-safety-amber px-5 py-3 font-heading text-xs font-bold text-asphalt hover:bg-white">Request pricing</Link>
                 </div>
 
-                <Link href="/contact" className="hidden md:block bg-safety-amber text-asphalt font-heading font-bold px-5 py-2 rounded-full uppercase tracking-wider text-sm hover:scale-105 transition-transform">
-                    Get Quote
-                </Link>
-
-                {/* Mobile menu toggle */}
-                <button
-                    className="md:hidden text-concrete z-10"
-                    onClick={() => setMobileOpen(!mobileOpen)}
-                    aria-label={mobileOpen ? "Close menu" : "Open menu"}
-                >
-                    {mobileOpen ? (
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="18" x2="6" y1="6" y2="18" />
-                            <line x1="6" x2="18" y1="6" y2="18" />
-                        </svg>
-                    ) : (
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="4" x2="20" y1="12" y2="12" />
-                            <line x1="4" x2="20" y1="6" y2="6" />
-                            <line x1="4" x2="20" y1="18" y2="18" />
-                        </svg>
-                    )}
+                <button type="button" className="p-2 text-concrete md:hidden" onClick={() => setMobileOpen((value) => !value)} aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen}>
+                    {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </button>
             </nav>
 
-            {/* Mobile menu panel */}
-            <div
-                className={cn(
-                    "absolute top-full left-0 right-0 mt-2 mx-4 rounded-2xl border border-white/10 bg-industrial/95 backdrop-blur-xl shadow-2xl shadow-black/50 md:hidden transition-all duration-300 overflow-hidden",
-                    mobileOpen
-                        ? "opacity-100 translate-y-0 pointer-events-auto max-h-[80vh]"
-                        : "opacity-0 -translate-y-4 pointer-events-none max-h-0"
-                )}
-            >
-                <div className="p-6 flex flex-col gap-2">
-                    {LINKS.map((link) => (
-                        <div key={link.name}>
-                            <Link
-                                href={link.href}
-                                onClick={() => setMobileOpen(false)}
-                                className="block py-3 text-concrete font-heading font-bold uppercase tracking-widest text-base hover:text-high-vis-yellow transition-colors"
-                            >
-                                {link.name}
-                            </Link>
-                            {link.dropdown && (
-                                <div className="pl-4 pb-2 flex flex-col gap-1 border-l border-white/10 ml-2">
-                                    {link.dropdown.map((sub) => (
-                                        <Link
-                                            key={sub.name}
-                                            href={sub.href}
-                                            onClick={() => setMobileOpen(false)}
-                                            className="py-2 text-concrete/60 text-sm font-mono hover:text-high-vis-yellow transition-colors"
-                                        >
-                                            {sub.name}
-                                        </Link>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ))}
-
-                    <Link
-                        href="/contact"
-                        onClick={() => setMobileOpen(false)}
-                        className="mt-4 block text-center bg-safety-amber text-asphalt font-heading font-bold px-5 py-3 rounded-full uppercase tracking-wider text-sm hover:scale-105 transition-transform"
-                    >
-                        Get Quote
-                    </Link>
-                </div>
+            <div className={cn("absolute inset-x-0 top-20 h-[calc(100dvh-5rem)] overflow-y-auto border-t border-white/10 bg-asphalt px-6 py-6 md:hidden", mobileOpen ? "block" : "hidden")}>
+                {links.map((item) => (
+                    <div key={item.name} className="border-b border-white/10 py-3">
+                        <Link href={item.href} onClick={() => setMobileOpen(false)} className="block py-2 font-heading text-lg font-bold text-concrete">{item.name}</Link>
+                        {item.dropdown && (
+                            <div className="grid gap-1 pb-2 pl-4">
+                                {item.dropdown.map((subitem) => (
+                                    <Link key={subitem.href} href={subitem.href} onClick={() => setMobileOpen(false)} className="py-2 font-sans text-sm text-concrete/60">{subitem.name}</Link>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                ))}
+                <Link href="/contact" onClick={() => setMobileOpen(false)} className="mt-7 block bg-safety-amber px-5 py-4 text-center font-heading text-sm font-bold text-asphalt">Request pricing</Link>
             </div>
-        </div>
+        </header>
     );
 }

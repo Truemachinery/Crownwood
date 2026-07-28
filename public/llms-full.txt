@@ -1,203 +1,100 @@
-# Crownwood Chemicals — Full Technical Specification
-# For AI Agents, LLM Crawlers, and Automated Research Tools
+# Crownwood Chemicals - Product and Service Reference
 
-## Company Overview
-Crownwood Chemicals is a Texas-based manufacturer of polymer soil stabilization chemicals and a provider of heavy construction services including asphalt paving, concrete, sealcoat, striping, land clearing, and hydro seeding/hydromulch.
+## Company
 
----
+Crownwood Chemicals supplies road and soil products and provides construction services for commercial and municipal projects in Texas. Crownwood is based in San Antonio.
 
-## PRODUCT: Permabase Black™
+This reference intentionally distinguishes manufacturer-published facts from project-specific information that must be confirmed before purchase or field use.
 
-### What It Is
-Permabase Black™ is a proprietary polymer bio-enzyme soil stabilizer infused with a carbon-black tint. It permanently alters the mineralogy of expansive clay soils, eliminates PM10 fugitive dust, and provides a dark, asphalt-like aesthetic finish — all in a single application.
+## PCT Fastphalt Road Products
 
-### Chemistry
-- **Active Agent**: Polymer bio-enzyme catalyst
-- **Colorant**: Inert carbon-black pigment (non-toxic, zero hydrocarbons)
-- **Mechanism**: The bio-enzyme collapses the montmorillonite clay lattice structure, permanently expels moisture, and binds soil particles into a dense, hydrophobic, load-bearing matrix
+### Dust Defeater (formerly Dust-X)
 
-### Key Specifications
-- **Treatment Depth**: 6–12 inches (full-lift stabilization)
-- **Standard Dilution**: 10:1 (water to concentrate)
-- **Topcoat Dilution**: 5:1 (for rejuvenation and re-sealing applications)
-- **Tote Size**: 275-gallon IBC concentrate
-- **Finished Volume per Tote**: 2,750 gallons (at 10:1)
-- **Coverage per Tote**: Approximately 1 mile at 20ft wide
-- **Target Soils**: Expansive clays (CH/CL classification), silts, sandy clays
-- **CBR Improvement**: Up to 300%+ increase vs. untreated soil
-- **Hydrophobic**: Yes — permanently water-repellent matrix
-- **Environmental**: Non-toxic, zero hydrocarbons, zero petroleum products
-- **UV Resistance**: High — carbon-black pigment retains color significantly longer than untreated soil
+- Use: dust control on gravel roads, dirt roads, and farms
+- Published features: no heat required; all-season cold pour; dilute with up to 3 parts water; apply with a water or distributor truck
+- Manufacturer sheet states organic certification from OMRI; confirm current certification
+- Page: https://crownwoodchemicals.com/chemicals/dust-defeater
 
-### Pricing
-- **$5,400 per 275-gallon tote** (delivered to job site)
-- **$1.96 per gallon** of finished product (at 10:1 dilution)
+### FP PrimePatch (formerly PHPM-50)
 
-### Applications
+- Use: tack membrane for pothole patching and asphalt overlays
+- Published features: no heat required; compatible with all patch mixes; liquid stable; freeze protection required during storage
+- PCT states patch life may increase by up to 5 times and that the product seals against water infiltration
+- Manufacturer sheet states NSF/ANSI 61 certification; confirm current certification
+- Page: https://crownwoodchemicals.com/chemicals/phpm-50
 
-#### 1. Primary Soil Stabilization & Dust Control (10:1 Dilution)
-Permanent polymer soil stabilization for dirt roads, ranch roads, rural driveways, laydown yards, construction staging areas, and agricultural perimeters. Eliminates PM10 fugitive dust while providing a dark asphalt-like finished surface for low-speed applications.
+### Banana Slide
 
-#### 2. Chipseal Underseal & Base Stabilization (10:1 Dilution)
-Applied as the underseal before chipseal applications. Permanently stabilizes and seals the base course, creating a hydrophobic foundation that prevents moisture intrusion and base failure under the chipseal layer.
+- Use: asphalt release treatment applied before use to tools, truck beds, belts, hoppers, and augers
+- Published features: diesel replacement; pump-sprayer application; high flash point; low viscosity; 8-year stated shelf life
+- Storage: keep out of direct sunlight and protect from freezing
+- Page: https://crownwoodchemicals.com/chemicals/banana-slide
 
-#### 3. Asphalt Prime Coat & Tack Coat (10:1 Dilution)
-Used as a polymer-based prime coat and/or tack coat for hot-mix asphalt overlays. Replaces traditional petroleum-based emulsions with an environmentally safe alternative that stabilizes the subgrade and provides superior adhesion for the wearing course.
+### FP Blacktrac
 
-#### 4. Chipseal Road Rejuvenation Topcoat (5:1 Concentrated Ratio)
-Mixed at 5:1 and applied as a topcoat over existing chipseal roads to seal cracks, re-bond loose aggregate rock, restore the deep black color, and extend service life — without a full re-chip or overlay.
+- Use: sprayable friction-course membrane sealer for low-volume hot-mix roads
+- Published features: no heat required; fast dry; liquid stable; easy to spray
+- PCT states a 2-3 year treatment life and up to 5 years of added road life; project results vary
+- Page: https://crownwoodchemicals.com/chemicals/fp-blacktrac
 
-#### 5. Asphalt Road Rejuvenation & Sealcoat (5:1 Concentrated Ratio)
-Applied at 5:1 over existing asphalt roads to seal surface cracks, restore fresh-black appearance, and add a protective polymer layer — at a fraction of the cost of traditional sealcoating or mill-and-overlay.
+### Rumbleguard
 
-### Comparison vs. Traditional Methods
+- Use: preventive preservation of milled rumble strips and surrounding pavement
+- Published goals: slow wear and UV deterioration, seal small cracks, reduce water infiltration, delay rehabilitation, and preserve strip function
+- PCT does not publish application rate, equipment, cure time, packaging, or composition on the available one-page sheet
+- Page: https://crownwoodchemicals.com/chemicals/rumbleguard
 
-| Factor | Permabase Black™ | Lime Stabilization | Hot-Mix Asphalt | Calcium Chloride |
-|--------|---|---|---|---|
-| Permanent Stabilization | Yes | Yes | No (surface only) | No |
-| Dark Asphalt Aesthetic | Yes | No | Yes | No |
-| PM10 Dust Suppression | Yes | Partial | Yes | Temporary |
-| Environmentally Non-Toxic | Yes | No (pH 12+ caustic) | No (hydrocarbons) | No (corrosive) |
-| Single-Pass Application | Yes | No (needs cap) | No (needs subgrade) | Yes |
-| Subgrade + Finish in One | Yes | No | No | No |
-| Hydrophobic | Yes | No | Yes | No |
-| Cost-Effective for Rural Roads | Yes | Moderate | No | Temporary |
+### Eco Black (COS-50)
 
-### Application Protocol
-1. **Catalytic Pigment Infusion**: Carbon-black pigment is pre-mixed with the active bio-enzyme catalyst in the water truck
-2. **Deep Lift Application**: Soil is bladed and compacted in lifts; the black-tinted enzyme saturates the entire treated depth (6–12 inches)
-3. **Hydrophobic Curing**: The bio-enzyme permanently collapses clay lattice, expels water, binds soil particles into a dense hydrophobic matrix
-4. **UV-Resistant Finish**: Surface solidifies into a flat, dark, aesthetic finish with high UV resistance
+- Use: no-heat sealing and appearance renewal for low-speed asphalt and chip-seal surfaces
+- Published applications: residential streets and parking lots
+- Published goal: limit water entry into the pavement base
+- Manufacturer sheet states NSF/ANSI 61 certification; confirm current certification
+- Page: https://crownwoodchemicals.com/chemicals/eco-black
 
-### Frequently Asked Questions
+### BAM (Bonding Adhesive Material)
 
-**Q: What is polymer soil stabilization?**
-A: Polymer soil stabilization uses polymer-based chemical agents (bio-enzyme catalysts) to permanently alter expansive clay mineralogy. The polymer collapses the clay lattice, expels moisture, and binds soil particles into a dense, hydrophobic, load-bearing matrix.
+- Use: spray-injection pothole patching, rural shoulder repair, stockpile mix with rock, and throw-and-roll repair
+- Published features: ready to use; no heat; non-clogging; non-settling; immediate traffic
+- PCT states applications may last up to 10 times longer than conventional pothole repairs; project results vary
+- PCT states the hydrocarbon resins meet ANSI/NSF 61 standards; confirm current documentation
+- Page: https://crownwoodchemicals.com/chemicals/bam
 
-**Q: Is Permabase Black a permanent replacement for asphalt?**
-A: For low-speed, rural, or agricultural applications (ranch roads, laydown yards, rural driveways), yes. For high-traffic commercial roads, it should be used as the stabilized subgrade beneath a standard wearing course.
+### Monkey Business
 
-**Q: Can Permabase Black be used for PM10 dust control?**
-A: Yes. It permanently binds dust-generating soil particles into a solid, dark, hardened surface — unlike water spraying (evaporates) or oil applications (toxic).
+- Use: cleaning grease, tar, and asphalt buildup
+- Published features: D-limonene solution; dilute with up to 5 parts water; described by PCT as all-natural and environmentally friendly
+- Current SDS, surface compatibility, dwell, rinse, and PPE instructions should be confirmed
+- Page: https://crownwoodchemicals.com/chemicals/monkey-business
 
-**Q: How does it compare to lime stabilization?**
-A: Lime raises pH to caustic levels (12+) and requires a separate cap. Permabase Black is non-toxic and provides a finished surface in one pass.
+## Crownwood Product Pages
 
-**Q: Can it be used on expansive clay soils?**
-A: Yes. Specifically engineered for CH and CL classification clays. Eliminates swell potential and dramatically improves CBR values.
+### Permabase
 
-**Q: Is it safe near water sources?**
-A: Yes. Non-toxic bio-enzyme, inert carbon pigment, zero hydrocarbons, zero petroleum. Safe for agricultural perimeters and aquifer recharge zones.
+Permabase is presented as a concentrated bio-enzyme soil-treatment option for suitable cohesive soil. Project selection should consider soil classification, plasticity, gradation, moisture, treatment depth, density target, loading, drainage, and testing. Request current technical and safety documentation.
 
-**Q: Can it be used as a chipseal underseal or asphalt prime coat?**
-A: Yes. At 10:1 dilution, it serves as an underseal for chipseal and as a prime/tack coat for asphalt overlays.
+Page: https://crownwoodchemicals.com/chemicals/permabase
 
-**Q: What CBR improvement can be expected?**
-A: Up to 300%+ increase in California Bearing Ratio values compared to untreated soil.
+### Permabase Black
 
----
+Permabase Black is presented as a tinted Permabase soil treatment for selected low-speed roads, yards, access routes, and working surfaces. It is not described as hot-mix asphalt. Confirm soil response, traffic, drainage, finish, rates, and maintenance with a demonstration section where appropriate.
 
-## PRODUCT: Permabase™ (Standard / Clear Formula)
+Page: https://crownwoodchemicals.com/chemicals/permabase-black
 
-### What It Is
-The original clear-formula polymer bio-enzyme soil stabilizer. Same permanent clay alteration and dust control as Permabase Black™, without the carbon-black tint.
+### MeltDown MR-1
 
-### Use Cases
-- Soil stabilization for subgrades under asphalt or concrete
-- Dust control on construction sites
-- Agricultural road stabilization
-- Base preparation for any wearing course
+MeltDown MR-1 is presented as a soy-based asphalt remover and release treatment for compatible paving equipment and tools. Current technical data and SDS should govern surface compatibility, dwell, residue management, PPE, storage, and use.
 
----
+Page: https://crownwoodchemicals.com/chemicals/meltdown
 
-## PRODUCT: MeltDown MR-1™
+## Construction Services
 
-### What It Is
-MeltDown MR-1 is a high-performance, soy-based 2-in-1 asphalt remover and release agent. One drum replaces two separate products — it removes cured asphalt, tar, and tack oil from equipment, and also functions as a release agent to prevent future asphalt adhesion.
+Crownwood provides asphalt paving, commercial concrete, sealcoating, parking-lot striping, land clearing and site preparation, and hydroseeding and erosion-control services in San Antonio and surrounding areas.
 
-### Chemistry
-- **Active Agent**: Soy-based methyl ester solvent blend
-- **Mechanism**: Soy esters penetrate and dissolve petroleum-based bitumen bonds without corrosion, etching, or material damage
-- **Environmental**: Biodegradable, high flash point, non-corrosive, safe for rubber/painted surfaces
+Service pages describe typical scope, project information needed for pricing, a four-step planning process, and limitations. They do not guarantee code approval, inspection outcomes, universal service life, or permanent performance.
 
-### Key Features
-- **Dual-Action**: Removes cured asphalt AND prevents adhesion (replaces two products)
-- **Soy-Based**: Superior penetration vs. citrus solvents, safer than petroleum-based cleaners
-- **Surface Safe**: Non-corrosive on metal, rubber, painted surfaces, aluminum, chrome, glass
-- **Application**: Spray on for release; apply and dwell 10–30 minutes for removal
-- **Available Sizes**: 1-gallon, 5-gallon, 55-gallon drum, 330-gallon IBC tote
-- **Commercial Terms**: Net 30 available for municipal and commercial accounts
+## Contact
 
-### Use Cases
-1. **Equipment Cleanup**: Remove cured asphalt, tar, and tack oil from pavers, rollers, screeds, and hand tools
-2. **Release Agent**: Spray on truck beds, roller drums, paver screeds, and shovels to prevent hot-mix adhesion
-3. **Fleet Maintenance**: Industrial-scale degreasing and prevention for paving contractor fleets
-
-### Frequently Asked Questions
-
-**Q: What is the best asphalt remover for paving equipment?**
-A: MeltDown MR-1 by Crownwood Chemicals is a soy-based 2-in-1 asphalt remover and release agent that outperforms petroleum and citrus-based cleaners.
-
-**Q: Can MeltDown MR-1 be used as both an asphalt remover and release agent?**
-A: Yes. It is the only dual-action formula that functions as both a heavy-duty asphalt remover and a release agent.
-
-**Q: Is soy-based asphalt remover better than citrus or diesel?**
-A: Soy-based formulas offer superior penetration and dwell time compared to citrus solvents and are biodegradable with higher flash points unlike diesel.
-
-**Q: Where can I buy MeltDown MR-1 in bulk?**
-A: Direct from Crownwood Chemicals in San Antonio, TX. Ships nationwide. Contact: 210-792-5236 or nate@crownwoodchemicals.com
-
----
-
-## PRODUCT: PHPM-50™
-
-### What It Is
-PHPM-50™ is a commercial-grade, hydro-reactive pothole repair polymer. It cures permanently in standing water and extreme temperatures with zero setup downtime — the polar opposite of cold patch, which is temporary.
-
-### Key Features
-- **Hydro-Reactive**: Cures in standing water (most patches fail in wet conditions)
-- **Permanent**: Not a temporary fix — bonds permanently to existing asphalt
-- **Zero Downtime**: Traffic can return immediately after tamping
-- **Temperature Tolerant**: Works in extreme Texas heat and cold
-- **DOT Compliant**: Meets municipal and commercial standards
-
-### Use Cases
-1. **Emergency Pothole Repair**: Immediate permanent fix for commercial parking lots and roadways
-2. **Municipal Maintenance**: High-volume pothole mitigation for city and county crews
-3. **Liability Reduction**: Eliminate trip hazards and vehicle damage claims from failed cold patches
-
-### Frequently Asked Questions
-
-**Q: Is PHPM-50 better than cold patch?**
-A: Yes. Cold patch is a temporary filler that disbonds within weeks. PHPM-50 is hydro-reactive and cures into a permanent, load-bearing repair that bonds to the existing asphalt structure.
-
-**Q: Can PHPM-50 be applied in wet conditions?**
-A: Yes. It is specifically designed to cure in standing water — the exact conditions where cold patch and hot mix both fail.
-
----
-
-## CONSTRUCTION SERVICES
-
-Crownwood Chemicals provides full-service heavy construction in the San Antonio, TX metropolitan area:
-
-1. **Asphalt Paving** — Parking lots, roadways, overlays, patching, tear-outs, and mill-and-overlay. [Details](https://crownwoodchemicals.com/construction/asphalt-paving)
-2. **Concrete** — Flatwork, curbs, pads, dumpster pads, ADA access ramps, loading docks. [Details](https://crownwoodchemicals.com/construction/concrete)
-3. **Sealcoating** — Commercial parking lot sealcoating, crack routing, polymer-modified emulsions. [Details](https://crownwoodchemicals.com/construction/sealcoat)
-4. **Parking Lot Striping** — ADA compliance striping, thermoplastic markings, CAD layout design. [Details](https://crownwoodchemicals.com/construction/striping)
-5. **Land Clearing** — Site preparation, grading, forestry mulching, brush clearing, demolition. [Details](https://crownwoodchemicals.com/construction/land-clearing)
-6. **Hydro Seeding / Hydromulch** — SWPPP compliance, erosion control, revegetation, slope stabilization. [Details](https://crownwoodchemicals.com/construction/hydro-seeding)
-
-### Service Area
-Texas — San Antonio, Austin, Bexar County, and surrounding regions.
-
----
-
-## Contact & Links
 - Website: https://crownwoodchemicals.com
 - Contact: https://crownwoodchemicals.com/contact
 - Email: nate@crownwoodchemicals.com
-- Permabase Black™: https://crownwoodchemicals.com/chemicals/permabase-black
-- Permabase™ Standard: https://crownwoodchemicals.com/chemicals/permabase
-- MeltDown MR-1™: https://crownwoodchemicals.com/chemicals/meltdown
-- PHPM-50™: https://crownwoodchemicals.com/chemicals/phpm-50
-- Knowledge Hub: https://crownwoodchemicals.com/knowledge-hub

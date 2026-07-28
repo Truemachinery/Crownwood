@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { roadProducts } from '@/lib/roadProducts';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://crownwoodchemicals.com';
@@ -29,11 +30,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.9,
         },
         {
-            url: `${baseUrl}/chemicals/phpm-50`,
+            url: `${baseUrl}/chemicals/road-building-products`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
-            priority: 0.85,
+            priority: 0.9,
         },
+        ...roadProducts.map((product) => ({
+            url: `${baseUrl}/chemicals/${product.slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 0.85,
+        })),
         {
             url: `${baseUrl}/construction/asphalt-paving`,
             lastModified: new Date(),

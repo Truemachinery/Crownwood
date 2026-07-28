@@ -1,79 +1,64 @@
 import Link from "next/link";
 
+const productLinks = [
+    ["Road building products", "/chemicals/road-building-products"],
+    ["Permabase", "/chemicals/permabase"],
+    ["Permabase Black", "/chemicals/permabase-black"],
+    ["MeltDown MR-1", "/chemicals/meltdown"],
+];
+
+const serviceLinks = [
+    ["Asphalt paving", "/construction/asphalt-paving"],
+    ["Concrete", "/construction/concrete"],
+    ["Sealcoating", "/construction/sealcoat"],
+    ["Striping", "/construction/striping"],
+    ["Land clearing", "/construction/land-clearing"],
+    ["Hydroseeding", "/construction/hydro-seeding"],
+];
+
 export function Footer() {
     return (
-        <footer className="bg-asphalt pt-24 pb-12 px-6 md:px-12 lg:px-24 border-t border-white/10 relative overflow-hidden">
-
-            {/* Abstract San Antonio Map Grid Graphic */}
-            <div className="absolute top-0 right-0 w-[800px] h-[800px] opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '40px 40px', transform: 'rotate(15deg) translate(20%, -20%)' }} />
-
-            <div className="max-w-7xl mx-auto relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-20">
-
-                    <div className="lg:col-span-2">
-                        <h4 className="font-heading font-bold text-concrete tracking-widest uppercase text-2xl mb-6 flex items-center gap-2">
-                            <div className="w-4 h-4 rounded-full bg-safety-amber" />
-                            Crownwood
-                        </h4>
-                        <div className="flex items-center gap-3 font-mono text-xs text-concrete/60 tracking-wider">
-                            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                            SYSTEM OPERATIONAL
-                        </div>
-                        <p className="font-sans text-concrete/50 text-sm mt-6 max-w-xs">
-                            Next-generation chemical infrastructure and heavy construction precision. Based in San Antonio, Texas.
+        <footer className="border-t border-white/10 bg-asphalt px-6 pb-10 pt-20 text-concrete md:px-12 lg:px-24">
+            <div className="mx-auto max-w-7xl">
+                <div className="grid gap-12 border-b border-white/15 pb-16 md:grid-cols-2 lg:grid-cols-[1.35fr_0.8fr_0.8fr_0.75fr]">
+                    <div>
+                        <Link href="/" className="flex items-center gap-3">
+                            <span className="h-3 w-3 bg-safety-amber" />
+                            <span className="font-heading text-xl font-bold tracking-[0.12em]">CROWNWOOD</span>
+                        </Link>
+                        <p className="mt-6 max-w-sm font-sans text-sm leading-6 text-concrete/55">
+                            Road and soil products, asphalt-maintenance materials, and construction services for commercial and municipal work in Texas.
                         </p>
+                        <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-concrete/40">San Antonio, Texas</p>
                     </div>
 
                     <div>
-                        <h5 className="font-mono text-safety-amber text-sm font-bold tracking-widest uppercase mb-6">Chemicals</h5>
-                        <ul className="space-y-4 font-sans text-concrete/70 text-sm">
-                            <li><Link href="/chemicals/permabase" className="hover:text-high-vis-yellow transition-colors">Permabase Stabilizer</Link></li>
-                            <li><Link href="/chemicals/permabase-black" className="hover:text-high-vis-yellow transition-colors">Permabase Black Sealer</Link></li>
-                            <li><Link href="/chemicals/meltdown" className="hover:text-high-vis-yellow transition-colors">MeltDown MR-1 Remover</Link></li>
-                            <li><Link href="/chemicals/phpm-50" className="hover:text-high-vis-yellow transition-colors">PHPM-50 Tack Modifier</Link></li>
-                            {/*<li><a href="#" className="hover:text-high-vis-yellow transition-colors">Haul Road Dust Control</a></li>*/}
-                            {/*<li><a href="#" className="hover:text-high-vis-yellow transition-colors">Base Failures Prevention</a></li>*/}
+                        <h2 className="font-mono text-[11px] uppercase tracking-[0.2em] text-safety-amber">Products</h2>
+                        <ul className="mt-5 space-y-3">
+                            {productLinks.map(([name, href]) => <li key={href}><Link href={href} className="font-sans text-sm text-concrete/60 hover:text-white">{name}</Link></li>)}
                         </ul>
                     </div>
 
                     <div>
-                        <h5 className="font-mono text-safety-amber text-sm font-bold tracking-widest uppercase mb-6">Construction</h5>
-                        <ul className="space-y-4 font-sans text-concrete/70 text-sm">
-                            <li><Link href="/construction/asphalt-paving" className="hover:text-high-vis-yellow transition-colors">San Antonio Asphalt Paving</Link></li>
-                            <li><Link href="/construction/land-clearing" className="hover:text-high-vis-yellow transition-colors">Heavy Land Clearing</Link></li>
-                            <li><Link href="/construction/sealcoat" className="hover:text-high-vis-yellow transition-colors">Parking Lot Sealcoating</Link></li>
-                            <li><Link href="/construction/striping" className="hover:text-high-vis-yellow transition-colors">ADA Line Striping</Link></li>
-                            <li><Link href="/construction/concrete" className="hover:text-high-vis-yellow transition-colors">Structural Concrete Flatwork</Link></li>
-                            <li><Link href="/construction/hydro-seeding" className="hover:text-high-vis-yellow transition-colors">Precision Hydroseeding</Link></li>
+                        <h2 className="font-mono text-[11px] uppercase tracking-[0.2em] text-safety-amber">Services</h2>
+                        <ul className="mt-5 space-y-3">
+                            {serviceLinks.map(([name, href]) => <li key={href}><Link href={href} className="font-sans text-sm text-concrete/60 hover:text-white">{name}</Link></li>)}
                         </ul>
                     </div>
 
                     <div>
-                        <h5 className="font-mono text-safety-amber text-sm font-bold tracking-widest uppercase mb-6">Resources</h5>
-                        <ul className="space-y-4 font-sans text-concrete/70 text-sm">
-                            <li><Link href="/knowledge-hub" className="hover:text-high-vis-yellow transition-colors">Knowledge Hub</Link></li>
-                            <li><Link href="/knowledge-hub/ultimate-guide-to-sealcoating" className="hover:text-high-vis-yellow transition-colors">Sealcoating Guide</Link></li>
-                            <li className="pt-4"><Link href="/timeclock" className="hover:text-high-vis-yellow transition-colors text-concrete/40 flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-safety-amber/50" /> Employee Portal</Link></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h5 className="font-mono text-safety-amber text-sm font-bold tracking-widest uppercase mb-6">Headquarters</h5>
-                        <p className="font-sans text-concrete/70 text-sm leading-relaxed mb-6">
-                            San Antonio, Texas<br />
-                            Commercial & Municipal Accounts
-                        </p>
-                        <button className="w-full bg-industrial text-concrete py-3 rounded-lg font-heading uppercase text-sm tracking-widest hover:bg-safety-amber hover:text-asphalt transition-colors">
-                            Dispatch Request
-                        </button>
+                        <h2 className="font-mono text-[11px] uppercase tracking-[0.2em] text-safety-amber">Contact</h2>
+                        <p className="mt-5 font-sans text-sm leading-6 text-concrete/60">Commercial and municipal accounts</p>
+                        <a href="mailto:nate@crownwoodchemicals.com" className="mt-4 block break-all font-sans text-sm text-concrete hover:text-safety-amber">nate@crownwoodchemicals.com</a>
+                        <Link href="/contact" className="mt-6 inline-block border border-white/25 px-5 py-3 font-heading text-xs font-bold text-concrete hover:border-white">Contact Crownwood</Link>
                     </div>
                 </div>
 
-                <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-concrete/40">
-                    <p>© {new Date().getFullYear()} Crownwood Chemicals. All Rights Reserved.</p>
+                <div className="flex flex-col gap-4 pt-8 font-mono text-[10px] uppercase tracking-wider text-concrete/35 md:flex-row md:items-center md:justify-between">
+                    <p>© {new Date().getFullYear()} Crownwood Chemicals</p>
                     <div className="flex gap-6">
-                        <a href="#" className="hover:text-concrete transition-colors">Privacy Policy</a>
-                        <a href="#" className="hover:text-concrete transition-colors">Environmental Compliance</a>
+                        <Link href="/knowledge-hub" className="hover:text-concrete">Knowledge hub</Link>
+                        <Link href="/contact" className="hover:text-concrete">Request information</Link>
                     </div>
                 </div>
             </div>

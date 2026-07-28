@@ -33,8 +33,8 @@ const barlowCondensed = Barlow_Condensed({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://crownwoodchemicals.com"),
-  title: "Crownwood Chemicals | Polymer Soil Stabilization & Industrial Construction",
-  description: "Crownwood Chemicals manufactures polymer bio-enzyme soil stabilizers, dust control chemicals, and provides heavy construction services including asphalt, concrete, sealcoat, and land clearing across Texas.",
+  title: "Crownwood Chemicals | Road Products & Construction Services",
+  description: "Road and soil products, PCT Fastphalt asphalt-maintenance materials, and construction services for commercial and municipal projects in Texas.",
 };
 
 const organizationSchema = {
@@ -42,7 +42,7 @@ const organizationSchema = {
   "@type": "Organization",
   "name": "Crownwood Chemicals",
   "url": "https://crownwoodchemicals.com",
-  "description": "Manufacturer of polymer soil stabilization chemicals and provider of heavy construction services in Texas.",
+  "description": "Supplier of road and soil products and provider of commercial and municipal construction services in Texas.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "San Antonio",
@@ -60,8 +60,11 @@ const organizationSchema = {
     "name": "Texas"
   },
   "knowsAbout": [
-    "Polymer Soil Stabilization",
-    "Bio-Enzyme Soil Stabilizers",
+    "Soil Stabilization",
+    "Road Dust Control",
+    "Pavement Preservation",
+    "Pothole and Shoulder Repair",
+    "Asphalt Equipment Care",
     "Asphalt Paving",
     "Commercial Sealcoating",
     "Soy-Based Asphalt Removers",
@@ -82,12 +85,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-        <svg className="noise-overlay" xmlns="http://www.w3.org/2000/svg">
-          <filter id="noiseFilter">
-            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noiseFilter)" />
-        </svg>
         {children}
         <Analytics />
       </body>
