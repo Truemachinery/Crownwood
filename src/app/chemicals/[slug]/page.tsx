@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         openGraph: {
             title: `${product.displayName} | PCT Fastphalt Road Product`,
             description: product.summary,
+            images: [{ url: product.image }],
         },
     };
 }

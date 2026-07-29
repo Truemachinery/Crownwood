@@ -15,7 +15,7 @@ const productGroups = [
         description: "The full PCT Fastphalt line for dust, patching, preservation, release, and equipment cleaning.",
         links: [
             { name: "All PCT road products", note: "Compare eight products by job and published specification", href: "/chemicals/road-building-products" },
-            { name: "FP PrimePatch", note: "Formerly PHPM-50; no-heat tack membrane for patches and overlays", href: "/chemicals/phpm-50" },
+            { name: "PHPM-50", note: "PCT now calls it FP PrimePatch; no-heat tack membrane for patches and overlays", href: "/chemicals/phpm-50" },
         ],
     },
     {
@@ -38,7 +38,7 @@ export function ProductCatalog() {
                         <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight text-industrial md:text-5xl">Choose by the work, not the label.</h2>
                     </div>
                     <p className="max-w-2xl font-sans text-lg leading-8 text-industrial/65">
-                        Start with the road, soil, or equipment problem. Each product page shows the published use, practical applications, source material, and questions that still need a project-specific answer.
+                        Start with the road, soil, or equipment problem. Compare practical applications, key specifications, field photos, and the project details needed for current pricing.
                     </p>
                 </div>
 

@@ -27,7 +27,7 @@ export function HomepageShowcases() {
 
                     <article>
                         <div className="relative aspect-[4/3] overflow-hidden border border-white/15 bg-white">
-                            <Image src="/Meltdown.png" alt="MeltDown MR-1 product container" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-contain p-10" />
+                            <Image src="/images/pct/monkey-business.webp" alt="Road roller used during asphalt paving operations" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
                         </div>
                         <p className="mt-7 font-mono text-xs uppercase tracking-[0.2em] text-safety-amber">Equipment care</p>
                         <h2 className="mt-3 font-heading text-3xl font-bold">MeltDown MR-1</h2>

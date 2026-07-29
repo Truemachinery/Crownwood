@@ -6,6 +6,10 @@ export type ServicePage = {
     title: string;
     summary: string;
     description: string;
+    image: string;
+    imageAlt: string;
+    imageCredit: string;
+    imageCreditUrl: string;
     scope: { name: string; description: string }[];
     process: { name: string; description: string }[];
     projectDetails: string[];
@@ -20,6 +24,10 @@ export const servicePages: ServicePage[] = [
         title: "Asphalt paving and repair for working properties.",
         summary: "Parking lots, private roads, overlays, repairs, tear-outs, and new asphalt work in San Antonio and surrounding areas.",
         description: "Crownwood handles asphalt projects for commercial, municipal, industrial, and private sites. The right scope depends on the existing pavement and base: some sites need isolated repair, some are candidates for an overlay, and others need removal and reconstruction.",
+        image: "/images/pct/banana-slide.webp",
+        imageAlt: "Paving crew placing hot-mix asphalt",
+        imageCredit: "PCT product sheet",
+        imageCreditUrl: "https://www.procoat.tech/asphalt-road-building-products",
         scope: [
             { name: "New asphalt paving", description: "New parking areas, drives, access roads, and paved work surfaces built to the project plan." },
             { name: "Mill and overlay", description: "Removal of a controlled surface depth followed by a new asphalt lift where the underlying section remains suitable." },
@@ -49,6 +57,10 @@ export const servicePages: ServicePage[] = [
         title: "Concrete flatwork, access, and site repairs.",
         summary: "Commercial slabs, pads, curbs, ramps, walkways, demolition, and replacement work in the San Antonio area.",
         description: "Concrete performance starts below the slab. Crownwood scopes the use, loads, drainage, reinforcement, access, and existing base before pricing new work or replacement. The result is a buildable scope rather than a generic price per square foot.",
+        image: "/images/field/concrete.webp",
+        imageAlt: "Construction worker placing concrete at a jobsite",
+        imageCredit: "Anil Sharma / Pexels",
+        imageCreditUrl: "https://www.pexels.com/photo/construction-worker-pouring-concrete-on-site-34842259/",
         scope: [
             { name: "Commercial flatwork", description: "Slabs, walkways, approaches, equipment areas, and paved work surfaces." },
             { name: "Loading and dumpster pads", description: "Concrete areas planned around vehicle paths, wheel loads, container service, and drainage." },
@@ -78,6 +90,10 @@ export const servicePages: ServicePage[] = [
         title: "Sealcoating planned around pavement condition and site use.",
         summary: "Parking-lot and private-road sealcoating with surface preparation, repair coordination, traffic planning, and restriping.",
         description: "Sealcoating is preventive surface maintenance, not a structural repair. Crownwood first separates cracks, potholes, drainage issues, and failed pavement from areas that are suitable for treatment, then plans cleaning, application, closure, and markings around the property.",
+        image: "/images/pct/eco-black.webp",
+        imageAlt: "Dark finished asphalt pavement",
+        imageCredit: "PCT product sheet",
+        imageCreditUrl: "https://www.procoat.tech/asphalt-road-building-products",
         scope: [
             { name: "Parking lots", description: "Sealcoating and reopening plans for retail, office, multifamily, industrial, and institutional properties." },
             { name: "Private roads and drives", description: "Surface treatment for suitable asphalt roads, drives, and low-speed paved areas." },
@@ -107,6 +123,10 @@ export const servicePages: ServicePage[] = [
         title: "Clear parking layouts and traffic markings.",
         summary: "New layouts, restriping, accessible spaces, fire lanes, curbs, directional markings, and staged work in San Antonio.",
         description: "Striping has to work for the property, not just look fresh. Crownwood reviews the existing layout, traffic paths, stalls, access areas, curbs, signage, and operating schedule before marking new pavement or restoring an existing plan.",
+        image: "/images/pct/rumbleguard.webp",
+        imageAlt: "Roadway with bright centerline markings",
+        imageCredit: "PCT product sheet",
+        imageCreditUrl: "https://www.procoat.tech/asphalt-road-building-products",
         scope: [
             { name: "Parking stalls and aisles", description: "New layouts and restriping for customer, employee, fleet, and visitor parking." },
             { name: "Accessible parking markings", description: "Markings and access aisles coordinated with the site plan, current requirements, signage, and field conditions." },
@@ -136,6 +156,10 @@ export const servicePages: ServicePage[] = [
         title: "Clear, grade, and prepare the site for what comes next.",
         summary: "Brush and tree removal, mulching, cleanup, grading, access preparation, and commercial site work around San Antonio.",
         description: "Crownwood clears and prepares properties for construction, access, drainage, maintenance, or land use. The scope starts with what stays, what goes, where material can be processed or hauled, and the grades and access the next phase requires.",
+        image: "/images/field/land-clearing.webp",
+        imageAlt: "Excavator positioned in a wooded clearing",
+        imageCredit: "Alfo Medeiros / Pexels",
+        imageCreditUrl: "https://www.pexels.com/photo/excavator-in-a-forest-27036801/",
         scope: [
             { name: "Brush and small-tree clearing", description: "Removal or processing of brush, cedar, mesquite, and volunteer growth within the agreed limits." },
             { name: "Forestry mulching", description: "On-site reduction of suitable vegetation where mulching fits the land-use and cleanup plan." },
@@ -165,6 +189,10 @@ export const servicePages: ServicePage[] = [
         title: "Hydroseeding for disturbed soil and large sites.",
         summary: "Seed-and-mulch applications for commercial sites, slopes, rights-of-way, drainage areas, and revegetation projects.",
         description: "Hydroseeding combines seed, water, mulch, and specified additives into a spray-applied slurry. Crownwood plans the work around the soil, slope, season, seed requirements, water access, erosion risk, and the maintenance needed after application.",
+        image: "/images/field/hydroseeding.webp",
+        imageAlt: "Hydroseeding truck spraying a newly graded levee slope",
+        imageCredit: "Todd Plain / U.S. Army Corps of Engineers, public domain",
+        imageCreditUrl: "https://commons.wikimedia.org/wiki/File:Hydroseeding_a_River_Park_neighborhood_levee_section_(15644386739).jpg",
         scope: [
             { name: "Commercial revegetation", description: "Large disturbed areas, development sites, utility work, and other projects that need seeded cover." },
             { name: "Slopes and drainage areas", description: "Applications planned around slope length, runoff, soil condition, and the selected erosion-control system." },

@@ -7,6 +7,9 @@ export type CoreProduct = {
     title: string;
     summary: string;
     description: string;
+    image: string;
+    imageAlt: string;
+    imageCaption: string;
     applications: { name: string; description: string }[];
     planningQuestions: string[];
     faqs: { question: string; answer: string }[];
@@ -21,6 +24,9 @@ export const coreProducts: CoreProduct[] = [
         title: "A soil-treatment option for cohesive native material.",
         summary: "Concentrated bio-enzyme soil treatment for projects evaluating subgrade conditioning, native-soil reuse, and dust control.",
         description: "Permabase is intended to be diluted, applied to suitable soil, mixed to the planned treatment depth, and compacted as part of a defined earthwork process. Product fit should be based on the soil, moisture, gradation, plasticity, treatment depth, density target, loading, and project specification - not a product name alone.",
+        image: "/images/field/crownwood-road-application.webp",
+        imageAlt: "Crownwood tanker applying road treatment to an unpaved surface",
+        imageCaption: "Crownwood field application video still.",
         applications: [
             { name: "Subgrade treatment", description: "Evaluation of suitable native soil beneath roads, parking, pads, and other paved or working surfaces." },
             { name: "Unpaved roads and access", description: "Treatment planning for dirt or aggregate routes where dust and surface condition are recurring concerns." },
@@ -31,7 +37,7 @@ export const coreProducts: CoreProduct[] = [
         faqs: [
             { question: "Is Permabase suitable for every soil?", answer: "No soil-treatment product should be selected without understanding the material. Soil classification, fines, plasticity, moisture, gradation, organics, and the performance target all matter." },
             { question: "Can it replace excavation and imported base?", answer: "It may be evaluated as an alternative on suitable projects, but that decision depends on testing, design requirements, loading, drainage, and acceptance criteria." },
-            { question: "What application rate should be used?", answer: "Use the current Crownwood technical guidance for the tested soil and planned depth. This page intentionally does not publish a universal rate without the supporting project inputs." },
+            { question: "What application rate should be used?", answer: "Use current Crownwood technical guidance for the tested soil and planned depth. A universal rate would not account for the soil, moisture, treatment depth, density target, or project requirements." },
             { question: "What should I send for product planning?", answer: "Send the project location, area and depth, geotechnical or soil information, intended use and loads, plans, schedule, and available water and mixing equipment." },
         ],
         keywords: ["Permabase", "soil stabilization", "bio-enzyme soil treatment", "clay soil treatment", "dust control", "subgrade treatment"],
@@ -43,6 +49,9 @@ export const coreProducts: CoreProduct[] = [
         title: "Soil treatment with a dark finished appearance.",
         summary: "A tinted Permabase treatment for suitable soil projects where stabilization planning and a darker low-speed surface are both desired.",
         description: "Permabase Black combines the Permabase soil-treatment approach with a dark tint. It may fit selected unpaved roads, yards, access routes, and low-speed working surfaces, but it should not be presented as interchangeable with a designed asphalt pavement section. Soil suitability, treatment depth, traffic, drainage, maintenance, and finish expectations need to be agreed before use.",
+        image: "/images/field/crownwood-road-application.webp",
+        imageAlt: "Crownwood tanker spraying dark road treatment across an unpaved surface",
+        imageCaption: "Permabase Black field application from Crownwood video.",
         applications: [
             { name: "Ranch and private roads", description: "Suitable low-speed routes where a treated soil surface and darker appearance are being evaluated." },
             { name: "Yards and staging areas", description: "Working surfaces where dust, tracking, maintenance, and appearance all matter." },
@@ -65,6 +74,9 @@ export const coreProducts: CoreProduct[] = [
         title: "Remove asphalt buildup and prepare equipment before the next load.",
         summary: "Soy-based product used as an asphalt remover and release treatment on compatible paving equipment and tools.",
         description: "MeltDown MR-1 is used around paving operations to loosen asphalt, tar, and tack residue and to help reduce future adhesion when applied as a release treatment. The right procedure depends on whether the task is cleanup or prevention, how heavy the buildup is, and what metals, coatings, rubber, seals, or plastics are present.",
+        image: "/images/pct/monkey-business.webp",
+        imageAlt: "Road roller used during an asphalt paving operation",
+        imageCaption: "Paving-equipment maintenance and cleanup context.",
         applications: [
             { name: "Paver and roller cleanup", description: "Removal planning for asphalt and tack residue on compatible equipment surfaces." },
             { name: "Truck beds and hoppers", description: "Release treatment applied before material contact where the equipment manufacturer and product guidance allow it." },
@@ -95,6 +107,7 @@ export function buildCoreProductMetadata(product: CoreProduct): Metadata {
         openGraph: {
             title: `${product.name} | Crownwood Chemicals`,
             description: product.summary,
+            images: [{ url: product.image }],
         },
     };
 }

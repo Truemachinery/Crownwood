@@ -1,14 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-
-const services = [
-    ["Asphalt paving", "New pavement, overlays, tear-outs, mill-and-overlay work, parking lots, roadways, and repair.", "/construction/asphalt-paving"],
-    ["Concrete", "Commercial flatwork, curbs, pads, ramps, loading areas, demolition, and replacement.", "/construction/concrete"],
-    ["Sealcoating", "Surface preparation and sealcoating for parking lots, private roads, and paved commercial sites.", "/construction/sealcoat"],
-    ["Striping", "Parking layouts, restriping, accessible stalls, fire lanes, markings, and traffic-flow updates.", "/construction/striping"],
-    ["Land clearing", "Brush and tree removal, site cleanup, grading, access preparation, and construction-ready lots.", "/construction/land-clearing"],
-    ["Hydroseeding", "Seed, mulch, and erosion-control applications for disturbed soil, slopes, rights-of-way, and large sites.", "/construction/hydro-seeding"],
-];
+import { servicePages } from "@/lib/servicePages";
 
 export function ServiceGrid() {
     return (
@@ -25,13 +18,20 @@ export function ServiceGrid() {
                         </p>
                     </div>
 
-                    <div className="border-t-2 border-industrial">
-                        {services.map(([title, description, href], index) => (
-                            <Link key={href} href={href} className="group grid gap-4 border-b border-black/15 py-7 md:grid-cols-[3rem_0.65fr_1fr_1.5rem] md:items-start">
-                                <span className="font-mono text-xs text-industrial/35">0{index + 1}</span>
-                                <h3 className="font-heading text-lg font-bold text-industrial group-hover:text-safety-amber">{title}</h3>
-                                <p className="font-sans text-sm leading-6 text-industrial/60">{description}</p>
-                                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <div className="grid gap-px bg-black/15 sm:grid-cols-2">
+                        {servicePages.map((service, index) => (
+                            <Link key={service.slug} href={`/construction/${service.slug}`} className="group bg-white">
+                                <div className="relative aspect-[16/9] overflow-hidden bg-asphalt">
+                                    <Image src={service.image} alt={service.imageAlt} fill sizes="(max-width: 640px) 100vw, 50vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                                    <span className="absolute left-4 top-4 bg-asphalt px-2 py-1 font-mono text-[10px] text-white">0{index + 1}</span>
+                                </div>
+                                <div className="p-6">
+                                <span className="flex items-start justify-between gap-4">
+                                    <h3 className="font-heading text-xl font-bold text-industrial group-hover:text-safety-amber">{service.name}</h3>
+                                    <ArrowRight className="mt-1 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
+                                </span>
+                                <p className="mt-3 font-sans text-sm leading-6 text-industrial/60">{service.summary}</p>
+                                </div>
                             </Link>
                         ))}
                     </div>

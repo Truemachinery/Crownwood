@@ -1,7 +1,7 @@
 const commitments = [
-    ["Published facts stay published facts", "We identify the manufacturer behind a product and link the available technical sheet. We do not turn a short brochure into invented specifications."],
-    ["Unknowns stay visible", "If coverage, cure time, packaging, certification, or surface compatibility is missing, we say so and confirm it before the job."],
-    ["The recommendation starts with the site", "Traffic, pavement type, soil, equipment, drainage, schedule, and agency requirements determine the product and process."],
+    ["A product matched to the job", "Traffic, pavement condition, soil, equipment, drainage, and schedule all shape the recommendation."],
+    ["A quote you can build around", "Get current pricing, availability, quantity guidance, and the documents your crew or owner needs."],
+    ["Support beyond the order", "Crownwood stays available for application planning, field questions, and the next phase of work."],
 ];
 
 export function Philosophy() {
@@ -9,12 +9,12 @@ export function Philosophy() {
         <section className="bg-concrete px-6 py-24 md:px-12 lg:px-24">
             <div className="mx-auto max-w-7xl">
                 <div className="max-w-3xl">
-                    <p className="font-mono text-xs uppercase tracking-[0.22em] text-industrial/45">How we communicate</p>
+                    <p className="font-mono text-xs uppercase tracking-[0.22em] text-industrial/45">Why Crownwood</p>
                     <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight text-industrial md:text-5xl">
-                        Useful information beats big promises.
+                        Start with the site. Finish with the right material.
                     </h2>
                     <p className="mt-6 font-sans text-lg leading-8 text-industrial/65">
-                        Road products are technical purchases. The site should help you narrow the choice and prepare better questions, not bury you in slogans.
+                        Tell us what you are building, repairing, or maintaining. We will help narrow the options and put together a practical order for the work ahead.
                     </p>
                 </div>
                 <div className="mt-14 grid border-y border-black/15 md:grid-cols-3">

@@ -8,6 +8,9 @@ export type RoadProduct = {
     tagline: string;
     summary: string;
     description: string;
+    image: string;
+    imageAlt: string;
+    imageCaption: string;
     applications: string[];
     benefits: { title: string; description: string }[];
     specifications: { label: string; value: string }[];
@@ -29,6 +32,9 @@ export const roadProducts: RoadProduct[] = [
         tagline: "Cold-pour dust control for gravel and dirt roads",
         summary: "An all-season, no-heat concentrate for controlling excessive dust on unpaved roads, farms, yards, and working surfaces.",
         description: "Dust Defeater is PCT's water-dilutable road dust treatment. It is designed for application from a water truck or distributor truck and can be diluted with up to three parts water, giving road departments and site operators a practical way to treat gravel and dirt-road dust without heated equipment.",
+        image: "/images/pct/dust-defeater.webp",
+        imageAlt: "Unpaved road extending through a dry rural landscape",
+        imageCaption: "Unpaved-road dust-control application context.",
         applications: [
             "Gravel roads and unpaved municipal routes",
             "Dirt roads, ranch roads, and access lanes",
@@ -49,7 +55,7 @@ export const roadProducts: RoadProduct[] = [
         ],
         steps: [
             { title: "Define the treatment area", description: "Identify the gravel or dirt-road segment, traffic pattern, and dust conditions that need control." },
-            { title: "Confirm the dilution", description: "Select a job-specific mix with Crownwood. PCT allows dilution with up to three parts water but does not publish a universal application rate on the product sheet." },
+            { title: "Confirm the dilution", description: "Select a job-specific mix with Crownwood. PCT allows dilution with up to three parts water; Crownwood can help calculate the working strength and quantity for the road." },
             { title: "Load the application truck", description: "Prepare the selected mixture in a compatible water or distributor truck." },
             { title: "Apply and monitor", description: "Treat the road surface evenly, then monitor traffic and dust conditions to plan any maintenance application." },
         ],
@@ -59,20 +65,22 @@ export const roadProducts: RoadProduct[] = [
             { question: "How much water can be added?", answer: "PCT states that the product can be diluted with up to three parts water. Confirm the appropriate field mix for your road and traffic conditions before use." },
             { question: "Where is it intended to be used?", answer: "The manufacturer identifies gravel roads, dirt roads, and farms as primary use cases." },
         ],
-        fieldNote: "PCT's one-page sheet does not publish coverage, application rate, curing time, packaging, or reapplication interval. Crownwood can help confirm the current technical data and quantity for a specific road segment.",
+        fieldNote: "Confirm coverage, application rate, curing time, package size, and maintenance interval for the specific road, traffic, and dust conditions.",
         manufacturerPdfUrl: "https://cdn.prod.website-files.com/5d1f8d8d821837c6e9a0cdb2/5d26642ab3094d81bcad1fef_ROAD%20BUILDING%20-DUSTX.pdf",
         keywords: ["Dust Defeater", "Dust-X", "gravel road dust control", "dirt road dust control", "cold pour dust control", "water truck dust control"],
     },
     {
         slug: "phpm-50",
-        name: "FP PrimePatch",
-        displayName: "FP PrimePatch (PHPM-50)",
-        formerName: "PHPM-50",
+        name: "PHPM-50",
+        displayName: "PHPM-50 / FP PrimePatch",
         category: "Tack and Patch",
         eyebrow: "Tack / Prime / Patch",
         tagline: "No-heat tack membrane for pothole patching and overlays",
-        summary: "A liquid-stable tack membrane formulated for pothole patching and asphalt overlays, compatible with all patch mixes.",
-        description: "FP PrimePatch, formerly known as PHPM-50, is PCT's no-heat tack membrane for pothole patching and asphalt overlay work. It is formulated to seal the patch against water infiltration, remain liquid stable in application equipment, and work with all patch mixes.",
+        summary: "PHPM-50 is a liquid-stable tack membrane for pothole patching and asphalt overlays, compatible with all patch mixes. PCT now markets it as FP PrimePatch.",
+        description: "PHPM-50, now called FP PrimePatch by PCT, is a no-heat tack membrane for pothole patching and asphalt overlay work. It is formulated to seal the patch against water infiltration, remain liquid stable in application equipment, and work with all patch mixes.",
+        image: "/images/pct/phpm-50.webp",
+        imageAlt: "Pothole in an asphalt roadway before repair",
+        imageCaption: "Pothole-repair application context for PHPM-50.",
         applications: [
             "Tack membrane for pothole repairs",
             "Asphalt overlay bonding",
@@ -86,8 +94,8 @@ export const roadProducts: RoadProduct[] = [
             { title: "Longer Patch Life", description: "PCT states that PrimePatch can increase patch life by up to five times by helping stop water infiltration." },
         ],
         specifications: [
-            { label: "Current Name", value: "FP PrimePatch" },
-            { label: "Former Name", value: "PHPM-50" },
+            { label: "Known As", value: "PHPM-50" },
+            { label: "PCT Name", value: "FP PrimePatch" },
             { label: "Heat", value: "Not required" },
             { label: "Certification", value: "NSF/ANSI 61 stated" },
         ],
@@ -98,12 +106,12 @@ export const roadProducts: RoadProduct[] = [
             { title: "Protect stored material", description: "No application heat is required, but PCT specifically calls for freeze protection during storage." },
         ],
         faqs: [
-            { question: "Is PHPM-50 still the product name?", answer: "PCT's current product sheet calls the material FP PrimePatch and identifies PHPM-50 as its former name. Crownwood keeps the PHPM-50 page address so existing customers can still find it." },
-            { question: "Does FP PrimePatch require heat?", answer: "No. PCT describes it as a no-heat, all-season material, although the stored product must be protected from freezing." },
+            { question: "Is PHPM-50 the same product as FP PrimePatch?", answer: "Yes. PHPM-50 is the familiar product name used by Crownwood customers; PCT's current product sheet markets it as FP PrimePatch." },
+            { question: "Does PHPM-50 require heat?", answer: "No. PCT describes it as a no-heat, all-season material, although the stored product must be protected from freezing." },
             { question: "What patch mixes can be used?", answer: "The manufacturer states that FP PrimePatch is compatible with all patch mixes." },
             { question: "Why use a tack membrane on a patch?", answer: "PrimePatch is formulated to seal the repair from water infiltration, which PCT identifies as a cause of patch failure." },
         ],
-        fieldNote: "The current PCT sheet does not support the previous Crownwood page's standing-water cure, temperature-range, immediate-traffic, or packaged-pothole-mix claims. This page now reflects the manufacturer's published PrimePatch description.",
+        fieldNote: "Confirm the current storage temperature, placement procedure, traffic reopening criteria, application rate, package size, and compatibility requirements before use.",
         manufacturerPdfUrl: "https://cdn.prod.website-files.com/5d1f8d8d821837c6e9a0cdb2/5d26642380c5dd33598f480f_ROAD%20BUILDING%20-PHPM50.pdf",
         keywords: ["FP PrimePatch", "PHPM-50", "PHPM50", "cold applied tack", "pothole tack membrane", "asphalt overlay tack", "no heat tack"],
     },
@@ -116,6 +124,9 @@ export const roadProducts: RoadProduct[] = [
         tagline: "Diesel-replacement release agent for asphalt equipment",
         summary: "A low-viscosity asphalt release treatment applied before use to truck beds, belts, hoppers, augers, tools, and other paving equipment.",
         description: "Banana Slide is PCT's environmentally friendly asphalt release solution. Applied to asphalt-handling equipment before the shift or load, it creates a release layer without using diesel and is designed for easy pump-sprayer application across the paving train.",
+        image: "/images/pct/banana-slide.webp",
+        imageAlt: "Paving crew working beside fresh hot-mix asphalt",
+        imageCaption: "Hot-mix paving and asphalt-handling equipment.",
         applications: [
             "Dump-truck beds and material-contact surfaces",
             "Paver hoppers, augers, and conveyor belts",
@@ -137,7 +148,7 @@ export const roadProducts: RoadProduct[] = [
         steps: [
             { title: "Start with equipment before use", description: "Banana Slide is intended as a preventive release treatment, so apply it before asphalt contacts the equipment." },
             { title: "Cover material-contact surfaces", description: "Use a pump sprayer on truck beds, belts, hoppers, augers, and tools that will contact asphalt." },
-            { title: "Reapply as operations require", description: "Inspect contact surfaces during production and ask Crownwood for a job-specific use plan; the PCT sheet does not publish a fixed coverage rate." },
+            { title: "Reapply as operations require", description: "Inspect contact surfaces during production and ask Crownwood for a use plan based on the equipment, mix, and paving schedule." },
             { title: "Store correctly", description: "Keep the product out of direct sunlight and protect it from freezing. PCT states an eight-year shelf life." },
         ],
         faqs: [
@@ -146,7 +157,7 @@ export const roadProducts: RoadProduct[] = [
             { question: "Is Banana Slide intended to replace diesel?", answer: "Yes. PCT positions Banana Slide as an environmentally friendly diesel replacement for asphalt release." },
             { question: "How should it be stored?", answer: "Keep it out of direct sunlight and protect it from freezing. The product sheet states an eight-year shelf life." },
         ],
-        fieldNote: "The product sheet does not publish coverage per gallon, reapplication frequency, available package sizes, or a detailed compatibility table. Confirm the current SDS and field procedure before deployment.",
+        fieldNote: "Confirm coverage per gallon, reapplication frequency, package sizes, surface compatibility, current SDS requirements, and the field procedure before deployment.",
         manufacturerPdfUrl: "https://cdn.prod.website-files.com/5d1f8d8d821837c6e9a0cdb2/5d266431b3094d59aaad1ff5_ROAD%20BUILDING-BANANA%20SLIDE.pdf",
         keywords: ["Banana Slide", "asphalt release agent", "diesel replacement asphalt", "truck bed release agent", "paver release agent"],
     },
@@ -159,6 +170,9 @@ export const roadProducts: RoadProduct[] = [
         tagline: "Sprayable membrane sealer for low-volume hot-mix roads",
         summary: "A fast-drying, no-heat friction-course sealer that maintains the appearance of low-volume asphalt roads.",
         description: "FP Blacktrac is PCT's sprayable, environmentally conscious membrane sealer for low-volume hot-mix asphalt roads. The liquid-stable formula is designed for straightforward spraying, fast dry times, and equipment reliability without heating.",
+        image: "/images/pct/fp-blacktrac.webp",
+        imageAlt: "Dark asphalt roadway with a yellow centerline",
+        imageCaption: "Low-volume asphalt preservation context.",
         applications: [
             "Low-volume asphalt road preservation",
             "Hot-mix asphalt surface treatment",
@@ -179,7 +193,7 @@ export const roadProducts: RoadProduct[] = [
         ],
         steps: [
             { title: "Evaluate the pavement", description: "Confirm that the project is a low-volume hot-mix surface suited to preventive membrane treatment rather than structural rehabilitation." },
-            { title: "Set the application plan", description: "Establish surface preparation, coverage, traffic control, and spray-equipment settings with Crownwood because the one-page sheet does not publish those values." },
+            { title: "Set the application plan", description: "Establish surface preparation, coverage, traffic control, and spray-equipment settings with Crownwood for the specific pavement and operating conditions." },
             { title: "Spray the treatment", description: "Apply with compatible spray equipment. The material is designed to remain liquid stable and avoid clogging." },
             { title: "Allow the surface to dry", description: "PCT identifies fast dry times, but no fixed reopening time is published; use the current technical guidance and site conditions." },
         ],
@@ -189,7 +203,7 @@ export const roadProducts: RoadProduct[] = [
             { question: "How long does a treatment last?", answer: "PCT states a two-to-three-year treatment life and says the product can increase road life by up to five years. Actual performance depends on pavement condition, preparation, traffic, climate, and application." },
             { question: "Will it clog spray equipment?", answer: "The product sheet describes the formula as liquid stable and says it will not gum, become viscous, or clog equipment." },
         ],
-        fieldNote: "The manufacturer sheet provides service-life statements but no application rate, dry-time range, dilution, or surface-preparation specification. Those values should be confirmed for each project.",
+        fieldNote: "Confirm application rate, dry-time range, dilution, surface preparation, spray equipment, and traffic reopening requirements for each project.",
         manufacturerPdfUrl: "https://cdn.prod.website-files.com/5d1f8d8d821837c6e9a0cdb2/5d26642e8836af1328eb6bc2_ROAD%20BUILDING-BLACKTRAC.pdf",
         keywords: ["FP Blacktrac", "friction course sealer", "low volume road sealer", "hot mix surface sealer", "sprayable asphalt sealer"],
     },
@@ -202,6 +216,9 @@ export const roadProducts: RoadProduct[] = [
         tagline: "Preventive treatment for milled rumble strips and surrounding pavement",
         summary: "A pavement-preservation treatment designed to slow wear, UV deterioration, cracking, and water infiltration around rumble strips.",
         description: "Rumbleguard is PCT's targeted preservation product for rumble strips. It is formulated to revitalize pavement properties lost through wear and UV exposure, helping keep milled strips intact and functional while delaying larger rehabilitation work.",
+        image: "/images/pct/rumbleguard.webp",
+        imageAlt: "Highway markings and rumble-strip corridor",
+        imageCaption: "Rumble-strip preservation and roadway-safety context.",
         applications: [
             "Centerline and shoulder rumble strips",
             "Milled rumble-strip preservation",
@@ -223,16 +240,16 @@ export const roadProducts: RoadProduct[] = [
         steps: [
             { title: "Inspect the rumble strip", description: "Document chipping, flattening, cracking, wear, and water-entry points before selecting a preservation treatment." },
             { title: "Confirm preservation fit", description: "Separate candidates for preventive treatment from sections that already require structural repair or rehabilitation." },
-            { title: "Build the treatment plan", description: "Ask Crownwood to confirm preparation, application method, coverage, and reopening requirements; PCT's one-page sheet does not publish them." },
+            { title: "Build the treatment plan", description: "Ask Crownwood to confirm preparation, application method, coverage, and reopening requirements for the roadway and traffic plan." },
             { title: "Track condition over time", description: "Monitor the treated safety feature so future maintenance is scheduled before the strip loses function." },
         ],
         faqs: [
             { question: "What does Rumbleguard protect?", answer: "It is intended for rumble strips and the pavement immediately around milled rumble strips, which PCT notes can be more prone to wear." },
             { question: "How can it support roadway safety?", answer: "By helping preserve the shape and condition of the strip, the treatment supports the audible and tactile warning that alerts drifting drivers." },
             { question: "Is this a structural repair product?", answer: "The product sheet presents Rumbleguard as preventive preservation. Severely failed pavement may still require repair, overlay, or reconstruction." },
-            { question: "Does the sheet provide an application rate?", answer: "No. Coverage, preparation, application method, and reopening time should be confirmed before specifying the product." },
+            { question: "How is the application rate determined?", answer: "Coverage, preparation, application method, and reopening time should be confirmed for the pavement condition, rumble-strip geometry, and traffic plan." },
         ],
-        fieldNote: "Rumbleguard's product sheet focuses on preservation outcomes and does not publish composition, application equipment, coverage, curing time, packaging, or certification. Request the current technical and safety documents for specification work.",
+        fieldNote: "Confirm composition, compatible application equipment, coverage, curing time, package size, certification, and traffic reopening requirements for the roadway.",
         manufacturerPdfUrl: "https://cdn.prod.website-files.com/5d1f8d8d821837c6e9a0cdb2/67fe85b47e3ff212cbb7c273_RUMBLE%20STRIP%20.pdf",
         keywords: ["Rumbleguard", "rumble strip preservation", "milled rumble strip sealer", "road safety preservation", "rumble strip maintenance"],
     },
@@ -246,6 +263,9 @@ export const roadProducts: RoadProduct[] = [
         tagline: "No-heat sealer for low-speed asphalt and chip-seal surfaces",
         summary: "A surface-sealing treatment for renewing appearance and limiting water entry on residential streets, parking lots, and other low-speed roads.",
         description: "Eco Black is PCT's no-heat treatment for sealing and renewing asphalt and chip-seal surfaces. It is aimed at low-speed pavement where appearance and protection against water reaching the base are central maintenance goals.",
+        image: "/images/pct/eco-black.webp",
+        imageAlt: "Finished black asphalt highway crossing an open landscape",
+        imageCaption: "Finished low-speed asphalt surface.",
         applications: [
             "Residential asphalt streets",
             "Parking lots and low-speed paved areas",
@@ -265,7 +285,7 @@ export const roadProducts: RoadProduct[] = [
             { label: "Certification", value: "NSF/ANSI 61 stated" },
         ],
         steps: [
-            { title: "Confirm the pavement use", description: "Use the product-sheet criteria: asphalt or chip seal on a residential street, parking lot, or other low-speed road." },
+            { title: "Confirm the pavement use", description: "Use on asphalt or chip seal serving a residential street, parking lot, or other low-speed road." },
             { title: "Assess repair needs", description: "Address structural failures separately; Eco Black is presented as a sealing and appearance-renewal treatment." },
             { title: "Set the field specification", description: "Confirm cleaning, application equipment, coverage, drying, and traffic-control requirements with Crownwood before work begins." },
             { title: "Apply without heat", description: "Install the no-heat treatment under the current technical guidance and reopen only after the specified condition is reached." },
@@ -276,7 +296,7 @@ export const roadProducts: RoadProduct[] = [
             { question: "What does the treatment do?", answer: "Eco Black renews the appearance of the pavement and seals against water entering the base, which PCT says can help increase pavement life." },
             { question: "Does it need to be heated?", answer: "No. The product sheet explicitly states that no heat is required." },
         ],
-        fieldNote: "PCT's sheet does not publish coverage, dilution, dry time, preparation, skid data, or package sizes. The stated NSF/ANSI 61 certification should be confirmed against current documentation during procurement.",
+        fieldNote: "Confirm coverage, dilution, dry time, preparation, skid data, package sizes, and current NSF/ANSI 61 documentation during procurement.",
         manufacturerPdfUrl: "https://cdn.prod.website-files.com/5d1f8d8d821837c6e9a0cdb2/5d26642fc7f84cb1ceee40c3_ROAD%20BUILDING-COS50%20%281%29.pdf",
         keywords: ["Fastphalt Eco Black", "COS-50", "asphalt surface renewal", "chip seal sealer", "low speed road sealer", "parking lot sealer"],
     },
@@ -289,6 +309,9 @@ export const roadProducts: RoadProduct[] = [
         tagline: "Ready-to-use binder for spray-injection and stockpile patching",
         summary: "A no-heat liquid bonding agent for spray-injection pothole patchers, rural shoulders, stockpile mixes, and throw-and-roll repairs.",
         description: "BAM - Bonding Adhesive Material - is PCT's ready-to-use liquid binder for spray-injection pothole and shoulder repair. It can also be mixed with rock to create a stockpile patch mix for lower-cost pothole work and throw-and-roll placement.",
+        image: "/images/pct/bam.webp",
+        imageAlt: "Road crew applying a dark repair treatment along a pavement edge",
+        imageCaption: "Road-repair application context for BAM.",
         applications: [
             "Spray-injection pothole patchers",
             "Rural road shoulder repair",
@@ -309,7 +332,7 @@ export const roadProducts: RoadProduct[] = [
         ],
         steps: [
             { title: "Choose the repair method", description: "Use BAM through a compatible spray-injection pothole patcher or build a stockpile mix with suitable rock." },
-            { title: "Set the mix and equipment", description: "Confirm aggregate, binder amount, equipment settings, and job procedure with Crownwood; those values are not included on PCT's one-page sheet." },
+            { title: "Set the mix and equipment", description: "Confirm aggregate, binder amount, equipment settings, and job procedure with Crownwood for the selected repair method." },
             { title: "Place the repair", description: "Install the spray-injection, shoulder, stockpile, or throw-and-roll repair using the selected field method." },
             { title: "Return to service", description: "PCT states that BAM allows immediate traffic, subject to the completed repair meeting project and agency requirements." },
         ],
@@ -319,7 +342,7 @@ export const roadProducts: RoadProduct[] = [
             { question: "Does BAM require heating?", answer: "No. The manufacturer describes it as ready to use with no heating required." },
             { question: "What durability does PCT claim?", answer: "PCT states that applications with BAM last up to ten times longer than conventional pothole repairs. Actual results depend on materials, preparation, placement, traffic, and site conditions." },
         ],
-        fieldNote: "PCT says BAM is made from hydrocarbon resins meeting ANSI/NSF 61 standards. Confirm current certification, SDS, aggregate requirements, binder rate, packaging, and equipment compatibility before specifying or purchasing.",
+        fieldNote: "Confirm current certification, SDS requirements, aggregate selection, binder rate, packaging, equipment compatibility, and agency acceptance before purchasing.",
         manufacturerPdfUrl: "https://cdn.prod.website-files.com/5d1f8d8d821837c6e9a0cdb2/67fe82fce2aa71c54f01c5a5_BAM%20%281%29.pdf",
         keywords: ["BAM bonding adhesive material", "spray injection pothole patch", "stockpile patch binder", "shoulder repair binder", "throw and roll patch"],
     },
@@ -332,6 +355,9 @@ export const roadProducts: RoadProduct[] = [
         tagline: "D-limonene cleaner for grease, tar, and asphalt buildup",
         summary: "An all-natural, water-dilutable D-limonene cleaner for removing asphalt, tar, and grease from road-building equipment.",
         description: "Monkey Business is PCT's D-limonene-based cleaner for asphalt buildup. The no-solvent-formulation cleaner targets grease, tar, and asphalt and may be diluted with up to five parts water for equipment and tool cleanup.",
+        image: "/images/pct/monkey-business.webp",
+        imageAlt: "Road roller used during asphalt paving operations",
+        imageCaption: "Asphalt-equipment cleaning and maintenance context.",
         applications: [
             "Asphalt buildup on paving equipment",
             "Tar and grease removal",
@@ -352,7 +378,7 @@ export const roadProducts: RoadProduct[] = [
         ],
         steps: [
             { title: "Identify the buildup", description: "Determine whether the surface needs removal of grease, tar, asphalt, or a combination of deposits." },
-            { title: "Choose the dilution", description: "Match the working strength to the cleaning task. PCT permits dilution with up to five parts water but does not publish a task-by-task table." },
+            { title: "Choose the dilution", description: "Match the working strength to the cleaning task. PCT permits dilution with up to five parts water; Crownwood can help choose the starting mix for the equipment and buildup." },
             { title: "Confirm surface compatibility", description: "Review the current SDS and test an inconspicuous area before broad use, especially on coatings, plastics, seals, or sensitive finishes." },
             { title: "Clean and manage residue", description: "Use the confirmed field procedure and collect or manage loosened asphalt residue in accordance with site requirements." },
         ],
@@ -362,7 +388,7 @@ export const roadProducts: RoadProduct[] = [
             { question: "Can it be diluted?", answer: "Yes. PCT says it may be diluted with up to five parts water." },
             { question: "Is it the same as an asphalt release agent?", answer: "The product sheet positions Monkey Business as a cleaner and remover. For preventive asphalt release before equipment use, PCT lists Banana Slide as a separate product." },
         ],
-        fieldNote: "The sheet does not publish dwell time, package size, substrate compatibility, rinsing procedure, or PPE. Review the current SDS and field instructions before using the product on equipment.",
+        fieldNote: "Confirm dwell time, package size, substrate compatibility, rinsing procedure, PPE, residue handling, and current SDS instructions before use.",
         manufacturerPdfUrl: "https://cdn.prod.website-files.com/5d1f8d8d821837c6e9a0cdb2/5d266430c7f84c1ee2ee40c4_ROAD%20BUILDING.pdf",
         keywords: ["Monkey Business asphalt cleaner", "D-limonene asphalt cleaner", "tar remover", "paving equipment cleaner", "asphalt buildup remover"],
     },

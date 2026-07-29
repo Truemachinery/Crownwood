@@ -15,7 +15,7 @@ This reference intentionally distinguishes manufacturer-published facts from pro
 - Manufacturer sheet states organic certification from OMRI; confirm current certification
 - Page: https://crownwoodchemicals.com/chemicals/dust-defeater
 
-### FP PrimePatch (formerly PHPM-50)
+### PHPM-50 (now marketed by PCT as FP PrimePatch)
 
 - Use: tack membrane for pothole patching and asphalt overlays
 - Published features: no heat required; compatible with all patch mixes; liquid stable; freeze protection required during storage
@@ -41,7 +41,7 @@ This reference intentionally distinguishes manufacturer-published facts from pro
 
 - Use: preventive preservation of milled rumble strips and surrounding pavement
 - Published goals: slow wear and UV deterioration, seal small cracks, reduce water infiltration, delay rehabilitation, and preserve strip function
-- PCT does not publish application rate, equipment, cure time, packaging, or composition on the available one-page sheet
+- Contact Crownwood to confirm the application rate, equipment, cure time, packaging, and compatibility for the project
 - Page: https://crownwoodchemicals.com/chemicals/rumbleguard
 
 ### Eco Black (COS-50)

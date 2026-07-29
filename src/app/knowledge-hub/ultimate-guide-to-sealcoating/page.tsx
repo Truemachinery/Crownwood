@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check, X } from "lucide-react";
 import { Footer } from "@/components/Footer";
@@ -46,13 +47,15 @@ export default function SealcoatingGuidePage() {
             <Navbar />
 
             <article>
-                <header className="border-b border-black/10 px-6 pb-20 pt-40 md:px-12 lg:px-24">
-                    <div className="mx-auto max-w-5xl">
-                        <Link href="/knowledge-hub" className="font-mono text-xs uppercase tracking-[0.18em] text-industrial/45 hover:text-safety-amber">&larr; Guides and field notes</Link>
+                <header className="relative overflow-hidden border-b border-black/10 bg-asphalt px-6 pb-20 pt-40 text-concrete md:px-12 lg:px-24">
+                    <Image src="/images/pct/eco-black.webp" alt="Finished dark asphalt road crossing an open landscape" fill priority sizes="100vw" className="object-cover opacity-50" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-asphalt via-asphalt/90 to-asphalt/25" />
+                    <div className="relative mx-auto max-w-5xl">
+                        <Link href="/knowledge-hub" className="font-mono text-xs uppercase tracking-[0.18em] text-concrete/55 hover:text-safety-amber">&larr; Guides and field notes</Link>
                         <p className="mt-12 font-mono text-xs uppercase tracking-[0.22em] text-safety-amber">Pavement maintenance guide</p>
                         <h1 className="mt-6 font-heading text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">Sealcoating: what to inspect, repair, and specify.</h1>
-                        <p className="mt-8 max-w-3xl font-sans text-xl leading-9 text-industrial/65">Use this guide to decide whether pavement is a candidate for sealcoat, build a complete scope, and compare quotes without relying on vague promises.</p>
-                        <div className="mt-10 border-y border-black/15 py-5 font-mono text-[10px] uppercase tracking-[0.18em] text-industrial/45">Condition first · repairs second · coating third · striping last</div>
+                        <p className="mt-8 max-w-3xl font-sans text-xl leading-9 text-concrete/70">Use this guide to decide whether pavement is a candidate for sealcoat, build a complete scope, and compare quotes without relying on vague promises.</p>
+                        <div className="mt-10 border-y border-white/20 py-5 font-mono text-[10px] uppercase tracking-[0.18em] text-concrete/55">Condition first · repairs second · coating third · striping last</div>
                     </div>
                 </header>
 

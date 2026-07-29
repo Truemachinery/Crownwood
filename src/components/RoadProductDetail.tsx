@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
     ArrowRight,
@@ -26,6 +27,7 @@ export function RoadProductDetail({ product }: { product: RoadProduct }) {
         name: product.displayName,
         description: product.summary,
         category: product.category,
+        image: `https://crownwoodchemicals.com${product.image}`,
         brand: {
             "@type": "Brand",
             name: "PCT Fastphalt",
@@ -79,7 +81,13 @@ export function RoadProductDetail({ product }: { product: RoadProduct }) {
             <Navbar />
 
             <section className="relative min-h-[92dvh] overflow-hidden bg-asphalt px-6 pb-20 pt-40 md:px-12 lg:px-24">
-                <div className="absolute inset-0 bg-gradient-to-r from-asphalt via-asphalt/90 to-asphalt/35" />
+                <Image src={product.image} alt={product.imageAlt} fill priority sizes="100vw" className="object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-r from-asphalt via-asphalt/90 to-asphalt/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-asphalt via-transparent to-asphalt/30" />
+
+                <p className="absolute right-8 top-28 z-10 hidden max-w-xs border-l border-white/30 pl-4 font-mono text-[10px] uppercase leading-5 tracking-[0.16em] text-concrete/60 md:block">
+                    {product.imageCaption}
+                </p>
 
                 <div className="relative z-10 mx-auto flex min-h-[65dvh] max-w-7xl flex-col justify-between gap-16">
                     <div>
@@ -178,11 +186,11 @@ export function RoadProductDetail({ product }: { product: RoadProduct }) {
                 <div className="mx-auto max-w-7xl">
                     <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
                         <div>
-                            <p className="mb-4 font-mono text-xs uppercase tracking-[0.25em] text-safety-amber">Manufacturer-stated benefits</p>
+                            <p className="mb-4 font-mono text-xs uppercase tracking-[0.25em] text-safety-amber">Product benefits</p>
                             <h2 className="font-heading text-4xl font-bold uppercase tracking-tight text-concrete md:text-5xl">Why crews specify it</h2>
                         </div>
                         <p className="max-w-xl font-sans text-sm leading-6 text-concrete/50">
-                            Claims below are summarized from the current PCT product sheet. Project results depend on conditions, preparation, equipment, and application.
+                            Performance depends on pavement condition, preparation, equipment, weather, traffic, and application.
                         </p>
                     </div>
 
@@ -209,7 +217,7 @@ export function RoadProductDetail({ product }: { product: RoadProduct }) {
                             <h2 className="font-heading text-4xl font-bold uppercase tracking-tight text-industrial md:text-5xl">From product fit to deployment</h2>
                         </div>
                         <p className="font-sans text-lg leading-8 text-industrial/65">
-                            The product sheet gives the core use case. A successful field plan still needs project-specific rates, equipment checks, safety documents, and acceptance criteria.
+                            Product fit is only the first decision. The field plan still needs project-specific rates, equipment checks, safety documents, and acceptance criteria.
                         </p>
                     </div>
 
@@ -226,7 +234,7 @@ export function RoadProductDetail({ product }: { product: RoadProduct }) {
                     <div className="mt-8 flex flex-col gap-5 border-l-4 border-safety-amber bg-white p-8 md:flex-row md:items-start">
                         <ClipboardCheck className="h-7 w-7 shrink-0 text-industrial" />
                         <div>
-                            <h3 className="font-heading text-lg font-bold uppercase tracking-wide text-industrial">What the one-page sheet does not specify</h3>
+                            <h3 className="font-heading text-lg font-bold uppercase tracking-wide text-industrial">Project details to confirm</h3>
                             <p className="mt-2 max-w-5xl font-sans text-sm leading-6 text-industrial/70">{product.fieldNote}</p>
                         </div>
                     </div>
@@ -237,7 +245,7 @@ export function RoadProductDetail({ product }: { product: RoadProduct }) {
                 <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1fr_0.8fr]">
                     <div>
                         <p className="mb-4 font-mono text-xs uppercase tracking-[0.25em] text-safety-amber">Product questions</p>
-                        <h2 className="font-heading text-4xl font-bold uppercase tracking-tight text-concrete md:text-5xl">Straight answers from the available data</h2>
+                        <h2 className="font-heading text-4xl font-bold uppercase tracking-tight text-concrete md:text-5xl">Answers for product planning</h2>
                         <div className="mt-10 space-y-4">
                             {product.faqs.map((faq, index) => (
                                 <details key={faq.question} className="group border-b border-white/15 px-1 py-6">
@@ -253,9 +261,9 @@ export function RoadProductDetail({ product }: { product: RoadProduct }) {
 
                     <aside className="h-fit border-l-2 border-safety-amber bg-white/[0.04] p-8 md:p-10">
                         <FileText className="h-9 w-9 text-high-vis-yellow" />
-                        <h3 className="mt-6 font-heading text-3xl font-bold uppercase text-concrete">Verify before you specify</h3>
+                        <h3 className="mt-6 font-heading text-3xl font-bold uppercase text-concrete">Get the current documents</h3>
                         <p className="mt-5 font-sans leading-7 text-concrete/60">
-                            This page turns PCT&apos;s short manufacturer sheet into a clearer planning resource. Final procurement and field use should rely on the latest technical data sheet, SDS, agency requirements, and project-specific guidance.
+                            Before ordering, confirm the latest technical data sheet, SDS, application rate, package size, equipment requirements, and any agency or project specification.
                         </p>
                         <a
                             href={product.manufacturerPdfUrl}
@@ -283,6 +291,9 @@ export function RoadProductDetail({ product }: { product: RoadProduct }) {
                     <div className="grid border-y border-black/15 md:grid-cols-3">
                         {relatedProducts.map((related) => (
                             <Link key={related.slug} href={`/chemicals/${related.slug}`} className="group border-b border-black/15 bg-white p-7 transition-colors hover:bg-safety-amber/5 md:border-b-0 md:border-r md:last:border-r-0">
+                                <div className="relative mb-6 aspect-[16/10] overflow-hidden bg-asphalt">
+                                    <Image src={related.image} alt={related.imageAlt} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                                </div>
                                 <Layers3 className="h-6 w-6 text-safety-amber" />
                                 <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-industrial/40">{related.category}</p>
                                 <h3 className="mt-2 font-heading text-xl font-bold uppercase text-industrial">{related.name}</h3>

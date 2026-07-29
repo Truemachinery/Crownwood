@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Mail, MapPin } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
@@ -14,8 +15,10 @@ export function ContactPageContent() {
     return (
         <main className="min-h-screen bg-asphalt text-concrete">
             <Navbar />
-            <section className="border-b border-white/10 px-6 pb-20 pt-40 md:px-12 lg:px-24">
-                <div className="mx-auto max-w-7xl">
+            <section className="relative overflow-hidden border-b border-white/10 px-6 pb-20 pt-40 md:px-12 lg:px-24">
+                <Image src="/images/pct/banana-slide.webp" alt="Asphalt crew working beside hot-mix pavement" fill priority sizes="100vw" className="object-cover opacity-45" />
+                <div className="absolute inset-0 bg-gradient-to-r from-asphalt via-asphalt/90 to-asphalt/30" />
+                <div className="relative mx-auto max-w-7xl">
                     <p className="font-mono text-xs uppercase tracking-[0.22em] text-safety-amber">Contact Crownwood</p>
                     <h1 className="mt-6 max-w-4xl font-heading text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">Tell us what the road, site, or equipment needs.</h1>
                     <p className="mt-7 max-w-2xl font-sans text-lg leading-8 text-concrete/65">A useful first message includes the location, dimensions or quantity, current condition, intended use, schedule, and any plans or specifications.</p>

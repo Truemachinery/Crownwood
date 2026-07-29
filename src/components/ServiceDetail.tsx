@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
@@ -13,6 +14,7 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
         name: service.name,
         serviceType: service.name,
         description: service.summary,
+        image: `https://crownwoodchemicals.com${service.image}`,
         provider: {
             "@type": "LocalBusiness",
             name: "Crownwood Chemicals",
@@ -37,8 +39,14 @@ export function ServiceDetail({ service }: { service: ServicePage }) {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <Navbar />
 
-            <section className="min-h-[760px] bg-asphalt pt-20 text-concrete">
-                <div className="mx-auto grid min-h-[680px] max-w-7xl lg:grid-cols-[1.15fr_0.85fr]">
+            <section className="relative min-h-[760px] overflow-hidden bg-asphalt pt-20 text-concrete">
+                <Image src={service.image} alt={service.imageAlt} fill priority sizes="100vw" className="object-cover opacity-55" />
+                <div className="absolute inset-0 bg-gradient-to-r from-asphalt via-asphalt/90 to-asphalt/35" />
+                <div className="absolute inset-0 bg-gradient-to-t from-asphalt via-transparent to-asphalt/25" />
+                <a href={service.imageCreditUrl} target="_blank" rel="noreferrer" className="absolute right-6 top-24 z-10 hidden bg-black/55 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-concrete/70 hover:text-white md:block">
+                    Photo: {service.imageCredit}
+                </a>
+                <div className="relative z-10 mx-auto grid min-h-[680px] max-w-7xl lg:grid-cols-[1.15fr_0.85fr]">
                 <div className="flex flex-col justify-end px-6 py-20 md:px-12 lg:px-16">
                     <p className="font-mono text-xs uppercase tracking-[0.22em] text-safety-amber">San Antonio construction services</p>
                     <h1 className="mt-6 max-w-3xl font-heading text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">{service.title}</h1>

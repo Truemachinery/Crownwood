@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
@@ -13,6 +14,7 @@ export function CoreProductDetail({ product }: { product: CoreProduct }) {
         name: product.name,
         category: product.category,
         description: product.summary,
+        image: `https://crownwoodchemicals.com${product.image}`,
         brand: { "@type": "Brand", name: "Crownwood Chemicals" },
     };
     const faqSchema = {
@@ -27,8 +29,12 @@ export function CoreProductDetail({ product }: { product: CoreProduct }) {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <Navbar />
 
-            <section className="min-h-[760px] bg-asphalt pt-20 text-concrete">
-                <div className="mx-auto grid min-h-[680px] max-w-7xl lg:grid-cols-[1.15fr_0.85fr]">
+            <section className="relative min-h-[760px] overflow-hidden bg-asphalt pt-20 text-concrete">
+                <Image src={product.image} alt={product.imageAlt} fill priority sizes="100vw" className="object-cover opacity-50" />
+                <div className="absolute inset-0 bg-gradient-to-r from-asphalt via-asphalt/90 to-asphalt/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-asphalt via-transparent to-asphalt/20" />
+                <p className="absolute right-6 top-24 z-10 hidden max-w-xs bg-black/55 px-3 py-2 font-mono text-[9px] uppercase leading-5 tracking-[0.16em] text-concrete/70 md:block">{product.imageCaption}</p>
+                <div className="relative z-10 mx-auto grid min-h-[680px] max-w-7xl lg:grid-cols-[1.15fr_0.85fr]">
                 <div className="flex flex-col justify-end px-6 py-20 md:px-12 lg:px-16">
                     <p className="font-mono text-xs uppercase tracking-[0.22em] text-safety-amber">{product.category}</p>
                     <h1 className="mt-6 max-w-3xl font-heading text-6xl font-bold leading-[0.92] tracking-tight md:text-8xl">{product.name}</h1>
@@ -105,7 +111,7 @@ export function CoreProductDetail({ product }: { product: CoreProduct }) {
             <section className="border-b border-black/10 bg-white px-6 py-16 md:px-12 lg:px-24">
                 <div className="mx-auto max-w-7xl border-l-4 border-safety-amber bg-concrete p-8 md:p-10">
                     <h2 className="font-heading text-2xl font-bold">Request the current technical and safety documents.</h2>
-                    <p className="mt-4 max-w-4xl font-sans text-sm leading-6 text-industrial/65">Product selection and field use should rely on the latest technical data, SDS, project specification, surface or soil information, compatible equipment, and applicable agency requirements. This page is an overview, not a substitute for those documents.</p>
+                    <p className="mt-4 max-w-4xl font-sans text-sm leading-6 text-industrial/65">Before ordering or field use, confirm the latest technical data, SDS, project specification, surface or soil information, compatible equipment, and applicable agency requirements.</p>
                 </div>
             </section>
 

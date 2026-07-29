@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, FileText } from "lucide-react";
 import { Footer } from "@/components/Footer";
@@ -23,7 +24,7 @@ const jobPaths = [
     },
     {
         need: "Repair potholes or road shoulders",
-        recommendation: "FP PrimePatch or BAM",
+        recommendation: "PHPM-50 or BAM",
         href: "/chemicals/bam",
         reason: "Choose a tack membrane for patch mixes or a binder for injection and stockpile repair.",
     },
@@ -61,13 +62,15 @@ export default function RoadBuildingProductsPage() {
             <Navbar />
 
             <section className="relative overflow-hidden border-b border-black/10 bg-asphalt px-6 pb-24 pt-40 text-concrete md:px-12 lg:px-24">
+                <Image src="/images/pct/dust-defeater.webp" alt="Unpaved road through a dry rural landscape" fill priority sizes="100vw" className="object-cover opacity-55" />
+                <div className="absolute inset-0 bg-gradient-to-r from-asphalt via-asphalt/90 to-asphalt/25" />
                 <div className="relative mx-auto max-w-7xl">
                     <p className="font-mono text-xs uppercase tracking-[0.22em] text-safety-amber">Crownwood + PCT Fastphalt</p>
                     <h1 className="mt-6 max-w-5xl font-heading text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">
                         Road products, organized by the work they do.
                     </h1>
                     <p className="mt-8 max-w-3xl font-sans text-lg leading-8 text-concrete/75 md:text-xl">
-                        Eight PCT products cover dust control, patching, preservation, asphalt release, and equipment cleaning. We reviewed every available manufacturer sheet and separated published specifications from details that still need field confirmation.
+                        Compare eight PCT products for dust control, patching, pavement preservation, asphalt release, and equipment cleaning, with technical sheets and project questions in one place.
                     </p>
                     <div className="mt-10 flex flex-wrap gap-x-10 gap-y-4 border-t border-white/15 pt-6 font-mono text-xs uppercase tracking-wider text-concrete/60">
                         <span>8 manufacturer products</span>
@@ -114,18 +117,23 @@ export default function RoadBuildingProductsPage() {
                         <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight md:text-5xl">Compare all eight products</h2>
                     </div>
 
-                    <div className="border-t-2 border-industrial">
+                    <div className="grid gap-px bg-black/15 sm:grid-cols-2 lg:grid-cols-4">
                         {roadProducts.map((product, index) => (
-                            <article key={product.slug} className="grid gap-6 border-b border-black/15 py-9 md:grid-cols-[3rem_0.8fr_1.4fr_0.7fr] md:items-start">
-                                <span className="font-mono text-xs text-industrial/35">{String(index + 1).padStart(2, "0")}</span>
-                                <div>
+                            <article key={product.slug} className="group bg-white">
+                                <Link href={`/chemicals/${product.slug}`} className="block">
+                                <div className="relative aspect-[4/3] overflow-hidden bg-asphalt">
+                                    <Image src={product.image} alt={product.imageAlt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                                    <span className="absolute left-4 top-4 bg-asphalt px-2 py-1 font-mono text-[10px] text-white">{String(index + 1).padStart(2, "0")}</span>
+                                </div>
+                                <div className="p-6">
                                     <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-safety-amber">{product.category}</p>
                                     <h3 className="mt-2 font-heading text-2xl font-bold text-industrial">{product.name}</h3>
                                     {product.formerName && <p className="mt-1 font-sans text-xs text-industrial/45">Formerly {product.formerName}</p>}
-                                </div>
-                                <p className="max-w-2xl font-sans leading-7 text-industrial/65">{product.summary}</p>
-                                <Link href={`/chemicals/${product.slug}`} className="inline-flex items-center gap-2 font-heading text-sm font-bold text-industrial hover:text-safety-amber">
+                                    <p className="mt-4 font-sans text-sm leading-6 text-industrial/65">{product.summary}</p>
+                                    <span className="mt-6 inline-flex items-center gap-2 font-heading text-sm font-bold text-industrial group-hover:text-safety-amber">
                                     Product details <ArrowRight className="h-4 w-4" />
+                                    </span>
+                                </div>
                                 </Link>
                             </article>
                         ))}
@@ -138,11 +146,11 @@ export default function RoadBuildingProductsPage() {
                     <div className="max-w-3xl">
                         <div className="flex items-center gap-3">
                             <FileText className="h-5 w-5 text-safety-amber" />
-                            <p className="font-mono text-xs uppercase tracking-[0.2em] text-industrial/50">A note on the source material</p>
+                            <p className="font-mono text-xs uppercase tracking-[0.2em] text-industrial/50">Technical support</p>
                         </div>
-                        <h2 className="mt-5 font-heading text-3xl font-bold">Useful pages without invented specifications.</h2>
+                        <h2 className="mt-5 font-heading text-3xl font-bold">Get the rate, quantity, documents, and current price.</h2>
                         <p className="mt-4 font-sans leading-7 text-industrial/65">
-                            PCT publishes one-page product sheets rather than full technical manuals. These pages explain the published claims in plain language and clearly flag missing rates, cure times, packaging, compatibility, or certification details that should be confirmed before purchase.
+                            Send Crownwood the road or equipment condition, dimensions, traffic, application equipment, and target schedule. We&apos;ll help narrow the product and confirm the current TDS, SDS, package size, and ordering details.
                         </p>
                     </div>
                     <Link href="/contact" className="inline-flex shrink-0 items-center justify-center gap-3 bg-industrial px-7 py-4 font-heading text-sm font-bold text-white hover:bg-safety-amber hover:text-asphalt">
