@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         asphalt: "#111111",
+        "crown-red": "#E4002B",
         "safety-amber": "#FF9500",
         "high-vis-yellow": "#E6FF00",
         concrete: "#F5F3EE",

@@ -3,8 +3,21 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-concrete text-industrial relative min-h-screen overflow-x-hidden;
+  }
+
+  :focus-visible {
+    outline: 3px solid #e4002b;
+    outline-offset: 5px;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
   }
 }
 
