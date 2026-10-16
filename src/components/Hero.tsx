@@ -1,42 +1,65 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 
 export function Hero() {
-    return (
-        <section className="relative min-h-[760px] overflow-hidden bg-asphalt px-6 pb-20 pt-40 text-concrete md:px-12 lg:px-24">
-            <video aria-hidden="true" autoPlay muted loop playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover opacity-45">
-                <source src="/Videos/IMG_0705.MOV" type="video/quicktime" />
-                <source src="/Videos/IMG_0705.MOV" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-gradient-to-r from-asphalt via-asphalt/90 to-asphalt/20" />
-            <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-asphalt to-transparent" />
+  return (
+    <section className="relative isolate overflow-hidden bg-asphalt pt-20 text-concrete">
+      <div className="absolute inset-y-0 right-0 -z-10 w-full lg:w-[58%]">
+        <Image
+          src="/images/field/permabase-black-application.webp"
+          alt="Crownwood tanker applying Permabase Black to an unpaved road"
+          fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 58vw"
+          className="object-cover object-[45%_48%] opacity-45 lg:opacity-80"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-asphalt via-asphalt/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-asphalt via-transparent to-asphalt/15" />
+      </div>
 
-            <div className="relative mx-auto flex min-h-[580px] max-w-7xl flex-col justify-end">
-                <p className="font-mono text-xs uppercase tracking-[0.22em] text-safety-amber">
-                    Materials, maintenance, and construction | San Antonio, Texas
-                </p>
-                <h1 className="mt-6 max-w-5xl text-balance font-heading text-5xl font-bold leading-[0.94] tracking-[-0.045em] md:text-7xl lg:text-[6rem]">
-                    Road products and site work, explained clearly.
-                </h1>
-                <p className="mt-8 max-w-2xl font-sans text-lg leading-8 text-concrete/75 md:text-xl">
-                    Crownwood supplies soil and asphalt-maintenance products, including the PCT Fastphalt road line, and provides paving, concrete, clearing, striping, sealcoating, and hydroseeding services across the San Antonio area.
-                </p>
+      <div className="mx-auto max-w-[1440px] px-6 pb-9 pt-16 md:px-12 md:pt-20 lg:px-20 lg:pt-24">
+        <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-concrete/75 sm:text-xs">
+          <span className="h-2 w-2 bg-crown-red" aria-hidden="true" />
+          Texas roots. Ground-level solutions.
+        </div>
+        <h1 className="mt-9 font-bebas text-[clamp(3.75rem,12.5vw,11.5rem)] font-normal uppercase leading-[0.83] tracking-[-0.025em]">
+          Pave
+          <br />
+          differently<span className="text-crown-red">.</span>
+        </h1>
+        <p className="mt-8 max-w-md font-sans text-base leading-7 text-concrete/80 md:mt-10 md:text-lg md:leading-8">
+          Better ground starts here. Soil stabilizers, road maintenance
+          products, and crews ready for the work ahead.
+        </p>
+        <div className="mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-7">
+          <Link
+            href="/chemicals/permabase-black"
+            className="inline-flex min-h-14 items-center justify-center gap-6 bg-crown-red px-6 text-sm font-semibold text-white transition-colors hover:bg-[#bb0023] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            Discover Permabase Black{" "}
+            <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
+          </Link>
+          <Link
+            href="/#chemicals"
+            className="inline-flex items-center gap-3 py-3 text-sm font-medium text-white hover:text-white/70"
+          >
+            Explore our products{" "}
+            <ArrowDown className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
 
-                <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <Link href="/chemicals/road-building-products" className="inline-flex items-center justify-center gap-3 bg-safety-amber px-7 py-4 font-heading text-sm font-bold text-asphalt hover:bg-white">
-                        Browse road products <ArrowRight className="h-4 w-4" />
-                    </Link>
-                    <Link href="/contact" className="inline-flex items-center justify-center gap-3 border border-white/30 bg-black/20 px-7 py-4 font-heading text-sm font-bold text-concrete hover:border-white">
-                        Discuss a project
-                    </Link>
-                </div>
-
-                <div className="mt-14 grid max-w-4xl grid-cols-1 border-t border-white/20 pt-6 font-mono text-[11px] uppercase tracking-wider text-concrete/55 sm:grid-cols-3">
-                    <span className="py-2 sm:border-r sm:border-white/15 sm:pr-6">Product selection</span>
-                    <span className="py-2 sm:border-r sm:border-white/15 sm:px-6">Quantity planning</span>
-                    <span className="py-2 sm:pl-6">Technical document review</span>
-                </div>
-            </div>
-        </section>
-    );
+        <div className="mt-16 flex flex-wrap items-center justify-between gap-5 border-t border-white/20 pt-6 lg:mt-24">
+          <div className="flex flex-wrap gap-x-7 gap-y-3 font-mono text-[10px] uppercase tracking-[0.16em] text-concrete/65">
+            <span>Soil stabilization</span>
+            <span>Road maintenance</span>
+            <span>Construction services</span>
+          </div>
+          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-concrete/65">
+            Based in San Antonio, TX
+          </span>
+        </div>
+      </div>
+    </section>
+  );
 }
