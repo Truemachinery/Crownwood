@@ -9,7 +9,7 @@ import { Footer } from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Crownwood Chemicals | Pave Differently",
   description:
-    "Discover Permabase Black polymer-acrylic soil stabilization, road maintenance products, and construction services from Crownwood Chemicals in San Antonio, Texas.",
+    "Explore YardBond mulch and rock glue, BermBond BMX track glue, Permabase Black soil stabilization, and construction services from Crownwood Chemicals.",
   alternates: {
     canonical: "/",
   },
