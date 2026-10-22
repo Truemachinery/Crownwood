@@ -1,0 +1,52 @@
+name: Crownwood database health
+
+on:
+  schedule:
+    # UTC; avoid the busy start of the hour. Four checks per day.
+    - cron: "17 0,6,12,18 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: crownwood-database-health
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.repository == 'Truemachinery/Crownwood'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check production database
+        # No checkout, third-party actions, or database credentials are needed.
+        run: |
+          node --input-type=module <<'NODE'
+          const url = 'https://www.crownwoodchemicals.com/api/health/database';
+          let healthy = false;
+          for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+              const response = await fetch(url, {
+                cache: 'no-store',
+                redirect: 'error',
+                signal: AbortSignal.timeout(15_000),
+              });
+              const body = await response.json();
+              if (response.status !== 200 || body.status !== 'ok') {
+                throw new Error('Database is unavailable');
+              }
+              console.log(`Database check passed on attempt ${attempt}.`);
+              healthy = true;
+              break;
+            } catch {
+              console.error(`Database check failed on attempt ${attempt}.`);
+              if (attempt < 3) {
+                await new Promise(resolve => setTimeout(resolve, 10_000));
+              }
+            }
+          }
+          if (!healthy) {
+            console.error('::error::Crownwood database health check failed. Check the Supabase project status and Vercel function logs.');
+            process.exit(1);
+          }
+          NODE
