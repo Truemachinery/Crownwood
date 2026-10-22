@@ -36,7 +36,16 @@ export function SpecialtyProductPage({ product }: { product: SpecialtyProduct })
           <figure className={styles.heroMedia}>
             <Image src={product.image} alt={product.imageAlt} fill priority sizes="(max-width: 800px) 100vw, 50vw" className={styles.heroImage} />
             <div className={styles.mediaLabel}>{landscape ? "A little concentrate. A bigger batch." : "The shape of a good ride."}</div>
-            <figcaption className={styles.mediaCaption}>{product.imageCaption}</figcaption>
+            <figcaption className={styles.mediaCaption}>
+              <span>{product.imageCaption}</span>
+              {product.imageCredit ? (
+                <span className={styles.imageCredit}>
+                  Photo: <a href={product.imageCredit.sourceUrl}>{product.imageCredit.author}</a>
+                  {" · "}<a href={product.imageCredit.licenseUrl}>{product.imageCredit.license}</a>
+                  {" · Resized; display crop"}
+                </span>
+              ) : null}
+            </figcaption>
           </figure>
         </section>
 

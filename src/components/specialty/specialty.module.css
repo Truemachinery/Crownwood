@@ -29,13 +29,15 @@
 .landscape .heroImage { padding: 38px 8px; mix-blend-mode: multiply; }
 .mediaLabel { position: absolute; top: 28px; left: 30px; right: 30px; font: 9px/1.5 var(--font-jetbrains-mono), monospace; letter-spacing: .09em; text-transform: uppercase; }
 .mediaCaption { position: absolute; bottom: 23px; left: 30px; right: 30px; text-align: center; font-size: 9px; color: #535849; }
+.imageCredit { display: block; margin-top: 5px; line-height: 1.6; }
+.imageCredit a { text-decoration: underline; text-underline-offset: 2px; }
 .track .hero { background: #211b17; color: var(--paper); }
 .track .breadcrumb, .track .heroIntro, .track .heroFootnote { color: #c1b7ac; }
 .track .heroCopy > .eyebrow { color: #e8a17e; }
 .track .productName > span { color: #e07850; }
 .track .primaryButton { background: #b84226; }
-.track .heroImage { object-fit: cover; }
-.track .heroMedia::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #211b1755, transparent 25%, transparent 70%, #211b17c9); pointer-events: none; }
+.track .heroImage { object-fit: cover; object-position: 65% center; }
+.track .heroMedia::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #211b1799, transparent 25%, transparent 70%, #211b17c9); pointer-events: none; }
 .track .mediaLabel, .track .mediaCaption { color: #fff; z-index: 1; }
 .sectionNav { display: flex; align-items: center; justify-content: space-between; gap: 25px; position: sticky; top: 80px; z-index: 20; padding: 18px max(30px, calc((100vw - 1320px) / 2)); background: var(--paper); border-block: 1px solid var(--line); }
 .sectionNav > span { font: 24px var(--font-bebas-neue), sans-serif; text-transform: uppercase; }
