@@ -10,6 +10,7 @@ export type SpecialtyProduct = {
   image: string;
   imageAlt: string;
   imageCaption: string;
+  imageCredit?: { author: string; sourceUrl: string; license: string; licenseUrl: string };
   audience: string;
   action: string;
   overviewTitle: string;
@@ -59,9 +60,15 @@ export const bermbond: SpecialtyProduct = {
   summary: "Crownwood BermBond BMX dirt track glue is supplied in totes for track projects. Get surface-treatment planning, tote pricing, and application guidance.",
   headline: "Good lines start\nfrom the ground up.",
   intro: "A surface binder for the dirt behind the ride. Supplied in totes for track projects, BermBond brings track glue to prepared dirt BMX surfaces, with application planning built around your material and layout.",
-  image: "/images/products/bermbond-track.webp",
-  imageAlt: "Illustrated dirt track setting with sculpted berms and rollers",
-  imageCaption: "Illustrated track setting · Not an installation photograph",
+  image: "/images/products/bermbond-bolehills-photo.webp",
+  imageAlt: "Real dirt jumps and rollers at Bolehills BMX track in Sheffield",
+  imageCaption: "Bolehills BMX track · Example track, not a BermBond installation",
+  imageCredit: {
+    author: "Mick Knapton",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Bolehills_BMX_track.jpg",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
   audience: "Supplied in totes / BMX dirt tracks",
   action: "Get a tote quote",
   overviewTitle: "Built around\nyour track.",

@@ -16,6 +16,12 @@ Product-sheet photos are used as application context and are not presented as ph
 
 - `public/images/products/yardbond-concept.webp`: AI-generated YardBond packaging concept created with the built-in image generation tool, October 22, 2026. The page labels it as a packaging concept; it is not a photo of finished inventory or a print-ready safety label.
 - `public/images/products/yardbond-materials.webp`: AI-generated illustrative mulch and decorative-rock material setting. It is not a treatment demonstration or before-and-after result.
-- `public/images/products/bermbond-track.webp`: AI-generated track setting for the BermBond introduction. The page explicitly identifies it as an illustration, not an installation photograph.
 
 The generated source PNGs were converted to WebP for delivery without changing their depicted content. No performance, certification, or customer evidence is inferred from these illustrations.
+
+## BermBond track photograph
+
+- `public/images/products/bermbond-bolehills-photo.webp`: [Bolehills BMX track](https://commons.wikimedia.org/wiki/File:Bolehills_BMX_track.jpg), photograph by Mick Knapton, licensed under [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Original: `https://upload.wikimedia.org/wikipedia/commons/1/15/Bolehills_BMX_track.jpg`.
+- The original 3648 × 2736 photograph was resized to 1800 × 1350 and encoded as WebP; capture metadata was omitted. The page crops the display responsively using CSS. No scene content, texture, colors, or objects were generated or retouched. This delivered photograph remains under CC BY-SA 4.0.
+- Visible credit and source/license links appear in the hero caption. The photo shows an example BMX track; it is not presented as a BermBond installation, customer result, or endorsement.
+- This real photograph replaces the AI-generated track image originally used for the product introduction. The old generated image is no longer served by the site.
