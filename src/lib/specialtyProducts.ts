@@ -25,7 +25,7 @@ export const yardbond: SpecialtyProduct = {
   descriptor: "Mulch & Rock Glue Concentrate",
   summary: "Crownwood YardBond mulch and rock glue concentrate for landscape beds and decorative borders. One 1-gallon jug makes 4 gallons. Amazon launch planned.",
   headline: "A little order.\nA lot of curb appeal.",
-  intro: "Give your landscape a finishing touch. YardBond is a landscape glue for mulch and decorative rock, with four gallons of mixed product in every one-gallon jug of concentrate.",
+  intro: "Give your landscape a finishing touch. YardBond is a landscape glue for mulch and decorative rock. One gallon of concentrate mixes with three gallons of water to make four gallons of product.",
   image: "/images/products/yardbond-concept.webp",
   imageAlt: "Crownwood YardBond one-gallon jug packaging concept with an olive and charcoal label",
   imageCaption: "Packaging concept · Final packaging may vary",

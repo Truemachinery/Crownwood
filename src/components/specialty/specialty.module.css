@@ -188,6 +188,6 @@
   .yieldFact span { font-size: 9px; }
   .yieldPlus { font-size: 8px; }
   .mixGuide { padding-inline: 12px; }
-  .mixEquation { gap: 5px; }
+  .mixEquation { gap: 4px; }
   .mixNumber { font-size: 40px; }
 }
