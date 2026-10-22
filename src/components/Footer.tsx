@@ -3,6 +3,8 @@ import { ArrowUpRight } from "lucide-react";
 
 const productLinks = [
   ["Permabase Black", "/chemicals/permabase-black"],
+  ["YardBond · Mulch & rock glue", "/chemicals/yardbond"],
+  ["BermBond · BMX track glue", "/chemicals/bermbond"],
   ["Permabase", "/chemicals/permabase"],
   ["MeltDown MR-1", "/chemicals/meltdown"],
   ["Road maintenance products", "/chemicals/road-building-products"],

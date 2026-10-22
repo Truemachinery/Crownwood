@@ -11,3 +11,11 @@ The public site uses the following non-generated media:
 - `public/images/field/hydroseeding.webp`: Todd Plain / U.S. Army Corps of Engineers, [public domain via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Hydroseeding_a_River_Park_neighborhood_levee_section_(15644386739).jpg).
 
 Product-sheet photos are used as application context and are not presented as photographs of a specific Crownwood project unless explicitly identified as Crownwood field media.
+
+## New product launch illustrations
+
+- `public/images/products/yardbond-concept.webp`: AI-generated YardBond packaging concept created with the built-in image generation tool, October 22, 2026. The page labels it as a packaging concept; it is not a photo of finished inventory or a print-ready safety label.
+- `public/images/products/yardbond-materials.webp`: AI-generated illustrative mulch and decorative-rock material setting. It is not a treatment demonstration or before-and-after result.
+- `public/images/products/bermbond-track.webp`: AI-generated track setting for the BermBond introduction. The page explicitly identifies it as an illustration, not an installation photograph.
+
+The generated source PNGs were converted to WebP for delivery without changing their depicted content. No performance, certification, or customer evidence is inferred from these illustrations.

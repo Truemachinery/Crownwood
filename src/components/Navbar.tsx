@@ -18,6 +18,8 @@ const links: NavItem[] = [
     href: "/#chemicals",
     dropdown: [
       { name: "Permabase Black", href: "/chemicals/permabase-black" },
+      { name: "YardBond · Mulch & rock glue", href: "/chemicals/yardbond" },
+      { name: "BermBond · BMX track glue", href: "/chemicals/bermbond" },
       { name: "Permabase", href: "/chemicals/permabase" },
       { name: "MeltDown MR-1", href: "/chemicals/meltdown" },
       {
